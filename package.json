@@ -1,0 +1,13 @@
+{
+    "name": "computer-graphics-project",
+    "version": "1.0.0",
+    "scripts": {
+        "start": "npx vite"
+    },
+    "dependencies": {
+        "three": "^0.157.0"
+    },
+    "devDependencies": {
+        "vite": "^4.4.11"
+    }
+}
