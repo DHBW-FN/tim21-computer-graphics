@@ -1,5 +1,5 @@
 {
-    "name": "computer-graphics-project",
+    "name": "tim21-computer-graphics",
     "version": "1.0.0",
     "scripts": {
         "start": "npx vite"
@@ -8,6 +8,11 @@
         "three": "^0.157.0"
     },
     "devDependencies": {
+        "eslint": "^8.51.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-config-prettier": "^9.0.0",
+        "eslint-plugin-prettier": "^5.0.1",
+        "prettier": "^3.0.3",
         "vite": "^4.4.11"
     }
 }
