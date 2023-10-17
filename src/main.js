@@ -28,6 +28,12 @@ const velocity = new THREE.Vector3(0, 0, 0);
 
 scene.add(controls.getObject());
 
+// Create a directional light to act as the sun
+const sunLight = new THREE.DirectionalLight(0xffffff, 1);
+sunLight.position.set(0, -100, 200);
+sunLight.castShadow = true;
+scene.add(sunLight);
+
 // Loader
 const loader = new GLTFLoader();
 loader.load(
