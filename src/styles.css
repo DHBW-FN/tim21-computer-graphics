@@ -10,32 +10,30 @@ canvas {
 }
 
 #controlsExplanation {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    z-index: 1000;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border-radius: 5px;
-    padding: 10px;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 1000;
 }
 
-#controls {
-    margin-top: 10px;
-}
-
-#controls.hidden {
-    display: none;
+.controls-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .toggle-button {
-    background-color: transparent;
-    border: none;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5em;
 }
 
-.toggle-button:focus {
-    outline: none;
+.hidden {
+  display: none;
 }
