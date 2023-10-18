@@ -3,12 +3,7 @@ import * as THREE from "three";
 
 export default class Drone {
   constructor() {
-    this.camera = new THREE.PerspectiveCamera(
-      75,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      1000,
-    );
+    this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     this.controls = new PointerLockControls(this.camera, document.body);
     this.moveSpeed = 1;
     this.velocity = new THREE.Vector3(0, 0, 0);

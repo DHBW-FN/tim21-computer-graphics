@@ -1,3 +1,3 @@
-# tim21-computer-graphics
+# TIM21 Computer Graphics Project
 
 Computer graphics project exam

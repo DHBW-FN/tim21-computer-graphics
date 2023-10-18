@@ -32,7 +32,7 @@ export default class World {
   animate() {
     requestAnimationFrame(() => this.animate());
 
-    // Apply movements and update position of the drone
+    // Apply movements and update the position of the drone
     this.drone.moveForward(this.drone.velocity.z);
     this.drone.moveRight(this.drone.velocity.x);
     this.drone.updatePosition();

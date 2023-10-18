@@ -1,9 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const toggleButton = document.getElementById("toggleButton");
   const controls = document.getElementById("controls");
-  const controlsExplanationHeading = document.getElementById(
-    "controlsExplanationHeading",
-  );
+  const controlsExplanationHeading = document.getElementById("controlsExplanationHeading");
 
   toggleButton.addEventListener("click", (event) => {
     event.stopPropagation();
@@ -19,9 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Prevent the controls from locking when the button or explanation is clicked
-  document
-    .getElementById("controlsExplanation")
-    .addEventListener("click", (event) => {
-      event.stopPropagation();
-    });
+  document.getElementById("controlsExplanation").addEventListener("click", (event) => {
+    event.stopPropagation();
+  });
 });

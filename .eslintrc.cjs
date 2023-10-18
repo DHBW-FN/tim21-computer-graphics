@@ -1,4 +1,4 @@
-module.exports = {
+const config = {
   env: {
     browser: true,
     es2021: true,
@@ -13,3 +13,5 @@ module.exports = {
     "prettier/prettier": "error",
   },
 };
+
+module.exports = config;
