@@ -2,12 +2,19 @@ import { PointerLockControls } from "three/examples/jsm/controls/PointerLockCont
 import * as THREE from "three";
 
 export default class Drone {
-  constructor(camera, domElement) {
-    this.controls = new PointerLockControls(camera, domElement);
+  constructor() {
+    this.camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000,
+    );
+    this.controls = new PointerLockControls(this.camera, document.body);
     this.moveSpeed = 1;
     this.velocity = new THREE.Vector3(0, 0, 0);
     this.controls.getObject().position.set(0, 0, 100);
     this.controls.getObject().lookAt(0, 50, 0);
+    this.addEventListeners();
   }
 
   addToScene(scene) {
