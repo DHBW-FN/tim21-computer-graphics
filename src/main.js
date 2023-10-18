@@ -1,6 +1,6 @@
 import * as THREE from "three";
-import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls.js";
+import EiffelTower from "./eiffeltower";
 
 // Renderer
 const renderer = new THREE.WebGLRenderer();
@@ -27,30 +27,7 @@ const moveSpeed = 1;
 const velocity = new THREE.Vector3(0, 0, 0);
 
 scene.add(controls.getObject());
-
-// Loader
-const loader = new GLTFLoader();
-loader.load(
-  "/assets/models/eiffel.glb",
-  function (gltf) {
-    scene.add(gltf.scene);
-
-    scene.traverse((object) => {
-      if (object instanceof THREE.Light) {
-        object.intensity = object.intensity * 0.001; // Reduce intensity by half
-      }
-    });
-
-    animate();
-  },
-  undefined,
-  function (error) {
-    console.error(error);
-  },
-  function (xhr) {
-    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-  },
-);
+const eiffelTower = new EiffelTower(scene);
 
 // Event Listener for Keyboard (KeyDown)
 document.addEventListener("keydown", function (event) {
