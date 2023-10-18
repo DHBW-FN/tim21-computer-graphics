@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls.js";
 import EiffelTower from "./eiffeltower";
+import Drone from "./drone";
 
 // Renderer
 const renderer = new THREE.WebGLRenderer();
@@ -23,66 +24,12 @@ camera.lookAt(0, 50, 0);
 
 // Controls
 const controls = new PointerLockControls(camera, renderer.domElement);
-const moveSpeed = 1;
-const velocity = new THREE.Vector3(0, 0, 0);
 
-scene.add(controls.getObject());
+const drone = new Drone(camera, renderer.domElement);
+drone.addToScene(scene);
+drone.addEventListeners();
+
 const eiffelTower = new EiffelTower(scene);
-
-// Event Listener for Keyboard (KeyDown)
-document.addEventListener("keydown", function (event) {
-  switch (event.code) {
-    case "KeyW":
-      velocity.z = moveSpeed;
-      break;
-    case "KeyS":
-      velocity.z = -moveSpeed;
-      break;
-    case "KeyA":
-      velocity.x = -moveSpeed;
-      break;
-    case "KeyD":
-      velocity.x = moveSpeed;
-      break;
-    case "Space":
-      velocity.y = moveSpeed;
-      break;
-    case "ControlLeft":
-      velocity.y = -moveSpeed;
-      break;
-    default:
-      break;
-  }
-});
-
-// Event Listener for Keyboard (KeyUp)
-document.addEventListener("keyup", function (event) {
-  switch (event.code) {
-    case "KeyW":
-    case "KeyS":
-      velocity.z = 0;
-      break;
-    case "KeyA":
-    case "KeyD":
-      velocity.x = 0;
-      break;
-    case "Space":
-    case "ControlLeft":
-      velocity.y = 0;
-      break;
-    default:
-      break;
-  }
-});
-
-// Lock the pointer when the canvas is clicked
-document.addEventListener(
-  "click",
-  function () {
-    controls.lock();
-  },
-  false,
-);
 
 // Do something when the pointer is locked or unlocked
 controls.addEventListener("lock", function () {
@@ -98,9 +45,9 @@ function animate() {
   requestAnimationFrame(animate);
 
   // Apply movements
-  controls.moveForward(velocity.z);
-  controls.moveRight(velocity.x);
-  controls.getObject().position.y += velocity.y;
+  drone.moveForward(drone.velocity.z);
+  drone.moveRight(drone.velocity.x);
+  drone.updatePosition();
 
   renderer.render(scene, camera);
 }
