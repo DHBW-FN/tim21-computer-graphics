@@ -73,10 +73,12 @@ export default class Drone {
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
   onPointerLock() {
     // Hide UI or pause game
   }
 
+  // eslint-disable-next-line class-methods-use-this
   onPointerUnlock() {
     // Show UI or unpause game
   }

@@ -48,6 +48,7 @@ export default class World {
       // TODO remove this and handle lights in Three.js
       this.scene.traverse((object) => {
         if (object instanceof THREE.Light) {
+          // eslint-disable-next-line no-param-reassign
           object.intensity *= 0.001;
         }
       });

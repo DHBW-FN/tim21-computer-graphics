@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/extensions,import/no-unresolved
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 export default class ModelLoader {
@@ -14,9 +15,11 @@ export default class ModelLoader {
         },
         (xhr) => {
           const progress = (xhr.loaded / xhr.total) * 100;
+          // eslint-disable-next-line no-console
           console.log(`Model loading progress: ${progress}%`);
         },
         (error) => {
+          // eslint-disable-next-line no-console
           console.error(error);
           reject(error);
         },
