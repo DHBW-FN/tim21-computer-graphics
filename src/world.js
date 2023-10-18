@@ -12,7 +12,6 @@ export default class World {
     // Create a drone and add it to the scene
     this.drone = new Drone();
     this.drone.addToScene(this.scene);
-    this.drone.lockPointer();
 
     // Create and add objects to the scene
     this.objects.push(new EiffelTower(this.scene));

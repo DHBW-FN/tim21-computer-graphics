@@ -21,14 +21,10 @@ export default class Drone {
     scene.add(this.controls.getObject());
   }
 
-  lockPointer() {
-    this.controls.lock();
-  }
-
   addEventListeners() {
     document.addEventListener("keydown", (event) => this.onKeyDown(event));
     document.addEventListener("keyup", (event) => this.onKeyUp(event));
-    document.addEventListener("click", () => this.lockPointer(), false);
+    document.addEventListener("click", () => this.controls.lock(), false);
     this.controls.addEventListener("lock", () => this.onPointerLock());
     this.controls.addEventListener("unlock", () => this.onPointerUnlock());
   }
