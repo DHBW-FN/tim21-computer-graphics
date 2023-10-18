@@ -1,20 +1,20 @@
 import * as THREE from "three";
 import Drone from "./drone";
-import EiffelTower from "./eiffeltower";
+import ModelLoader from "./modelloader";
 
 export default class World {
   constructor() {
     // Initialize the scene, renderer, and objects
     this.scene = new THREE.Scene();
     this.renderer = new THREE.WebGLRenderer();
-    this.objects = [];
 
     // Create a drone and add it to the scene
     this.drone = new Drone();
     this.drone.addToScene(this.scene);
 
     // Create and add objects to the scene
-    this.objects.push(new EiffelTower(this.scene));
+    this.modelLoader = new ModelLoader();
+    this.addEiffelTower();
 
     // Set up renderer
     this.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -39,5 +39,18 @@ export default class World {
 
     // Render the scene
     this.renderer.render(this.scene, this.camera);
+  }
+
+  addEiffelTower() {
+    this.modelLoader.load("/assets/models/eiffel.glb").then((model) => {
+      this.scene.add(model);
+
+      // TODO remove this and handle lights in Three.js
+      this.scene.traverse((object) => {
+        if (object instanceof THREE.Light) {
+          object.intensity = object.intensity * 0.001;
+        }
+      });
+    });
   }
 }
