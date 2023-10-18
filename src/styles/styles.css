@@ -1,12 +1,13 @@
 /* Remove default margin and padding */
-body, html {
-    margin: 0;
-    padding: 0;
+body,
+html {
+  margin: 0;
+  padding: 0;
 }
 
 /* Set canvas to be a block-level element */
 canvas {
-    display: block;
+  display: block;
 }
 
 #controlsExplanation {
