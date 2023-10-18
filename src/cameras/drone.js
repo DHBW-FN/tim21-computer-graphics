@@ -1,4 +1,4 @@
-import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls.js";
+import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
 import * as THREE from "three";
 
 export default class Drone {

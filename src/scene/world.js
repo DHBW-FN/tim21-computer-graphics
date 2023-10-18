@@ -48,7 +48,7 @@ export default class World {
       // TODO remove this and handle lights in Three.js
       this.scene.traverse((object) => {
         if (object instanceof THREE.Light) {
-          object.intensity = object.intensity * 0.001;
+          object.intensity *= 0.001;
         }
       });
     });

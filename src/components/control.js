@@ -1,11 +1,11 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   const toggleButton = document.getElementById("toggleButton");
   const controls = document.getElementById("controls");
   const controlsExplanationHeading = document.getElementById(
     "controlsExplanationHeading",
   );
 
-  toggleButton.addEventListener("click", function (event) {
+  toggleButton.addEventListener("click", (event) => {
     event.stopPropagation();
     if (controls.classList.contains("hidden")) {
       controls.classList.remove("hidden");
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Prevent the controls from locking when the button or explanation is clicked
   document
     .getElementById("controlsExplanation")
-    .addEventListener("click", function (event) {
+    .addEventListener("click", (event) => {
       event.stopPropagation();
     });
 });
