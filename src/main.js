@@ -1,4 +1,4 @@
-import World from "./world";
+import World from "./scene/world";
 
 const world = new World();
 world.animate();

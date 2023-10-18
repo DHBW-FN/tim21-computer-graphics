@@ -1,6 +1,6 @@
 import * as THREE from "three";
-import Drone from "./drone";
-import ModelLoader from "./modelloader";
+import Drone from "../cameras/drone";
+import ModelLoader from "../helpers/modelloader";
 
 export default class World {
   constructor() {
