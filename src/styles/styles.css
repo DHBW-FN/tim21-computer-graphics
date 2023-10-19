@@ -1,0 +1,40 @@
+/* Remove default margin and padding */
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+
+/* Set canvas to be a block-level element */
+canvas {
+  display: block;
+}
+
+#controlsExplanation {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 1000;
+}
+
+.controls-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toggle-button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5em;
+}
+
+.hidden {
+  display: none;
+}
