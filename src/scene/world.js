@@ -1,7 +1,7 @@
 import * as THREE from "three";
+import { AmbientLight } from "three";
 import Drone from "../cameras/drone";
 import ModelLoader from "../helpers/modelloader";
-import { AmbientLight } from "three";
 
 export default class World {
   constructor() {
@@ -26,7 +26,7 @@ export default class World {
 
     // Get the camera from the Drone class
     this.camera = this.drone.camera;
-    this.camera.position.set(400, 300,150);
+    this.camera.position.set(400, 300, 150);
     this.camera.lookAt(400, 0, -300);
   }
 
