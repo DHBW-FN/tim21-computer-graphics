@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import Drone from "../cameras/drone";
 import ModelLoader from "../helpers/modelloader";
+import { AmbientLight } from "three";
 
 export default class World {
   constructor() {
@@ -14,7 +15,7 @@ export default class World {
 
     // Create and add objects to the scene
     this.modelLoader = new ModelLoader();
-    this.addEiffelTower();
+    this.addBase();
 
     // Set up renderer
     this.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -25,8 +26,8 @@ export default class World {
 
     // Get the camera from the Drone class
     this.camera = this.drone.camera;
-    this.camera.position.set(0, 0, 100);
-    this.camera.lookAt(0, 50, 0);
+    this.camera.position.set(400, 300,150);
+    this.camera.lookAt(400, 0, -300);
   }
 
   animate() {
@@ -41,17 +42,13 @@ export default class World {
     this.renderer.render(this.scene, this.camera);
   }
 
-  addEiffelTower() {
-    this.modelLoader.load("/assets/models/eiffel.glb").then((model) => {
+  addBase() {
+    this.modelLoader.load("/assets/models/Layout.glb").then((model) => {
       this.scene.add(model);
 
-      // TODO remove this and handle lights in Three.js
-      this.scene.traverse((object) => {
-        if (object instanceof THREE.Light) {
-          // eslint-disable-next-line no-param-reassign
-          object.intensity *= 0.001;
-        }
-      });
+      // Add ambient light
+      const ambientLight = new AmbientLight(0xffffff, 1);
+      this.scene.add(ambientLight);
     });
   }
 }
