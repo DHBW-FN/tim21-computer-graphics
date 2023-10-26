@@ -45,10 +45,10 @@ export default class World {
   addBase() {
     this.modelLoader.load("/assets/models/world/World.gltf").then((model) => {
       this.scene.add(model);
-
-      // Add ambient light
-      const ambientLight = new AmbientLight(0xffffff, 1);
-      this.scene.add(ambientLight);
     });
+
+    // Add ambient light
+    const ambientLight = new AmbientLight(0xffffff, 1);
+    this.scene.add(ambientLight);
   }
 }
