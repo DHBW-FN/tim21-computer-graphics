@@ -39,25 +39,6 @@ canvas {
   display: none;
 }
 
-#buttonContainer {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-}
-
-.toggleButton {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  cursor: pointer;
-  margin-right: 10px;
-}
-
-.selected {
-  border: 5px solid blue;
-}
-
-/* Füge diese CSS-Regeln in deine Stylesheet-Datei ein */
 #dayNightToggle,
 #startPositionButton {
   background-color: #3498db;

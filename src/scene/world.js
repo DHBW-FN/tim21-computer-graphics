@@ -26,6 +26,10 @@ export default class World {
 
     // Get the camera from the Drone class
     this.camera = this.drone.camera;
+    this.setStartPosition();
+  }
+
+  setStartPosition() {
     this.camera.position.set(400, 300, 150);
     this.camera.lookAt(400, 0, -300);
   }
