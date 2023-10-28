@@ -1,4 +1,4 @@
-import { world } from '../main.js';
+import world from "../main";
 
 document.addEventListener("DOMContentLoaded", () => {
   const toggleButton = document.getElementById("toggleButton");
@@ -24,8 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   dayNightToggle.addEventListener("click", () => {
     isNight = !isNight;
-    alert("Night mode is " + isNight);
-    //TODO: Add code to toggle night mode
+    // TODO: Add code to toggle night mode
   });
 
   startPositionButton.addEventListener("click", () => {
