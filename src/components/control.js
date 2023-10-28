@@ -28,8 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   startPositionButton.addEventListener("click", () => {
-    world.camera.position.set(400, 300, 150);
-    world.camera.lookAt(400, 0, -300);
+    world.setStartPosition();
   });
 
   // Prevent the controls from locking when the button or explanation is clicked
