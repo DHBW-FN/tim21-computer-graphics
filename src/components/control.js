@@ -1,7 +1,13 @@
+import { world } from '../main.js';
+
 document.addEventListener("DOMContentLoaded", () => {
   const toggleButton = document.getElementById("toggleButton");
   const controls = document.getElementById("controls");
   const controlsExplanationHeading = document.getElementById("controlsExplanationHeading");
+  const dayNightToggle = document.getElementById("dayNightToggle");
+  const startPositionButton = document.getElementById("startPositionButton");
+
+  let isNight = false;
 
   toggleButton.addEventListener("click", (event) => {
     event.stopPropagation();
@@ -14,6 +20,17 @@ document.addEventListener("DOMContentLoaded", () => {
       controlsExplanationHeading.classList.add("hidden");
       toggleButton.innerHTML = "&#9664;";
     }
+  });
+
+  dayNightToggle.addEventListener("click", () => {
+    isNight = !isNight;
+    alert("Night mode is " + isNight);
+    //TODO: Add code to toggle night mode
+  });
+
+  startPositionButton.addEventListener("click", () => {
+    world.camera.position.set(400, 300, 150);
+    world.camera.lookAt(400, 0, -300);
   });
 
   // Prevent the controls from locking when the button or explanation is clicked
