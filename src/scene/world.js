@@ -13,6 +13,23 @@ export default class World {
     this.drone = new Drone();
     this.drone.addToScene(this.scene);
 
+    // Lights
+    this.lights = [];
+
+    // Add sun
+    this.sun = new DirectionalLight(0xffffff, 10);
+    this.sun.position.set(200, 600, 200);
+    this.lights.push(this.sun);
+
+    // Add ambient light
+    const ambientLight = new AmbientLight(0xffffff, 1);
+    this.lights.push(ambientLight);
+
+    // Add lights to scene
+    this.lights.forEach((light) => {
+      this.scene.add(light);
+    });
+
     // Create and add objects to the scene
     this.modelLoader = new ModelLoader();
     this.addBase();
@@ -46,14 +63,5 @@ export default class World {
     this.modelLoader.load("/assets/models/world/World.gltf").then((model) => {
       this.scene.add(model);
     });
-
-    // Add ambient light
-    const ambientLight = new AmbientLight(0xffffff, 1);
-    this.scene.add(ambientLight);
-
-    // Add sun
-    const sun = new DirectionalLight(0xffffff, 10);
-    sun.position.set(100, 200, 50);
-    this.scene.add(sun);
   }
 }
