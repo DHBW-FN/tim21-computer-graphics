@@ -91,8 +91,8 @@ export default class Drone {
   }
 
   updatePosition() {
-    this.moveForward()
-    this.moveRight()
-    this.moveUp()
+    this.moveForward();
+    this.moveRight();
+    this.moveUp();
   }
 }
