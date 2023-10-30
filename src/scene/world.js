@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { AmbientLight } from "three";
+import { AmbientLight, DirectionalLight } from "three";
 import Drone from "../cameras/drone";
 import ModelLoader from "../helpers/modelloader";
 
@@ -50,5 +50,10 @@ export default class World {
     // Add ambient light
     const ambientLight = new AmbientLight(0xffffff, 1);
     this.scene.add(ambientLight);
+
+    // Add sun
+    const sun = new DirectionalLight(0xffffff, 10);
+    sun.position.set(100, 200, 50); // Adjust position as needed
+    this.scene.add(sun);
   }
 }
