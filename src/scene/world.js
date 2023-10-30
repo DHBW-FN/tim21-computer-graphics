@@ -53,7 +53,7 @@ export default class World {
 
     // Add sun
     const sun = new DirectionalLight(0xffffff, 10);
-    sun.position.set(100, 200, 50); // Adjust position as needed
+    sun.position.set(100, 200, 50);
     this.scene.add(sun);
   }
 }
