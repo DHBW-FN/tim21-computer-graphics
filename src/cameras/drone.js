@@ -78,15 +78,21 @@ export default class Drone {
     // Show UI or unpause game
   }
 
-  moveForward(value) {
+  moveForward(value = this.velocity.z) {
     this.controls.moveForward(value);
   }
 
-  moveRight(value) {
+  moveRight(value = this.velocity.x) {
     this.controls.moveRight(value);
   }
 
+  moveUp(value = this.velocity.y) {
+    this.controls.getObject().position.y += value;
+  }
+
   updatePosition() {
-    this.controls.getObject().position.y += this.velocity.y;
+    this.moveForward();
+    this.moveRight();
+    this.moveUp();
   }
 }
