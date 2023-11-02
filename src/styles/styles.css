@@ -48,10 +48,8 @@ canvas {
   font-size: 1.2em;
   cursor: pointer;
   transition: background-color 0.3s;
-  margin-bottom: 10px;
-  min-width: 80px;
+  margin: 5px;
   width: 100%;
-  max-width: 200px;
 }
 
 #settings-buttons {
