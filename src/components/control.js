@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   controlButtons.forEach((button) => {
-    button.addEventListener("mousedown", (_) => {
+    button.addEventListener("mousedown", () => {
       switch (button.id) {
         case "forward":
           world.drone.velocity.z = world.drone.moveSpeed;
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
           break;
       }
     });
-    button.addEventListener("mouseup", (_) => {
+    button.addEventListener("mouseup", () => {
       switch (button.id) {
         case "forward":
         case "backward":

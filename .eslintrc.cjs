@@ -12,14 +12,6 @@ const config = {
   rules: {
     "prettier/prettier": "error",
   },
-  overrides: [
-    {
-      files: ["*.js"],
-      rules: {
-        "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
-      },
-    },
-  ],
 };
 
 module.exports = config;
