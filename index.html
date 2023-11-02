@@ -25,28 +25,37 @@
       </button>
     </div>
     <div class="control-panel">
-      <div class="drone-control">
+      <div id="drone-control">
         <h2 class="control-header">Move Drone</h2>
         <div class="button-group">
-          <button id="up" class="control-button">&#8593;</button>
-          <button id="down" class="control-button">&#8595;</button>
-          <button id="forward" class="control-button">&#9650;</button>
-          <button id="backward" class="control-button">&#9660;</button>
-          <button id="left" class="control-button">&#9664;</button>
-          <button id="right" class="control-button">&#9654;</button>
+          <div class="grid-container">
+            <div></div>
+            <button id="forward" class="control-button">&#9650;</button>
+            <div></div>
+            <button id="left" class="control-button">&#9664;</button>
+            <button id="backward" class="control-button">&#9660;</button>
+            <button id="right" class="control-button">&#9654;</button>
+          </div>
+          <div class="up-down-grid">
+            <button id="up" class="control-button">&#8593;</button>
+            <button id="down" class="control-button">&#8595;</button>
+          </div>
         </div>
       </div>
 
-      <div class="camera-control">
+      <div id="camera-control">
         <h2 class="control-header">Move Camera</h2>
-        <div class="button-group">
-          <button id="rotate-left" class="control-button">&#8592;</button>
-          <button id="rotate-right" class="control-button">&#8594;</button>
+        <div class="button-group grid-container">
+          <div></div>
           <button id="rotate-up" class="control-button">&#9651;</button>
+          <div></div>
+          <button id="rotate-left" class="control-button">&#8592;</button>
           <button id="rotate-down" class="control-button">&#9661;</button>
+          <button id="rotate-right" class="control-button">&#8594;</button>
         </div>
       </div>
     </div>
+
 
     <script type="module" src="./src/main.js"></script>
     <script type="module" src="./src/components/control.js"></script>
