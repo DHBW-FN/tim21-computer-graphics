@@ -33,20 +33,50 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   controlButtons.forEach((button) => {
-    button.addEventListener("click", (event) => {
-      event.stopPropagation();
-      // TODO: Add code to handle button clicks
+    button.addEventListener("mousedown", (_) => {
       switch (button.id) {
+        case "forward":
+          world.drone.velocity.z = world.drone.moveSpeed;
+          break;
+        case "backward":
+          world.drone.velocity.z = -world.drone.moveSpeed;
+          break;
+        case "left":
+          world.drone.velocity.x = -world.drone.moveSpeed;
+          break;
+        case "right":
+          world.drone.velocity.x = world.drone.moveSpeed;
+          break;
         case "up":
-          // move up
+          world.drone.velocity.y = world.drone.moveSpeed;
           break;
         case "down":
-          // move down
+          world.drone.velocity.y = -world.drone.moveSpeed;
           break;
         default:
-          // do nothing
           break;
       }
+    });
+    button.addEventListener("mouseup", (_) => {
+      switch (button.id) {
+        case "forward":
+        case "backward":
+          world.drone.velocity.z = 0;
+          break;
+        case "left":
+        case "right":
+          world.drone.velocity.x = 0;
+          break;
+        case "up":
+        case "down":
+          world.drone.velocity.y = 0;
+          break;
+        default:
+          break;
+      }
+    });
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
     });
   });
 
