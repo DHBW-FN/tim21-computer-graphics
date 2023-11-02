@@ -39,8 +39,7 @@ canvas {
   display: none;
 }
 
-#dayNightToggle,
-#startPositionButton {
+.settings-button {
   background-color: #3498db;
   color: #fff;
   border: none;
@@ -54,8 +53,7 @@ canvas {
   max-width: 200px;
 }
 
-#dayNightToggle:hover,
-#startPositionButton:hover {
+.settings-button:hover {
   background-color: #2980b9;
 }
 
