@@ -19,7 +19,13 @@ export default class Drone {
   addEventListeners() {
     document.addEventListener("keydown", (event) => this.onKeyDown(event));
     document.addEventListener("keyup", (event) => this.onKeyUp(event));
-    document.addEventListener("click", () => this.controls.lock(), false);
+    document.addEventListener("click", () => {
+      if (this.controls.isLocked === false) {
+        this.controls.lock();
+      } else {
+        this.controls.unlock();
+      }
+    });
     this.controls.addEventListener("lock", () => this.onPointerLock());
     this.controls.addEventListener("unlock", () => this.onPointerUnlock());
   }
