@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const controlsExplanationHeading = document.getElementById("controlsExplanationHeading");
   const dayNightToggle = document.getElementById("dayNightToggle");
   const startPositionButton = document.getElementById("startPositionButton");
+  const controlButtons = document.querySelectorAll('.control-button');
 
   let isNight = false;
 
@@ -29,6 +30,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
   startPositionButton.addEventListener("click", () => {
     world.setStartPosition();
+  });
+
+  controlButtons.forEach(button => {
+    button.addEventListener('click', event => {
+      event.stopPropagation();
+      //TODO: Add code to handle button clicks
+      switch (button.id) {
+        case "up":
+          // move up
+          break;
+        case "down":
+          // move down
+          break;
+        default:
+          // do nothing
+      }
+    });
   });
 
   // Prevent the controls from locking when the button or explanation is clicked
