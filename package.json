@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "start": "npx vite",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "lint:fix": "prettier . --write && eslint --fix ."
   },
   "dependencies": {
     "three": "^0.157.0"
