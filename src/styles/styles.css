@@ -49,8 +49,15 @@ canvas {
   cursor: pointer;
   transition: background-color 0.3s;
   margin-bottom: 10px;
+  min-width: 80px;
   width: 100%;
   max-width: 200px;
+}
+
+#settings-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .settings-button:hover {
