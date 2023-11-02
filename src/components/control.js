@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const controlsExplanationHeading = document.getElementById("controlsExplanationHeading");
   const dayNightToggle = document.getElementById("dayNightToggle");
   const startPositionButton = document.getElementById("startPositionButton");
-  const controlButtons = document.querySelectorAll('.control-button');
+  const controlButtons = document.querySelectorAll(".control-button");
 
   let isNight = false;
 
@@ -32,10 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
     world.setStartPosition();
   });
 
-  controlButtons.forEach(button => {
-    button.addEventListener('click', event => {
+  controlButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
       event.stopPropagation();
-      //TODO: Add code to handle button clicks
+      // TODO: Add code to handle button clicks
       switch (button.id) {
         case "up":
           // move up
@@ -45,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
           break;
         default:
           // do nothing
+          break;
       }
     });
   });
