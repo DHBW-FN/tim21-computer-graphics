@@ -1,0 +1,9 @@
+# Blender models
+**/*.glb
+**/*.gltf
+**/*.bin
+
+# Images
+**/*.png
+**/*.jpg
+**/*.jpeg
