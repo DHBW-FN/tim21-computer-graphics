@@ -1,7 +1,14 @@
+import world from "../main";
+
 document.addEventListener("DOMContentLoaded", () => {
   const toggleButton = document.getElementById("toggleButton");
   const controls = document.getElementById("controls");
   const controlsExplanationHeading = document.getElementById("controlsExplanationHeading");
+  const dayNightToggle = document.getElementById("dayNightToggle");
+  const startPositionButton = document.getElementById("startPositionButton");
+  const controlButtons = document.querySelectorAll(".control-button");
+
+  let isNight = false;
 
   toggleButton.addEventListener("click", (event) => {
     event.stopPropagation();
@@ -14,6 +21,63 @@ document.addEventListener("DOMContentLoaded", () => {
       controlsExplanationHeading.classList.add("hidden");
       toggleButton.innerHTML = "&#9664;";
     }
+  });
+
+  dayNightToggle.addEventListener("click", () => {
+    isNight = !isNight;
+    // TODO: Add code to toggle night mode
+  });
+
+  startPositionButton.addEventListener("click", () => {
+    world.setStartPosition();
+  });
+
+  controlButtons.forEach((button) => {
+    button.addEventListener("mousedown", () => {
+      switch (button.id) {
+        case "forward":
+          world.drone.velocity.z = world.drone.moveSpeed;
+          break;
+        case "backward":
+          world.drone.velocity.z = -world.drone.moveSpeed;
+          break;
+        case "left":
+          world.drone.velocity.x = -world.drone.moveSpeed;
+          break;
+        case "right":
+          world.drone.velocity.x = world.drone.moveSpeed;
+          break;
+        case "up":
+          world.drone.velocity.y = world.drone.moveSpeed;
+          break;
+        case "down":
+          world.drone.velocity.y = -world.drone.moveSpeed;
+          break;
+        default:
+          break;
+      }
+    });
+    button.addEventListener("mouseup", () => {
+      switch (button.id) {
+        case "forward":
+        case "backward":
+          world.drone.velocity.z = 0;
+          break;
+        case "left":
+        case "right":
+          world.drone.velocity.x = 0;
+          break;
+        case "up":
+        case "down":
+          world.drone.velocity.y = 0;
+          break;
+        default:
+          break;
+      }
+    });
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+    });
   });
 
   // Prevent the controls from locking when the button or explanation is clicked
