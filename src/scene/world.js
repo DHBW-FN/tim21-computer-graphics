@@ -47,6 +47,13 @@ export default class World {
     this.activeCamera = this.cameras.drone;
   }
 
+  setStartPosition() {
+    this.cameras.drone = this.drone.camera;
+    this.cameras.drone.position.set(370, 1, -230);
+    this.cameras.drone.lookAt(615, 0, -230);
+    this.activeCamera = this.cameras.drone;
+  }
+
   animate() {
     requestAnimationFrame(() => this.animate());
 
