@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const controlsExplanationHeading = document.getElementById("controlsExplanationHeading");
   const dayNightToggle = document.getElementById("dayNightToggle");
   const startPositionButton = document.getElementById("startPositionButton");
+  const cycleCamerasButton = document.getElementById("cycleCamerasButton");
   const controlButtons = document.querySelectorAll(".control-button");
 
   let isNight = false;
@@ -29,7 +30,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   startPositionButton.addEventListener("click", () => {
-    world.setStartPosition();
+    world.resetCameras();
+  });
+
+  cycleCamerasButton.addEventListener("click", () => {
+    world.cycleCameras();
   });
 
   controlButtons.forEach((button) => {

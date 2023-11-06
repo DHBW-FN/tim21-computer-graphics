@@ -2,11 +2,14 @@ import * as THREE from "three";
 import { AmbientLight, DirectionalLight } from "three";
 import Drone from "../cameras/drone";
 import ModelLoader from "../helpers/modelloader";
+import Snackbar from "../components/snackbar";
 
 export default class World {
   constructor() {
     this.lights = [];
     this.cameras = {};
+
+    this.snackbar = new Snackbar();
 
     // Initialize the scene, renderer, and objects
     this.scene = new THREE.Scene();
@@ -18,16 +21,15 @@ export default class World {
     this.addLights();
 
     // Create a drone and add it to the scene
-    this.drone = new Drone();
+    this.drone = new Drone(this);
     this.drone.addToScene(this.scene);
     this.cameras.drone = this.drone.camera;
-    this.cameras.drone.position.set(370, 1, -230);
-    this.cameras.drone.lookAt(615, 0, -230);
+    this.cameras.drone.name = "drone";
 
     // Set up scene background and camera position
     this.scene.background = new THREE.Color(0xaaaaaa);
 
-    // Create and add model to the scene
+    // Create and add a model to the scene
     this.modelLoader = new ModelLoader();
     this.modelLoader.load("/assets/models/world/World.gltf").then((model) => {
       this.scene.add(model);
@@ -35,11 +37,13 @@ export default class World {
 
     // Add debug camera
     this.cameras.debug = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    this.cameras.debug.position.set(370, 1, -230);
-    this.cameras.debug.lookAt(615, 100, -230);
+    this.cameras.debug.name = "debug";
+    this.cameras.debug.position.set(370, 250, 175);
+    this.cameras.debug.lookAt(370, 75, -230);
 
     // Add stationary camera
     this.cameras.stationary = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    this.cameras.stationary.name = "stationary";
     this.cameras.stationary.position.set(370, 1, -230);
     this.cameras.stationary.lookAt(615, 100, -230);
 
@@ -47,17 +51,10 @@ export default class World {
     this.activeCamera = this.cameras.drone;
   }
 
-  setStartPosition() {
-    this.cameras.drone = this.drone.camera;
-    this.cameras.drone.position.set(370, 1, -230);
-    this.cameras.drone.lookAt(615, 0, -230);
-    this.activeCamera = this.cameras.drone;
-  }
-
   animate() {
     requestAnimationFrame(() => this.animate());
 
-    if (this.activeCamera === this.cameras.drone) {
+    if (this.activeCamera === this.cameras.drone && this.drone.controls.isLocked) {
       this.drone.updatePosition();
     }
 
@@ -75,9 +72,23 @@ export default class World {
     const ambientLight = new AmbientLight(0xffffff, 1);
     this.lights.push(ambientLight);
 
-    // Add lights to scene
+    // Add lights to the scene
     this.lights.forEach((light) => {
       this.scene.add(light);
     });
+  }
+
+  cycleCameras() {
+    const cameras = Object.keys(this.cameras);
+    const currentCameraIndex = cameras.indexOf(this.activeCamera.name);
+    const nextCameraIndex = (currentCameraIndex + 1) % cameras.length;
+    this.activeCamera = this.cameras[cameras[nextCameraIndex]];
+    this.snackbar.show(`Active camera: ${this.activeCamera.name}`, 3000);
+  }
+
+  resetCameras() {
+    this.snackbar.show("Resetting camera position", 3000);
+    this.drone.setStartPosition();
+    this.activeCamera = this.cameras.drone;
   }
 }
