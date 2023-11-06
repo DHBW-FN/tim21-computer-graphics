@@ -1,20 +1,19 @@
 export default class Snackbar {
-  constructor() {
-    this.snackbar = document.getElementById("snackbar");
-    this.fadeOutTimer = null;
-  }
+  static snackbar = document.getElementById("snackbar");
 
-  show(message, timeout) {
-    this.snackbar.innerText = message;
-    this.snackbar.classList.add("show");
+  static fadeOutTimer = null;
 
-    clearTimeout(this.fadeOutTimer);
-    this.fadeOutTimer = setTimeout(() => {
-      this.hide();
+  static show(message, timeout) {
+    Snackbar.snackbar.innerText = message;
+    Snackbar.snackbar.classList.add("show");
+
+    clearTimeout(Snackbar.fadeOutTimer);
+    Snackbar.fadeOutTimer = setTimeout(() => {
+      Snackbar.hide();
     }, timeout);
   }
 
-  hide() {
-    this.snackbar.classList.remove("show");
+  static hide() {
+    Snackbar.snackbar.classList.remove("show");
   }
 }

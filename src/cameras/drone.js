@@ -1,9 +1,9 @@
 import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
 import * as THREE from "three";
+import Snackbar from "../components/snackbar";
 
 export default class Drone {
-  constructor(world) {
-    this.world = world;
+  constructor() {
     this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     this.controls = new PointerLockControls(this.camera, document.body);
     this.moveSpeed = 1;
@@ -24,18 +24,13 @@ export default class Drone {
   addEventListeners() {
     document.addEventListener("keydown", (event) => this.onKeyDown(event));
     document.addEventListener("keyup", (event) => this.onKeyUp(event));
-    document.addEventListener("click", () => {
-      if (!this.controls.isLocked && this.world.activeCamera === this.camera) {
-        this.controls.lock();
-      } else {
-        this.controls.unlock();
-      }
-    });
-    this.controls.addEventListener("lock", () => this.onPointerLock());
-    this.controls.addEventListener("unlock", () => this.onPointerUnlock());
+    this.controls.addEventListener("lock", () => Drone.onPointerLock());
+    this.controls.addEventListener("unlock", () => Drone.onPointerUnlock());
   }
 
   onKeyDown(event) {
+    if (!this.controls.isLocked) return;
+
     switch (event.code) {
       case "KeyW":
         this.velocity.z = this.moveSpeed;
@@ -79,12 +74,12 @@ export default class Drone {
     }
   }
 
-  onPointerLock() {
-    this.world.snackbar.show("Controls locked", 1000);
+  static onPointerLock() {
+    Snackbar.show("Controls locked", 1000);
   }
 
-  onPointerUnlock() {
-    this.world.snackbar.show("Controls unlocked", 1000);
+  static onPointerUnlock() {
+    Snackbar.show("Controls unlocked", 1000);
   }
 
   moveForward(value = this.velocity.z) {

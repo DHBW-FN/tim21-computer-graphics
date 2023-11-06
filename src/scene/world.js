@@ -9,8 +9,6 @@ export default class World {
     this.lights = [];
     this.cameras = {};
 
-    this.snackbar = new Snackbar();
-
     // Initialize the scene, renderer, and objects
     this.scene = new THREE.Scene();
     this.renderer = new THREE.WebGLRenderer();
@@ -21,7 +19,7 @@ export default class World {
     this.addLights();
 
     // Create a drone and add it to the scene
-    this.drone = new Drone(this);
+    this.drone = new Drone();
     this.drone.addToScene(this.scene);
     this.cameras.drone = this.drone.camera;
     this.cameras.drone.name = "drone";
@@ -49,12 +47,15 @@ export default class World {
 
     // Set the initial camera
     this.activeCamera = this.cameras.drone;
+
+    // Add event listeners
+    document.addEventListener("click", () => this.toggleControls());
   }
 
   animate() {
     requestAnimationFrame(() => this.animate());
 
-    if (this.activeCamera === this.cameras.drone && this.drone.controls.isLocked) {
+    if (this.activeCamera === this.cameras.drone) {
       this.drone.updatePosition();
     }
 
@@ -78,16 +79,24 @@ export default class World {
     });
   }
 
+  toggleControls() {
+    if (!this.drone.controls.isLocked && this.activeCamera === this.drone.camera) {
+      this.drone.controls.lock();
+    } else {
+      this.drone.controls.unlock();
+    }
+  }
+
   cycleCameras() {
     const cameras = Object.keys(this.cameras);
     const currentCameraIndex = cameras.indexOf(this.activeCamera.name);
     const nextCameraIndex = (currentCameraIndex + 1) % cameras.length;
     this.activeCamera = this.cameras[cameras[nextCameraIndex]];
-    this.snackbar.show(`Active camera: ${this.activeCamera.name}`, 3000);
+    Snackbar.show(`Active camera: ${this.activeCamera.name}`, 3000);
   }
 
   resetCameras() {
-    this.snackbar.show("Resetting camera position", 3000);
+    Snackbar.show("Resetting camera position", 3000);
     this.drone.setStartPosition();
     this.activeCamera = this.cameras.drone;
   }
