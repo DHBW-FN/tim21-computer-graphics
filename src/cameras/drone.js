@@ -1,15 +1,21 @@
 import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
 import * as THREE from "three";
+import Snackbar from "../components/snackbar";
 
 export default class Drone {
   constructor() {
     this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     this.controls = new PointerLockControls(this.camera, document.body);
     this.moveSpeed = 1;
+    this.sensitivity = 0.005;
     this.velocity = new THREE.Vector3(0, 0, 0);
-    this.controls.getObject().position.set(0, 0, 100);
-    this.controls.getObject().lookAt(0, 50, 0);
+    this.setStartPosition();
     this.addEventListeners();
+  }
+
+  setStartPosition() {
+    this.camera.position.set(370, 1, -230);
+    this.camera.lookAt(615, 0, -230);
   }
 
   addToScene(scene) {
@@ -19,18 +25,13 @@ export default class Drone {
   addEventListeners() {
     document.addEventListener("keydown", (event) => this.onKeyDown(event));
     document.addEventListener("keyup", (event) => this.onKeyUp(event));
-    document.addEventListener("click", () => {
-      if (this.controls.isLocked) {
-        this.controls.unlock();
-      } else {
-        this.controls.lock();
-      }
-    });
-    this.controls.addEventListener("lock", () => this.onPointerLock());
-    this.controls.addEventListener("unlock", () => this.onPointerUnlock());
+    this.controls.addEventListener("lock", () => Drone.onPointerLock());
+    this.controls.addEventListener("unlock", () => Drone.onPointerUnlock());
   }
 
   onKeyDown(event) {
+    if (!this.controls.isLocked) return;
+
     switch (event.code) {
       case "KeyW":
         this.velocity.z = this.moveSpeed;
@@ -74,14 +75,12 @@ export default class Drone {
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  onPointerLock() {
-    // Hide UI or pause game
+  static onPointerLock() {
+    Snackbar.show("Controls locked", 1000);
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  onPointerUnlock() {
-    // Show UI or unpause game
+  static onPointerUnlock() {
+    Snackbar.show("Controls unlocked", 1000);
   }
 
   moveForward(value = this.velocity.z) {
@@ -94,6 +93,25 @@ export default class Drone {
 
   moveUp(value = this.velocity.y) {
     this.controls.getObject().position.y += value;
+  }
+
+  lookUp(degrees = 45) {
+    const radians = (degrees * Math.PI) / 180;
+    const effectiveRotation = radians * this.sensitivity;
+
+    const forward = this.camera.getWorldDirection(new THREE.Vector3());
+    const axis = forward.clone().cross(this.camera.up);
+    const quaternion = new THREE.Quaternion().setFromAxisAngle(axis, effectiveRotation);
+    this.camera.quaternion.multiplyQuaternions(quaternion, this.camera.quaternion);
+  }
+
+  lookRight(degrees = 45) {
+    const radians = (degrees * Math.PI) / 180;
+    const effectiveRotation = radians * this.sensitivity;
+
+    const axis = new THREE.Vector3(0, 1, 0);
+    const quaternion = new THREE.Quaternion().setFromAxisAngle(axis, effectiveRotation);
+    this.camera.quaternion.premultiply(quaternion).normalize();
   }
 
   updatePosition() {
