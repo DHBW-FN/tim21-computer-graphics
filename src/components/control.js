@@ -44,7 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
       switch (button.id) {
         case "forward":
           world.drone.velocity.z = world.drone.moveSpeed;
-          world.drone.lookUp();
           break;
         case "backward":
           world.drone.velocity.z = -world.drone.moveSpeed;
