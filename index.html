@@ -5,6 +5,7 @@
     <title>Computer graphics</title>
     <link rel="icon" href="/icons/favicon.png" type="image/png" />
     <link rel="stylesheet" href="./src/styles/styles.css" />
+    <link rel="stylesheet" href="./src/styles/snackbar.css" />
   </head>
   <body>
     <div id="controlsExplanation">
@@ -23,9 +24,7 @@
         <button id="dayNightToggle" class="settings-button" title="Toggle between day and night">
           &#127774;/&#127769;
         </button>
-        <button id="toggleDrone" class="settings-button" title="Toggle between drone and stationary camera">
-          &#128247;
-        </button>
+        <button id="cycleCamerasButton" class="settings-button" title="Switch to another camera">&#128247;</button>
         <button id="startPositionButton" class="settings-button" title="Move drone to start position">
           <img src="/assets/images/position.png" alt="Start Position" />
         </button>
@@ -62,6 +61,8 @@
         </div>
       </div>
     </div>
+
+    <div id="snackbar"></div>
 
     <script type="module" src="./src/main.js"></script>
     <script type="module" src="./src/components/control.js"></script>
