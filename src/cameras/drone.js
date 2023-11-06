@@ -7,6 +7,7 @@ export default class Drone {
     this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     this.controls = new PointerLockControls(this.camera, document.body);
     this.moveSpeed = 1;
+    this.sensitivity = 0.005;
     this.velocity = new THREE.Vector3(0, 0, 0);
     this.setStartPosition();
     this.addEventListeners();
@@ -92,6 +93,22 @@ export default class Drone {
 
   moveUp(value = this.velocity.y) {
     this.controls.getObject().position.y += value;
+  }
+
+  lookUp(degrees = 45) {
+    const radians = (degrees * Math.PI) / 180;
+    const effectiveRotation = radians * this.sensitivity;
+
+    const axis = new THREE.Vector3(1, 0, 0);
+    this.camera.rotateOnAxis(axis, effectiveRotation);
+  }
+
+  lookRight(degrees = 45) {
+    const radians = (degrees * Math.PI) / 180;
+    const effectiveRotation = radians * this.sensitivity;
+
+    const axis = new THREE.Vector3(0, 1, 0);
+    this.camera.rotateOnAxis(axis, effectiveRotation);
   }
 
   updatePosition() {
