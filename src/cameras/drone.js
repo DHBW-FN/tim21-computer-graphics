@@ -79,12 +79,10 @@ export default class Drone {
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
   onPointerLock() {
     this.world.snackbar.show("Controls locked", 1000);
   }
 
-  // eslint-disable-next-line class-methods-use-this
   onPointerUnlock() {
     this.world.snackbar.show("Controls unlocked", 1000);
   }
