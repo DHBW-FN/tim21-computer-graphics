@@ -41,6 +41,7 @@ export default class World {
 
     // Create and add a model to the scene
     this.modelLoader = new ModelLoader();
+    ModelLoader.showBoundingBox = true;
     this.modelLoader.load("/assets/models/world/World.gltf").then((model) => {
       this.scene.add(model);
     });
