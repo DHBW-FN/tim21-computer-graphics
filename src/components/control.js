@@ -9,6 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const cycleCamerasButton = document.getElementById("cycleCamerasButton");
   const controlButtons = document.querySelectorAll(".control-button");
 
+  let rotateInterval;
+
   let isNight = false;
 
   toggleButton.addEventListener("click", (event) => {
@@ -42,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
       switch (button.id) {
         case "forward":
           world.drone.velocity.z = world.drone.moveSpeed;
+          world.drone.lookUp();
           break;
         case "backward":
           world.drone.velocity.z = -world.drone.moveSpeed;
@@ -58,11 +61,32 @@ document.addEventListener("DOMContentLoaded", () => {
         case "down":
           world.drone.velocity.y = -world.drone.moveSpeed;
           break;
+        case "rotate-up":
+          rotateInterval = setInterval(() => {
+            world.drone.lookUp(30);
+          }, 1);
+          break;
+        case "rotate-down":
+          rotateInterval = setInterval(() => {
+            world.drone.lookUp(-30);
+          }, 1);
+          break;
+        case "rotate-right":
+          rotateInterval = setInterval(() => {
+            world.drone.lookRight(-30);
+          }, 1);
+          break;
+        case "rotate-left":
+          rotateInterval = setInterval(() => {
+            world.drone.lookRight(30);
+          }, 1);
+          break;
         default:
           break;
       }
     });
     button.addEventListener("mouseup", () => {
+      clearInterval(rotateInterval);
       switch (button.id) {
         case "forward":
         case "backward":
@@ -79,6 +103,9 @@ document.addEventListener("DOMContentLoaded", () => {
         default:
           break;
       }
+    });
+    button.addEventListener("mouseleave", () => {
+      clearInterval(rotateInterval);
     });
     button.addEventListener("click", (event) => {
       event.stopPropagation();
