@@ -1,7 +1,10 @@
 // eslint-disable-next-line import/extensions,import/no-unresolved
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { Box3, BoxGeometry, Mesh, MeshBasicMaterial, Vector3 } from "three";
 
 export default class ModelLoader {
+  static showBoundingBox = false;
+
   constructor() {
     this.loader = new GLTFLoader();
   }
@@ -11,6 +14,16 @@ export default class ModelLoader {
       this.loader.load(
         modelPath,
         (gltf) => {
+          if (ModelLoader.showBoundingBox) {
+            const boundingBox = new Box3().setFromObject(gltf.scene.children[0]);
+            const size = new Vector3();
+            boundingBox.getSize(size);
+            const material = new MeshBasicMaterial({ color: 0xff0000, opacity: 0.5, transparent: true });
+            const geometry = new BoxGeometry(size.x, size.y, size.z);
+            const redBox = new Mesh(geometry, material);
+            boundingBox.getCenter(redBox.position);
+            gltf.scene.add(redBox);
+          }
           resolve(gltf.scene);
         },
         (xhr) => {
