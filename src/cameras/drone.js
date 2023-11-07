@@ -88,14 +88,9 @@ export default class Drone {
   }
 
   moveForward(value = this.velocity.z) {
-    console.log("Trying to move forward with value: ", value);
-    if (value === 0) return;
-
-    // Get the direction the camera is facing without the height component and the value of the velocity
     let direction = this.camera.getWorldDirection(new THREE.Vector3()).setY(0).normalize().multiplyScalar(value);
-    if (value < 0) direction = direction.negate();
-    // console.log(this.camera.position);
-    // console.log(direction);
+    value < 0 ? (direction = direction.negate()) : null;
+    console.log("Direction", direction);
 
     // Calculate intersection with objects
     this.forwardRaycaster.set(this.camera.position, direction);
@@ -106,7 +101,6 @@ export default class Drone {
 
       const intersection = intersections[0];
       const distance = intersection.distance;
-      console.log(distance);
 
       if (Math.abs(value) > distance - 0.1) {
         this.controls.moveForward(Math.sign(value) * (distance - 0.1));
