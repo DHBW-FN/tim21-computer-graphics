@@ -31,7 +31,7 @@ export default class World {
     this.cameras.drone = this.drone.camera;
     this.cameras.drone.name = "drone";
 
-    // Set up background depending on time of day
+    // Set up background depending on the time of day
     this.date = new Date();
     this.isNight = this.date.getHours() > 18 || this.date.getHours() < 6;
     // TODO: Add light depending on Background

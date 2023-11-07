@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/extensions,import/no-unresolved
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { Box3, BoxGeometry, Mesh, MeshBasicMaterial, Vector3 } from "three";
-import World from "../scene/world.js";
+import World from "../scene/world";
 
 export default class ModelLoader {
   static showBoundingBox = false;
@@ -25,7 +25,7 @@ export default class ModelLoader {
             boundingBox.getCenter(redBox.position);
             gltf.scene.add(redBox);
           }
-          
+
           World.objects.push(gltf.scene);
 
           resolve(gltf.scene);

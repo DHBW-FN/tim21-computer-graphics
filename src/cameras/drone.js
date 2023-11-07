@@ -2,7 +2,7 @@ import { PointerLockControls } from "three/examples/jsm/controls/PointerLockCont
 import * as THREE from "three";
 import { Raycaster, Vector3 } from "three";
 import Snackbar from "../components/snackbar";
-import World from "../scene/world.js";
+import World from "../scene/world";
 
 export default class Drone {
   constructor() {
@@ -10,8 +10,14 @@ export default class Drone {
     this.controls = new PointerLockControls(this.camera, document.body);
     this.moveSpeed = 1;
     this.sensitivity = 0.005;
+    this.minDistance = 0.1;
     this.velocity = new THREE.Vector3(0, 0, 0);
-    this.forwardRaycaster = new Raycaster(this.camera.position, this.camera.getWorldDirection(new Vector3()));
+    this.forwardRaycaster = new Raycaster(
+      this.camera.position,
+      this.camera.getWorldDirection(new Vector3()),
+      0,
+      this.moveSpeed + this.minDistance,
+    );
 
     this.setStartPosition();
     this.addEventListeners();
@@ -88,18 +94,17 @@ export default class Drone {
   }
 
   moveForward(value = this.velocity.z) {
-    let direction = this.camera.getWorldDirection(new THREE.Vector3()).setY(0).normalize().multiplyScalar(value);
-    console.log("Direction", direction);
+    const direction = this.camera.getWorldDirection(new THREE.Vector3()).setY(0).normalize().multiplyScalar(value);
 
     this.forwardRaycaster.set(this.camera.position, direction);
     const intersections = this.forwardRaycaster.intersectObjects(World.objects, true);
 
     if (intersections.length > 0) {
       const intersection = intersections[0];
-      const distance = intersection.distance;
+      const { distance } = intersection;
 
-      if (Math.abs(value) > distance - 0.1) {
-        this.controls.moveForward(Math.sign(value) * (distance - 0.1));
+      if (Math.abs(value) > distance - this.minDistance) {
+        this.controls.moveForward(Math.sign(value) * (distance - this.minDistance));
         return;
       }
     }
@@ -135,8 +140,14 @@ export default class Drone {
   }
 
   updatePosition() {
-    this.velocity.x !== 0 ? this.moveRight() : null;
-    this.velocity.y !== 0 ? this.moveUp() : null;
-    this.velocity.z !== 0 ? this.moveForward() : null;
+    if (this.velocity.x) {
+      this.moveRight();
+    }
+    if (this.velocity.y) {
+      this.moveUp();
+    }
+    if (this.velocity.z) {
+      this.moveForward();
+    }
   }
 }
