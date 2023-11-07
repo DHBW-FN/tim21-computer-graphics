@@ -1,6 +1,8 @@
 import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
 import * as THREE from "three";
+import { Raycaster, Vector3 } from "three";
 import Snackbar from "../components/snackbar";
+import World from "../scene/world.js";
 
 export default class Drone {
   constructor() {
@@ -9,6 +11,8 @@ export default class Drone {
     this.moveSpeed = 1;
     this.sensitivity = 0.005;
     this.velocity = new THREE.Vector3(0, 0, 0);
+    this.forwardRaycaster = new Raycaster(this.camera.position, this.camera.getWorldDirection(new Vector3()));
+
     this.setStartPosition();
     this.addEventListeners();
   }
@@ -84,6 +88,32 @@ export default class Drone {
   }
 
   moveForward(value = this.velocity.z) {
+    console.log("Trying to move forward with value: ", value);
+    if (value === 0) return;
+
+    // Get the direction the camera is facing without the height component and the value of the velocity
+    let direction = this.camera.getWorldDirection(new THREE.Vector3()).setY(0).normalize().multiplyScalar(value);
+    if (value < 0) direction = direction.negate();
+    // console.log(this.camera.position);
+    // console.log(direction);
+
+    // Calculate intersection with objects
+    this.forwardRaycaster.set(this.camera.position, direction);
+    const intersections = this.forwardRaycaster.intersectObjects(World.objects, true);
+
+    if (intersections.length > 0) {
+      // console.log(intersections[0]);
+
+      const intersection = intersections[0];
+      const distance = intersection.distance;
+      console.log(distance);
+
+      if (Math.abs(value) > distance - 0.1) {
+        this.controls.moveForward(Math.sign(value) * (distance - 0.1));
+        return;
+      }
+    }
+
     this.controls.moveForward(value);
   }
 
@@ -115,8 +145,8 @@ export default class Drone {
   }
 
   updatePosition() {
-    this.moveForward();
-    this.moveRight();
-    this.moveUp();
+    this.velocity.x !== 0 ? this.moveRight() : null;
+    this.velocity.y !== 0 ? this.moveUp() : null;
+    this.velocity.z !== 0 ? this.moveForward() : null;
   }
 }
