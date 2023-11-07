@@ -89,7 +89,8 @@ export default class Drone {
 
   moveForward(value = this.velocity.z) {
     let direction = this.camera.getWorldDirection(new THREE.Vector3()).setY(0).normalize().multiplyScalar(value);
-    value < 0 ? (direction = direction.negate()) : null;
+    // console.log("Direction (pre-negate)", direction);
+    // value < 0 ? (direction = direction.negate()) : null;
     console.log("Direction", direction);
 
     // Calculate intersection with objects
