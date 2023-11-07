@@ -10,7 +10,7 @@ export default class Drone {
     this.controls = new PointerLockControls(this.camera, document.body);
     this.moveSpeed = 1;
     this.sensitivity = 0.005;
-    this.minDistance = 0.1;
+    this.minDistance = 1;
     this.velocity = new THREE.Vector3(0, 0, 0);
     this.forwardRaycaster = new Raycaster(
       this.camera.position,

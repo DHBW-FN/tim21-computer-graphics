@@ -4,7 +4,7 @@ import { Box3, BoxGeometry, Mesh, MeshBasicMaterial, Vector3 } from "three";
 import World from "../scene/world";
 
 export default class ModelLoader {
-  static excludeFromBoundingBox = ["Grass", "Eiffeltower_base", "Houses_base", "Walk_path", "Street", "Sidewalk"];
+  static excludeFromBoundingBox = [];
 
   static showBoundingBox = false;
 
@@ -20,6 +20,7 @@ export default class ModelLoader {
           gltf.scene.traverse((child) => {
             if (child instanceof Mesh) {
               if (ModelLoader.showBoundingBox && !ModelLoader.excludeFromBoundingBox.includes(child.name)) {
+                // Draw bounding boxes around objects
                 const boundingBox = new Box3().setFromObject(child);
                 const size = new Vector3();
                 boundingBox.getSize(size);
@@ -30,7 +31,9 @@ export default class ModelLoader {
                 gltf.scene.add(redBox);
               }
 
-              World.objects.push(child);
+              if (!ModelLoader.excludeFromBoundingBox.includes(child.name)) {
+                World.objects.push(child);
+              }
             }
           });
 
