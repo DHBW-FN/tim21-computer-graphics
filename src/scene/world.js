@@ -8,6 +8,8 @@ import loadModels from "../helpers/animationModelLoader";
 const clock = new Clock();
 
 export default class World {
+  static objects = [];
+
   constructor() {
     this.lights = [];
     this.cameras = {};
