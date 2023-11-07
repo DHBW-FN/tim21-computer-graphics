@@ -11,6 +11,10 @@ export default class World {
   static objects = [];
 
   constructor() {
+    this.frameCount = 0;
+    this.startTime = performance.now();
+    this.fpsElement = document.getElementById("fpsCounter");
+
     this.lights = [];
     this.cameras = {};
     this.cubeLoader = new THREE.CubeTextureLoader();
@@ -73,6 +77,20 @@ export default class World {
 
       if (this.activeCamera === this.cameras.drone) {
         this.drone.updatePosition();
+      }
+
+      // Calculate FPS
+      this.frameCount += 1;
+      const currentTime = performance.now();
+      const elapsedTime = currentTime - this.startTime;
+
+      if (elapsedTime >= 1000) {
+        const fps = Math.round((this.frameCount * 1000) / elapsedTime);
+        this.fpsElement.textContent = `FPS: ${fps}`;
+
+        // Reset counters for the next second
+        this.frameCount = 0;
+        this.startTime = currentTime;
       }
 
       // render a frame
