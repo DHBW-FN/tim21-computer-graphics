@@ -47,10 +47,11 @@ export default class World {
 
     // Create and add a model to the scene
     this.modelLoader = new ModelLoader();
-    ModelLoader.showBoundingBox = true;
+    ModelLoader.showBoundingBox = false;
     this.modelLoader.load("/assets/models/world/World.gltf").then((model) => {
       this.scene.add(model);
     });
+    console.log(World.objects);
 
     // Add debug camera
     this.cameras.debug = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);

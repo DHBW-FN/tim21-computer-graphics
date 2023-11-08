@@ -5,8 +5,6 @@ import World from "../scene/world";
 import { SimplifyModifier } from "three/addons/modifiers/SimplifyModifier.js";
 
 export default class ModelLoader {
-  static excludeFromBoundingBox = [];
-
   static showBoundingBox = false;
 
   constructor() {
@@ -22,32 +20,31 @@ export default class ModelLoader {
 
           gltf.scene.traverse((child) => {
             if (child instanceof Mesh) {
+              // Calculate bounding object
               const modifier = new SimplifyModifier();
               const boundingObject = child.clone();
               boundingObject.name = `${child.name}-boundingObject`;
               boundingObject.material = new MeshBasicMaterial({ color: 0xff0000, opacity: 0.5, transparent: true });
+              boundingObject.material.flatShading = true;
 
               const count = Math.floor(boundingObject.geometry.attributes.position.count * 0.875);
               // TODO fix simplify geometry
               // boundingObject.geometry = modifier.modify(boundingObject.geometry, count);
 
-              if (ModelLoader.showBoundingBox && !ModelLoader.excludeFromBoundingBox.includes(child.name)) {
-                boundingObjects.push(boundingObject);
-              }
-
-              if (!ModelLoader.excludeFromBoundingBox.includes(child.name)) {
-                World.objects.push(boundingObject);
-              }
+              boundingObjects.push(boundingObject);
             }
           });
 
-          gltf.scene.children = gltf.scene.children.filter((child) => {
-            return !boundingObjects.some((boundingObject) => {
-              return child.name.startsWith(boundingObject.name.replace("-boundingObject", ""));
+          if (ModelLoader.showBoundingBox) {
+            gltf.scene.children = gltf.scene.children.filter((child) => {
+              return !boundingObjects.some((boundingObject) => {
+                return child.name.startsWith(boundingObject.name.replace("-boundingObject", ""));
+              });
             });
-          });
+          }
 
-          gltf.scene.add(...boundingObjects);
+          // TODO get all collideable object in a scene and add them to the world objects
+          World.objects.push(boundingObjects);
 
           resolve(gltf.scene);
         },
