@@ -2,10 +2,10 @@ import { PointerLockControls } from "three/examples/jsm/controls/PointerLockCont
 import * as THREE from "three";
 import { Raycaster, Vector3 } from "three";
 import Snackbar from "../components/snackbar";
-import World from "../scene/world";
 
 export default class Drone {
-  constructor() {
+  constructor(world) {
+    this.world = world;
     this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     this.controls = new PointerLockControls(this.camera, document.body);
     this.moveSpeed = 1;
@@ -97,7 +97,7 @@ export default class Drone {
     const direction = this.camera.getWorldDirection(new THREE.Vector3()).setY(0).normalize().multiplyScalar(value);
 
     this.forwardRaycaster.set(this.camera.position, direction);
-    const intersections = this.forwardRaycaster.intersectObjects(World.objects, true);
+    const intersections = this.forwardRaycaster.intersectObjects(this.world.collidableObjects, true);
 
     if (intersections.length > 0) {
       const intersection = intersections[0];
