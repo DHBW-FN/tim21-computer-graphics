@@ -8,8 +8,6 @@ import loadModels from "../helpers/animationModelLoader";
 const clock = new Clock();
 
 export default class World {
-  static objects = [];
-
   constructor() {
     this.frameCount = 0;
     this.startTime = performance.now();
@@ -22,6 +20,7 @@ export default class World {
 
     // Initialize the scene, renderer, and objects
     this.scene = new THREE.Scene();
+    this.collidableObjects = [];
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(this.renderer.domElement);
@@ -30,7 +29,7 @@ export default class World {
     this.addLights();
 
     // Create a drone and add it to the scene
-    this.drone = new Drone();
+    this.drone = new Drone(this);
     this.drone.addToScene(this.scene);
     this.cameras.drone = this.drone.camera;
     this.cameras.drone.name = "drone";
@@ -47,11 +46,10 @@ export default class World {
 
     // Create and add a model to the scene
     this.modelLoader = new ModelLoader();
-    ModelLoader.showBoundingBox = false;
-    this.modelLoader.load("/assets/models/world/World.gltf").then((model) => {
+    ModelLoader.showBoundingBox = true;
+    this.modelLoader.load("/assets/models/world/World.gltf", this.collidableObjects).then((model) => {
       this.scene.add(model);
     });
-    console.log(World.objects);
 
     // Add debug camera
     this.cameras.debug = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
