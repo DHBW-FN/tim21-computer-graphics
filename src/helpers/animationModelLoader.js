@@ -1,22 +1,21 @@
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
-import { setupModel } from '../components/setupBirds.js';
+import setupBirds from "../components/setupBirds";
+import setupCars from "../components/setupCars";
 
-async function loadBirds() {
-    const loader = new GLTFLoader();
+export default async function loadModels() {
+  const loader = new GLTFLoader();
 
-    const [storkData] = await Promise.all([
-        loader.loadAsync('/assets/birds/Stork.glb'),
-    ]);
+  const [storkData, carData] = await Promise.all([
+    loader.loadAsync("/assets/birds/Stork.glb"),
+    loader.loadAsync("/assets/cars/Car.glb"),
+  ]);
 
-    console.log('Squaaawk!', storkData);
+  const stork = setupBirds(storkData);
+  const car = setupCars(carData);
 
-    const stork = setupModel(storkData);
-    stork.position.set(50, 50, 50);
-
-    return {
-        stork,
-    };
+  return {
+    stork,
+    car,
+  };
 }
-
-export { loadBirds };

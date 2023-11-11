@@ -1,10 +1,9 @@
 import World from "./scene/world";
 
 const world = new World();
-world.animate();
 
 await world.init();
 
-world.start();
+world.animate();
 
 export default world;
