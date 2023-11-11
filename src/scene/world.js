@@ -1,15 +1,17 @@
 import * as THREE from "three";
-import { AmbientLight, DirectionalLight } from "three";
+import { AmbientLight, DirectionalLight, Clock } from "three";
 import Drone from "../cameras/drone";
 import ModelLoader from "../helpers/modelloader";
 import Snackbar from "../components/snackbar";
-import { Loop } from "../helpers/loop";
-import { loadBirds } from "../helpers/animationModelLoader.js";
+import loadModels from "../helpers/animationModelLoader";
+
+const clock = new Clock();
 
 export default class World {
   constructor() {
     this.lights = [];
     this.cameras = {};
+    this.updatables = [];
 
     // Initialize the scene, renderer, and objects
     this.scene = new THREE.Scene();
@@ -35,8 +37,6 @@ export default class World {
       this.scene.add(model);
     });
 
-    this.loop = new Loop(this.cameras.drone, this.scene, this.renderer);
-
     // Add debug camera
     this.cameras.debug = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     this.cameras.debug.name = "debug";
@@ -57,25 +57,32 @@ export default class World {
   }
 
   animate() {
-    requestAnimationFrame(() => this.animate());
+    this.renderer.setAnimationLoop(() => {
+      // tell every animated object to tick forward one frame
+      this.tick();
 
-    if (this.activeCamera === this.cameras.drone) {
-      this.drone.updatePosition();
-    }
+      if (this.activeCamera === this.cameras.drone) {
+        this.drone.updatePosition();
+      }
 
-    // Render the scene
-    this.renderer.render(this.scene, this.activeCamera);
+      // render a frame
+      this.renderer.render(this.scene, this.activeCamera);
+    });
+  }
+
+  tick() {
+    const delta = clock.getDelta();
+
+    this.updatables.forEach((object) => {
+      object.tick(delta);
+    });
   }
 
   async init() {
-    const { stork } = await loadBirds();
+    const { stork, car } = await loadModels();
 
-    this.loop.updatables.push(stork);
-    this.scene.add(stork);
-  }
-
-  start() {
-    this.loop.start();
+    this.updatables.push(stork, car);
+    this.scene.add(stork, car);
   }
 
   addLights() {
