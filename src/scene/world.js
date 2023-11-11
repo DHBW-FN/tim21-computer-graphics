@@ -63,7 +63,6 @@ export default class World {
 
       if (this.activeCamera === this.cameras.drone) {
         this.drone.updatePosition();
-        // console.log(this.drone.camera.position);
       }
 
       // render a frame
@@ -85,7 +84,7 @@ export default class World {
     this.updatables.push(...storks);
     this.updatables.push(...cars);
     this.updatables.forEach((object) => {
-        this.scene.add(object);
+      this.scene.add(object);
     });
   }
 

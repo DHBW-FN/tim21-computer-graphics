@@ -11,27 +11,22 @@ export default async function loadModels() {
   const storkPaths = Array(Object.keys(storkAnimations).length).fill("/assets/birds/Stork.glb");
   const carPaths = Array(Object.keys(carAnimations).length).fill("/assets/cars/Car.glb");
 
-  const storksData = await Promise.all([
-    ...storkPaths.map(path => loader.loadAsync(path)),
-  ]);
-    const carsData = await Promise.all([
-    ...carPaths.map(path => loader.loadAsync(path)),
-  ]);
+  const storksData = await Promise.all([...storkPaths.map((path) => loader.loadAsync(path))]);
+  const carsData = await Promise.all([...carPaths.map((path) => loader.loadAsync(path))]);
 
-  let storks = [];
-  let cars = [];
+  const storks = [];
+  const cars = [];
 
-  storksData.forEach(function (stork, i) {
+  storksData.forEach((stork, i) => {
     storks.push(setupBirds(stork, i));
     storks[i].rotateZ(storkAnimations[i].rotation * Math.PI);
   });
 
-  carsData.forEach(function (car, i) {
+  carsData.forEach((car, i) => {
     cars.push(setupCar(car, i));
     cars[i].scale.set(3, 3, 3);
     cars[i].rotateY(carAnimations[i].rotation * Math.PI);
   });
-
 
   return {
     storks,
