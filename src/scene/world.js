@@ -63,6 +63,7 @@ export default class World {
 
       if (this.activeCamera === this.cameras.drone) {
         this.drone.updatePosition();
+        //console.log(this.drone.camera.position);
       }
 
       // render a frame
@@ -79,10 +80,10 @@ export default class World {
   }
 
   async init() {
-    const { stork, car } = await loadModels();
+    const { stork1, stork2, stork3, stork4, stork5, car1, car2, car3, car4, car5, car6 } = await loadModels();
 
-    this.updatables.push(stork, car);
-    this.scene.add(stork, car);
+    this.updatables.push(stork1, stork2, stork3, stork4, stork5, car1, car2, car3, car4, car5, car6);
+    this.scene.add(stork1, stork2, stork3, stork4, stork5, car1, car2, car3, car4, car5, car6);
   }
 
   addLights() {

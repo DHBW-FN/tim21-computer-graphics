@@ -1,11 +1,10 @@
 import { AnimationMixer, AnimationClip, VectorKeyframeTrack } from "three";
+import carAnimations from "./carAnimations.json";
 
-const positionKF = new VectorKeyframeTrack(".position", [0, 3, 6], [0, 0, 0, 2, 2, 2, 0, 0, 0]);
-
-const moveClip = new AnimationClip("move", -1, [positionKF]);
-
-export default function setupModel(data) {
-  const model = data.scene.children[0];
+export default function setupCar(data, id) {
+  const model = data.scene;
+  const positionKF = new VectorKeyframeTrack(".position", carAnimations[id].time, carAnimations[id].positions);
+  const moveClip = new AnimationClip("move", -1, [positionKF]);
 
   const mixer = new AnimationMixer(model);
   const action = mixer.clipAction(moveClip);
