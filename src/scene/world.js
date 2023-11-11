@@ -3,6 +3,8 @@ import { AmbientLight, DirectionalLight } from "three";
 import Drone from "../cameras/drone";
 import ModelLoader from "../helpers/modelloader";
 import Snackbar from "../components/snackbar";
+import { Loop } from "../helpers/loop";
+import { loadBirds } from "../helpers/animationModelLoader.js";
 
 export default class World {
   constructor() {
@@ -33,6 +35,8 @@ export default class World {
       this.scene.add(model);
     });
 
+    this.loop = new Loop(this.cameras.drone, this.scene, this.renderer);
+
     // Add debug camera
     this.cameras.debug = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     this.cameras.debug.name = "debug";
@@ -61,6 +65,17 @@ export default class World {
 
     // Render the scene
     this.renderer.render(this.scene, this.activeCamera);
+  }
+
+  async init() {
+    const { stork } = await loadBirds();
+
+    this.loop.updatables.push(stork);
+    this.scene.add(stork);
+  }
+
+  start() {
+    this.loop.start();
   }
 
   addLights() {
