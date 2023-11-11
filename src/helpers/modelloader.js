@@ -4,6 +4,8 @@ import { Mesh, MeshBasicMaterial } from "three";
 import { SimplifyModifier } from "three/addons/modifiers/SimplifyModifier.js";
 
 export default class ModelLoader {
+  static boundingObjectSuffix = "-boundingObject";
+
   static showBoundingBox = false;
 
   static ignoreCollisionObjects = [];
@@ -12,7 +14,7 @@ export default class ModelLoader {
 
   constructor() {
     this.loader = new GLTFLoader();
-    this.boundingObjectReductionFactor = 0.875;
+    this.boundingObjectReductionFactor = 0.001;
   }
 
   load(modelPath, listWithObjects) {
@@ -68,16 +70,21 @@ export default class ModelLoader {
   }
 
   getBoundingObject(object) {
-    // Calculate a bounding object
+    if (object.name.endsWith(ModelLoader.boundingObjectSuffix)) {
+      return object;
+    }
+
     const modifier = new SimplifyModifier();
     const boundingObject = object.clone();
     boundingObject.updateMatrixWorld();
-    boundingObject.name = `${object.name}-boundingObject`;
+
+    // Calculate a bounding object
+    boundingObject.name = `${object.name}${ModelLoader.boundingObjectSuffix}`;
     boundingObject.material = new MeshBasicMaterial({ color: 0xff0000, opacity: 0.5, transparent: true });
     boundingObject.material.flatShading = true;
 
     const count = Math.floor(boundingObject.geometry.attributes.position.count * this.boundingObjectReductionFactor);
-    // boundingObject.geometry = modifier.modify(boundingObject.geometry, count);
+    boundingObject.geometry = modifier.modify(boundingObject.geometry, count); // This doesnt seem to benefit performance
 
     return boundingObject;
   }
