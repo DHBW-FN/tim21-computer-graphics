@@ -63,7 +63,7 @@ export default class World {
 
       if (this.activeCamera === this.cameras.drone) {
         this.drone.updatePosition();
-        //console.log(this.drone.camera.position);
+        // console.log(this.drone.camera.position);
       }
 
       // render a frame

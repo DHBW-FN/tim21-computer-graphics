@@ -8,7 +8,19 @@ import setupCar from "../components/setupCars";
 export default async function loadModels() {
   const loader = new GLTFLoader();
 
-  const [storkData1, storkData2, storkData3, storkData4, storkData5, carData1, carData2, carData3, carData4, carData5, carData6] = await Promise.all([
+  const [
+    storkData1,
+    storkData2,
+    storkData3,
+    storkData4,
+    storkData5,
+    carData1,
+    carData2,
+    carData3,
+    carData4,
+    carData5,
+    carData6,
+  ] = await Promise.all([
     loader.loadAsync("/assets/birds/Stork.glb"),
     loader.loadAsync("/assets/birds/Stork.glb"),
     loader.loadAsync("/assets/birds/Stork.glb"),
