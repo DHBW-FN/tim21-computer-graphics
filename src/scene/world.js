@@ -80,10 +80,13 @@ export default class World {
   }
 
   async init() {
-    const { stork1, stork2, stork3, stork4, stork5, car1, car2, car3, car4, car5, car6 } = await loadModels();
+    const { storks, cars } = await loadModels();
 
-    this.updatables.push(stork1, stork2, stork3, stork4, stork5, car1, car2, car3, car4, car5, car6);
-    this.scene.add(stork1, stork2, stork3, stork4, stork5, car1, car2, car3, car4, car5, car6);
+    this.updatables.push(...storks);
+    this.updatables.push(...cars);
+    this.updatables.forEach((object) => {
+        this.scene.add(object);
+    });
   }
 
   addLights() {
