@@ -25,7 +25,6 @@ export default async function loadModels() {
   carsData.forEach((car, i) => {
     cars.push(setupCar(car, i));
     cars[i].scale.set(3, 3, 3);
-    cars[i].rotateY(carAnimations[i].rotation * Math.PI);
   });
 
   return {
