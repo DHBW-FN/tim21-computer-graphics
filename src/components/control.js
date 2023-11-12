@@ -1,13 +1,5 @@
 import world from "../main";
 
-if (document.readyState !== 'loading') {
-  initControls()
-} else {
-  document.addEventListener('DOMContentLoaded', function () {
-    initControls()
-  });
-}
-
 function initControls() {
   const toggleButton = document.getElementById("toggleButton");
   const controls = document.getElementById("controls");
@@ -119,9 +111,16 @@ function initControls() {
     });
   });
 
-// Prevent the controls from locking when the button or explanation is clicked
+  // Prevent the controls from locking when the button or explanation is clicked
   document.getElementById("controlsExplanation").addEventListener("click", (event) => {
     event.stopPropagation();
   });
+}
 
+if (document.readyState !== "loading") {
+  initControls();
+} else {
+  document.addEventListener("DOMContentLoaded", () => {
+    initControls();
+  });
 }
