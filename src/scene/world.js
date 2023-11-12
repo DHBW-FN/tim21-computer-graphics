@@ -58,7 +58,6 @@ export default class World {
 
   animate() {
     this.renderer.setAnimationLoop(() => {
-      // tell every animated object to tick forward one frame
       this.tick();
 
       if (this.activeCamera === this.cameras.drone) {
@@ -79,12 +78,16 @@ export default class World {
   }
 
   async init() {
-    const { storks, cars } = await loadModels();
-
-    this.updatables.push(...storks);
-    this.updatables.push(...cars);
-    this.updatables.forEach((object) => {
-      this.scene.add(object);
+    loadModels()
+      .then(({ storks, cars }) => {
+        this.updatables.push(...storks);
+        this.updatables.push(...cars);
+      })
+      .then(() => {
+        this.updatables.forEach((object) => {
+          this.scene.add(object);
+        });
+      });
     });
   }
 
