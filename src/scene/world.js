@@ -58,7 +58,6 @@ export default class World {
 
   animate() {
     this.renderer.setAnimationLoop(() => {
-      // tell every animated object to tick forward one frame
       this.tick();
 
       if (this.activeCamera === this.cameras.drone) {
