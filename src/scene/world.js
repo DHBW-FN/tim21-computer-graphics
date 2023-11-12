@@ -88,7 +88,6 @@ export default class World {
           this.scene.add(object);
         });
       });
-    });
   }
 
   addLights() {
