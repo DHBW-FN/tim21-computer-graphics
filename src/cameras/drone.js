@@ -10,15 +10,15 @@ export default class Drone {
     this.controls = new PointerLockControls(this.camera, document.body);
     this.moveSpeed = 1;
     this.sensitivity = 0.005;
-    this.minDistance = 1;
+    this.minDistance = 5;
     this.velocity = new THREE.Vector3(0, 0, 0);
-    this.forwardRaycaster = new Raycaster(
+    this.raycaster = new Raycaster(
       this.camera.position,
       this.camera.getWorldDirection(new Vector3()),
       0,
       this.moveSpeed + this.minDistance,
     );
-    this.forwardRaycaster.firstHitOnly = true;
+    this.raycaster.firstHitOnly = true;
 
     this.setStartPosition();
     this.addEventListeners();
@@ -97,8 +97,8 @@ export default class Drone {
   moveForward(value = this.velocity.z) {
     const direction = this.camera.getWorldDirection(new THREE.Vector3()).setY(0).normalize().multiplyScalar(value);
 
-    this.forwardRaycaster.set(this.camera.position, direction);
-    const intersections = this.forwardRaycaster.intersectObjects(this.world.collidableObjects, true);
+    this.raycaster.set(this.camera.position, direction);
+    const intersections = this.raycaster.intersectObjects(this.world.collidableObjects, true);
 
     if (intersections.length > 0) {
       const intersection = intersections[0];
@@ -114,10 +114,43 @@ export default class Drone {
   }
 
   moveRight(value = this.velocity.x) {
+    const direction = this.camera
+      .getWorldDirection(new THREE.Vector3())
+      .setY(0)
+      .normalize()
+      .cross(this.camera.up)
+      .multiplyScalar(value);
+    this.raycaster.set(this.camera.position, direction);
+    const intersections = this.raycaster.intersectObjects(this.world.collidableObjects, true);
+
+    if (intersections.length > 0) {
+      const intersection = intersections[0];
+      const { distance } = intersection;
+
+      if (Math.abs(value) > distance - this.minDistance) {
+        this.controls.moveRight(Math.sign(value) * (distance - this.minDistance));
+        return;
+      }
+    }
+
     this.controls.moveRight(value);
   }
 
   moveUp(value = this.velocity.y) {
+    const direction = this.camera.up.normalize().multiplyScalar(value);
+    this.raycaster.set(this.camera.position, direction);
+    const intersections = this.raycaster.intersectObjects(this.world.collidableObjects, true);
+
+    if (intersections.length > 0) {
+      const intersection = intersections[0];
+      const { distance } = intersection;
+
+      if (Math.abs(value) > distance - this.minDistance) {
+        this.controls.getObject().position.y += Math.sign(value) * (distance - this.minDistance);
+        return;
+      }
+    }
+
     this.controls.getObject().position.y += value;
   }
 
