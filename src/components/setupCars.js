@@ -26,8 +26,8 @@ export default function setupCar(data, id) {
   const moveClip = new AnimationClip("move", -1, [positionKF, quaternionKF]);
 
   const mixer = new AnimationMixer(model);
-  const action1 = mixer.clipAction(moveClip);
-  action1.play();
+  const action = mixer.clipAction(moveClip);
+  action.play();
 
   model.tick = (delta) => mixer.update(delta);
 
