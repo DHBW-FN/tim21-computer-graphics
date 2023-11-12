@@ -18,6 +18,7 @@ export default class Drone {
       0,
       this.moveSpeed + this.minDistance,
     );
+    this.forwardRaycaster.firstHitOnly = true;
 
     this.setStartPosition();
     this.addEventListeners();
