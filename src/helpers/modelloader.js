@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/extensions,import/no-unresolved
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { Mesh, MeshBasicMaterial } from "three";
-import { SimplifyModifier } from "three/addons/modifiers/SimplifyModifier.js";
+import { BufferGeometry, Mesh, MeshBasicMaterial } from "three";
+import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree } from "three-mesh-bvh";
 
 export default class ModelLoader {
   static boundingObjectSuffix = "-boundingObject";
@@ -10,11 +10,10 @@ export default class ModelLoader {
 
   static ignoreCollisionObjects = [];
 
-  static ignoreBoundingBoxDisplay = ModelLoader.ignoreCollisionObjects + ["Eiffel_Tower"];
+  static ignoreBoundingBoxDisplay = ModelLoader.ignoreCollisionObjects + [];
 
   constructor() {
     this.loader = new GLTFLoader();
-    this.boundingObjectReductionFactor = 0.001;
   }
 
   load(modelPath, listWithObjects) {
@@ -29,12 +28,8 @@ export default class ModelLoader {
               return child;
             }
 
-            if (ModelLoader.ignoreCollisionObjects.includes(child.name)) {
-              return child;
-            }
-
             if (ModelLoader.showBoundingBox && !ModelLoader.ignoreBoundingBoxDisplay.includes(child.name)) {
-              return this.getBoundingObject(child);
+              return ModelLoader.getBoundingObject(child);
             }
 
             return child;
@@ -48,11 +43,11 @@ export default class ModelLoader {
                   return null;
                 }
 
-                return this.getBoundingObject(child);
+                return ModelLoader.getBoundingObject(child);
               })
               .filter(Boolean),
           );
-          // listWithObjects.push(...modifiedGltf.scene.children);
+
           resolve(modifiedGltf.scene);
         },
         (xhr) => {
@@ -69,22 +64,30 @@ export default class ModelLoader {
     });
   }
 
-  getBoundingObject(object) {
+  static getBoundingObject(object) {
+    BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
+    BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree;
+    Mesh.prototype.raycast = acceleratedRaycast;
+
     if (object.name.endsWith(ModelLoader.boundingObjectSuffix)) {
       return object;
     }
 
-    const modifier = new SimplifyModifier();
     const boundingObject = object.clone();
     boundingObject.updateMatrixWorld();
 
     // Calculate a bounding object
     boundingObject.name = `${object.name}${ModelLoader.boundingObjectSuffix}`;
     boundingObject.material = new MeshBasicMaterial({ color: 0xff0000, opacity: 0.5, transparent: true });
-    boundingObject.material.flatShading = true;
 
-    const count = Math.floor(boundingObject.geometry.attributes.position.count * this.boundingObjectReductionFactor);
-    boundingObject.geometry = modifier.modify(boundingObject.geometry, count); // This doesnt seem to benefit performance
+    // Compute the bounds-tree to enable faster raycasting
+    boundingObject.traverse((child) => {
+      if (child instanceof Mesh && !ModelLoader.ignoreCollisionObjects.includes(child.name)) {
+        if (!child.geometry.boundsTree) {
+          child.geometry.computeBoundsTree();
+        }
+      }
+    });
 
     return boundingObject;
   }

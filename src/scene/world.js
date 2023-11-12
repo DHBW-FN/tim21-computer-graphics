@@ -50,7 +50,6 @@ export default class World {
     this.modelLoader.load("/assets/models/world/World.gltf", this.collidableObjects).then((model) => {
       this.scene.add(model);
     });
-    console.log(this.collidableObjects);
 
     // Add debug camera
     this.cameras.debug = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
