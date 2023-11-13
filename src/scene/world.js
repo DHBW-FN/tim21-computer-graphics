@@ -5,6 +5,7 @@ import ModelLoader from "../helpers/modelloader";
 import Snackbar from "../components/snackbar";
 import loadModels from "../helpers/animation-modelloader";
 import models from "../components/models.json";
+import plants from "../components/plants.json";
 import Grass from "../components/grass/grass";
 import EventManager from "../utils/eventmanager";
 import TimeManager from "../utils/timemanager";
@@ -121,6 +122,9 @@ export default class World {
         this.scene.add(field);
       });
     });
+
+    // Load plants
+    this.loadPlants();
 
     // Load animations
     loadModels()
@@ -246,5 +250,14 @@ export default class World {
     Snackbar.show("Resetting camera position", 3000);
     this.drone.setStartPosition();
     this.activeCamera = this.cameras.drone;
+  }
+
+  loadPlants() {
+    Object.keys(plants).forEach((key) => {
+      const model = plants[key];
+      this.modelLoader.loadAsync(model).then((group) => {
+        this.scene.add(group);
+      });
+    });
   }
 }
