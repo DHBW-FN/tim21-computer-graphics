@@ -11,7 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let rotateInterval;
 
-  let isNight = false;
+  const date = new Date();
+  let isNight = date.getHours() > 18 || date.getHours() < 6;
 
   toggleButton.addEventListener("click", (event) => {
     event.stopPropagation();
@@ -28,7 +29,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   dayNightToggle.addEventListener("click", () => {
     isNight = !isNight;
-    // TODO: Add code to toggle night mode
+    // TODO: Add light depending on Background
+    if (isNight) {
+      world.setNightBackground();
+    } else {
+      world.setDayBackground();
+    }
   });
 
   startPositionButton.addEventListener("click", () => {
