@@ -143,15 +143,6 @@ export default class Drone {
     this.camera.quaternion.multiplyQuaternions(quaternion, this.camera.quaternion);
   }
 
-  lookRight(degrees = 45) {
-    const radians = (degrees * Math.PI) / 180;
-    const effectiveRotation = radians * this.sensitivity;
-
-    const axis = new THREE.Vector3(0, 1, 0);
-    const quaternion = new THREE.Quaternion().setFromAxisAngle(axis, effectiveRotation);
-    this.camera.quaternion.premultiply(quaternion).normalize();
-  }
-
   updatePosition() {
     if (this.velocity.x) {
       this.moveRight();
