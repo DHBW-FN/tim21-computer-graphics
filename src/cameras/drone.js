@@ -45,10 +45,10 @@ export default class Drone {
       case "KeyD":
         this.velocity.x = this.moveSpeed;
         break;
-      case "Space":
+      case "KeyR":
         this.velocity.y = this.moveSpeed;
         break;
-      case "ControlLeft":
+      case "KeyF":
         this.velocity.y = -this.moveSpeed;
         break;
       default:
@@ -66,8 +66,8 @@ export default class Drone {
       case "KeyD":
         this.velocity.x = 0;
         break;
-      case "Space":
-      case "ControlLeft":
+      case "KeyR":
+      case "KeyF":
         this.velocity.y = 0;
         break;
       default:

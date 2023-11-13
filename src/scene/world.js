@@ -1,13 +1,17 @@
 import * as THREE from "three";
-import { AmbientLight, DirectionalLight } from "three";
+import { AmbientLight, DirectionalLight, Clock } from "three";
 import Drone from "../cameras/drone";
 import ModelLoader from "../helpers/modelloader";
 import Snackbar from "../components/snackbar";
+import loadModels from "../helpers/animationModelLoader";
+
+const clock = new Clock();
 
 export default class World {
   constructor() {
     this.lights = [];
     this.cameras = {};
+    this.updatables = [];
 
     // Initialize the scene, renderer, and objects
     this.scene = new THREE.Scene();
@@ -53,14 +57,37 @@ export default class World {
   }
 
   animate() {
-    requestAnimationFrame(() => this.animate());
+    this.renderer.setAnimationLoop(() => {
+      this.tick();
 
-    if (this.activeCamera === this.cameras.drone) {
-      this.drone.updatePosition();
-    }
+      if (this.activeCamera === this.cameras.drone) {
+        this.drone.updatePosition();
+      }
 
-    // Render the scene
-    this.renderer.render(this.scene, this.activeCamera);
+      // render a frame
+      this.renderer.render(this.scene, this.activeCamera);
+    });
+  }
+
+  tick() {
+    const delta = clock.getDelta();
+
+    this.updatables.forEach((object) => {
+      object.tick(delta);
+    });
+  }
+
+  async init() {
+    loadModels()
+      .then(({ storks, cars }) => {
+        this.updatables.push(...storks);
+        this.updatables.push(...cars);
+      })
+      .then(() => {
+        this.updatables.forEach((object) => {
+          this.scene.add(object);
+        });
+      });
   }
 
   addLights() {
