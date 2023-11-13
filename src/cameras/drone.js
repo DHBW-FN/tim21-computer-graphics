@@ -43,47 +43,29 @@ export default class Drone {
   onKeyDown(event) {
     if (!this.controls.isLocked) return;
 
-    switch (event.code) {
-      case "KeyW":
-        this.velocity.z = this.moveSpeed;
-        break;
-      case "KeyS":
-        this.velocity.z = -this.moveSpeed;
-        break;
-      case "KeyA":
-        this.velocity.x = -this.moveSpeed;
-        break;
-      case "KeyD":
-        this.velocity.x = this.moveSpeed;
-        break;
-      case "KeyR":
-        this.velocity.y = this.moveSpeed;
-        break;
-      case "KeyF":
-        this.velocity.y = -this.moveSpeed;
-        break;
-      default:
-        break;
-    }
+    const keyMap = {
+      KeyW: new THREE.Vector3(0, 0, this.moveSpeed),
+      KeyS: new THREE.Vector3(0, 0, -this.moveSpeed),
+      KeyA: new THREE.Vector3(-this.moveSpeed, 0, 0),
+      KeyD: new THREE.Vector3(this.moveSpeed, 0, 0),
+      KeyR: new THREE.Vector3(0, this.moveSpeed, 0),
+      KeyF: new THREE.Vector3(0, -this.moveSpeed, 0),
+    };
+
+    this.velocity = keyMap[event.code] || this.velocity;
   }
 
   onKeyUp(event) {
-    switch (event.code) {
-      case "KeyW":
-      case "KeyS":
-        this.velocity.z = 0;
-        break;
-      case "KeyA":
-      case "KeyD":
-        this.velocity.x = 0;
-        break;
-      case "KeyR":
-      case "KeyF":
-        this.velocity.y = 0;
-        break;
-      default:
-        break;
-    }
+    const keyMap = {
+      KeyW: new THREE.Vector3(0, 0, 0),
+      KeyS: new THREE.Vector3(0, 0, 0),
+      KeyA: new THREE.Vector3(0, 0, 0),
+      KeyD: new THREE.Vector3(0, 0, 0),
+      KeyR: new THREE.Vector3(0, 0, 0),
+      KeyF: new THREE.Vector3(0, 0, 0),
+    };
+
+    this.velocity = keyMap[event.code] || this.velocity;
   }
 
   static onPointerLock() {
@@ -154,12 +136,9 @@ export default class Drone {
     this.controls.getObject().position.y += value;
   }
 
-  lookUp(degrees = 45) {
+  look(axis, degrees = 45) {
     const radians = (degrees * Math.PI) / 180;
     const effectiveRotation = radians * this.sensitivity;
-
-    const forward = this.camera.getWorldDirection(new THREE.Vector3());
-    const axis = forward.clone().cross(this.camera.up);
     const quaternion = new THREE.Quaternion().setFromAxisAngle(axis, effectiveRotation);
     this.camera.quaternion.multiplyQuaternions(quaternion, this.camera.quaternion);
   }

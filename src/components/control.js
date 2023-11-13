@@ -1,3 +1,4 @@
+import * as THREE from "three";
 import world from "../main";
 
 function initControls() {
@@ -64,22 +65,26 @@ function initControls() {
           break;
         case "rotate-up":
           rotateInterval = setInterval(() => {
-            world.drone.lookUp(30);
+            const forward = world.drone.camera.getWorldDirection(new THREE.Vector3());
+            const axis = forward.clone().cross(world.drone.camera.up);
+            world.drone.look(axis, 30);
           }, 1);
           break;
         case "rotate-down":
           rotateInterval = setInterval(() => {
-            world.drone.lookUp(-30);
+            const forward = world.drone.camera.getWorldDirection(new THREE.Vector3());
+            const axis = forward.clone().cross(world.drone.camera.up);
+            world.drone.look(axis, -30);
           }, 1);
           break;
         case "rotate-right":
           rotateInterval = setInterval(() => {
-            world.drone.lookRight(-30);
+            world.drone.look(new THREE.Vector3(0, 1, 0), -30);
           }, 1);
           break;
         case "rotate-left":
           rotateInterval = setInterval(() => {
-            world.drone.lookRight(30);
+            world.drone.look(new THREE.Vector3(0, 1, 0), 30);
           }, 1);
           break;
         default:
