@@ -24,7 +24,7 @@ export default async function loadModels() {
 
   carsData.forEach((car, i) => {
     cars.push(setupCar(car, i));
-    cars[i].scale.set(3, 3, 3);
+    cars[i].scale.set(2, 2, 2);
   });
 
   return {
