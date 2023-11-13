@@ -1,6 +1,6 @@
 import world from "../main";
 
-document.addEventListener("DOMContentLoaded", () => {
+function initControls() {
   const toggleButton = document.getElementById("toggleButton");
   const controls = document.getElementById("controls");
   const controlsExplanationHeading = document.getElementById("controlsExplanationHeading");
@@ -115,4 +115,12 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("controlsExplanation").addEventListener("click", (event) => {
     event.stopPropagation();
   });
-});
+}
+
+if (document.readyState !== "loading") {
+  initControls();
+} else {
+  document.addEventListener("DOMContentLoaded", () => {
+    initControls();
+  });
+}
