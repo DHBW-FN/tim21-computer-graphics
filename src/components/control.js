@@ -11,9 +11,6 @@ function initControls() {
 
   let rotateInterval;
 
-  const date = new Date();
-  let isNight = date.getHours() > 18 || date.getHours() < 6;
-
   toggleButton.addEventListener("click", (event) => {
     event.stopPropagation();
     if (controls.classList.contains("hidden")) {
@@ -28,9 +25,9 @@ function initControls() {
   });
 
   dayNightToggle.addEventListener("click", () => {
-    isNight = !isNight;
+    world.isNight = !world.isNight;
     // TODO: Add light depending on Background
-    if (isNight) {
+    if (world.isNight) {
       world.setNightBackground();
     } else {
       world.setDayBackground();
