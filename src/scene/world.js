@@ -30,8 +30,9 @@ export default class World {
     this.cameras.drone.name = "drone";
 
     // Set up skybox
-    const date = new Date();
-    if (date.getHours() > 18 || date.getHours() < 6) {
+    this.date = new Date();
+    this.isNight = this.date.getHours() > 18 || this.date.getHours() < 6;
+    if (this.isNight) {
       this.setNightBackground();
     } else {
       this.setDayBackground();
