@@ -11,6 +11,7 @@ export default class World {
   constructor() {
     this.lights = [];
     this.cameras = {};
+    this.cubeLoader = new THREE.CubeTextureLoader();
     this.updatables = [];
 
     // Initialize the scene, renderer, and objects
@@ -28,8 +29,15 @@ export default class World {
     this.cameras.drone = this.drone.camera;
     this.cameras.drone.name = "drone";
 
-    // Set up scene background and camera position
-    this.scene.background = new THREE.Color(0xaaaaaa);
+    // Set up background depending on time of day
+    this.date = new Date();
+    this.isNight = this.date.getHours() > 18 || this.date.getHours() < 6;
+    // TODO: Add light depending on Background
+    if (this.isNight) {
+      this.setNightBackground();
+    } else {
+      this.setDayBackground();
+    }
 
     // Create and add a model to the scene
     this.modelLoader = new ModelLoader();
@@ -112,6 +120,28 @@ export default class World {
     } else {
       this.drone.controls.unlock();
     }
+  }
+
+  setNightBackground() {
+    this.scene.background = this.cubeLoader.load([
+      "assets/nightBoxPieces/back.png",
+      "assets/nightBoxPieces/front.png",
+      "assets/nightBoxPieces/top.png",
+      "assets/nightBoxPieces/bottom.png",
+      "assets/nightBoxPieces/right.png",
+      "assets/nightBoxPieces/left.png",
+    ]);
+  }
+
+  setDayBackground() {
+    this.scene.background = this.cubeLoader.load([
+      "assets/daylightBoxPieces/back.bmp",
+      "assets/daylightBoxPieces/front.bmp",
+      "assets/daylightBoxPieces/top.bmp",
+      "assets/daylightBoxPieces/bottom.bmp",
+      "assets/daylightBoxPieces/right.bmp",
+      "assets/daylightBoxPieces/left.bmp",
+    ]);
   }
 
   cycleCameras() {
