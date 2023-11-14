@@ -1,6 +1,19 @@
 import * as THREE from "three";
 import world from "../main";
 
+let accelerationInterval;
+
+function continuousAcceleration(direction, accelerationVector) {
+  accelerationInterval = setInterval(() => {
+    world.drone.velocity
+      .addScaledVector(accelerationVector, world.drone.acceleration)
+      .clamp(
+        new THREE.Vector3(-world.drone.maxSpeed, -world.drone.maxSpeed, -world.drone.maxSpeed),
+        new THREE.Vector3(world.drone.maxSpeed, world.drone.maxSpeed, world.drone.maxSpeed),
+      );
+  }, 50);
+}
+
 function initControls() {
   const toggleButton = document.getElementById("toggleButton");
   const controls = document.getElementById("controls");
@@ -46,22 +59,22 @@ function initControls() {
     button.addEventListener("mousedown", () => {
       switch (button.id) {
         case "forward":
-          world.drone.velocity.z = world.drone.moveSpeed;
+          continuousAcceleration("z", new THREE.Vector3(0, 0, 1));
           break;
         case "backward":
-          world.drone.velocity.z = -world.drone.moveSpeed;
+          continuousAcceleration("z", new THREE.Vector3(0, 0, -1));
           break;
         case "left":
-          world.drone.velocity.x = -world.drone.moveSpeed;
+          continuousAcceleration("x", new THREE.Vector3(-1, 0, 0));
           break;
         case "right":
-          world.drone.velocity.x = world.drone.moveSpeed;
+          continuousAcceleration("x", new THREE.Vector3(1, 0, 0));
           break;
         case "up":
-          world.drone.velocity.y = world.drone.moveSpeed;
+          continuousAcceleration("y", new THREE.Vector3(0, 1, 0));
           break;
         case "down":
-          world.drone.velocity.y = -world.drone.moveSpeed;
+          continuousAcceleration("y", new THREE.Vector3(0, -1, 0));
           break;
         case "rotate-up":
           rotateInterval = setInterval(() => {
@@ -92,6 +105,7 @@ function initControls() {
       }
     });
     button.addEventListener("mouseup", () => {
+      clearInterval(accelerationInterval);
       clearInterval(rotateInterval);
       switch (button.id) {
         case "forward":
@@ -111,7 +125,24 @@ function initControls() {
       }
     });
     button.addEventListener("mouseleave", () => {
+      clearInterval(accelerationInterval);
       clearInterval(rotateInterval);
+      switch (button.id) {
+        case "forward":
+        case "backward":
+          world.drone.velocity.z = 0;
+          break;
+        case "left":
+        case "right":
+          world.drone.velocity.x = 0;
+          break;
+        case "up":
+        case "down":
+          world.drone.velocity.y = 0;
+          break;
+        default:
+          break;
+      }
     });
     button.addEventListener("click", (event) => {
       event.stopPropagation();

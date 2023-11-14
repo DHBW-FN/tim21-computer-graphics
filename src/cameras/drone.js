@@ -8,7 +8,8 @@ export default class Drone {
     this.world = world;
     this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     this.controls = new PointerLockControls(this.camera, document.body);
-    this.moveSpeed = 1;
+    this.maxSpeed = 1;
+    this.acceleration = this.maxSpeed / 50;
     this.sensitivity = 0.005;
     this.minDistance = 5;
     this.velocity = new THREE.Vector3(0, 0, 0);
@@ -16,7 +17,7 @@ export default class Drone {
       this.camera.position,
       this.camera.getWorldDirection(new Vector3()),
       0,
-      this.moveSpeed + this.minDistance,
+      this.maxSpeed + this.minDistance,
     );
     this.raycaster.firstHitOnly = true;
 
@@ -44,28 +45,37 @@ export default class Drone {
     if (!this.controls.isLocked) return;
 
     const keyMap = {
-      KeyW: new THREE.Vector3(0, 0, this.moveSpeed),
-      KeyS: new THREE.Vector3(0, 0, -this.moveSpeed),
-      KeyA: new THREE.Vector3(-this.moveSpeed, 0, 0),
-      KeyD: new THREE.Vector3(this.moveSpeed, 0, 0),
-      KeyR: new THREE.Vector3(0, this.moveSpeed, 0),
-      KeyF: new THREE.Vector3(0, -this.moveSpeed, 0),
+      KeyW: new THREE.Vector3(0, 0, 1),
+      KeyS: new THREE.Vector3(0, 0, -1),
+      KeyA: new THREE.Vector3(-1, 0, 0),
+      KeyD: new THREE.Vector3(1, 0, 0),
+      KeyR: new THREE.Vector3(0, 1, 0),
+      KeyF: new THREE.Vector3(0, -1, 0),
     };
 
-    this.velocity = keyMap[event.code] || this.velocity;
+    const direction = keyMap[event.code] || new THREE.Vector3();
+    this.velocity
+      .addScaledVector(direction, this.acceleration)
+      .clamp(
+        new Vector3(-this.maxSpeed, -this.maxSpeed, -this.maxSpeed),
+        new Vector3(this.maxSpeed, this.maxSpeed, this.maxSpeed),
+      );
   }
 
   onKeyUp(event) {
     const keyMap = {
-      KeyW: new THREE.Vector3(0, 0, 0),
-      KeyS: new THREE.Vector3(0, 0, 0),
-      KeyA: new THREE.Vector3(0, 0, 0),
-      KeyD: new THREE.Vector3(0, 0, 0),
-      KeyR: new THREE.Vector3(0, 0, 0),
-      KeyF: new THREE.Vector3(0, 0, 0),
+      KeyW: "z",
+      KeyS: "z",
+      KeyA: "x",
+      KeyD: "x",
+      KeyR: "y",
+      KeyF: "y",
     };
 
-    this.velocity = keyMap[event.code] || this.velocity;
+    const coordinate = keyMap[event.code];
+    if (coordinate) {
+      this.velocity[coordinate] = 0;
+    }
   }
 
   static onPointerLock() {
@@ -76,8 +86,8 @@ export default class Drone {
     Snackbar.show("Controls unlocked", 1000);
   }
 
-  moveForward(value = this.velocity.z) {
-    const direction = this.camera.getWorldDirection(new THREE.Vector3()).setY(0).normalize().multiplyScalar(value);
+  move(directionVector) {
+    const direction = directionVector.clone();
 
     this.raycaster.set(this.camera.position, direction);
     const intersections = this.raycaster.intersectObjects(this.world.collidableObjects, true);
@@ -86,54 +96,19 @@ export default class Drone {
       const intersection = intersections[0];
       const { distance } = intersection;
 
-      if (Math.abs(value) > distance - this.minDistance) {
-        this.controls.moveForward(Math.sign(value) * (distance - this.minDistance));
+      if (Math.abs(direction.length()) > distance - this.minDistance) {
+        // Collision detected
+        this.velocity.set(0, 0, 0);
+        const newPosition = this.camera.position.clone().addScaledVector(direction, distance - this.minDistance);
+        this.camera.position.copy(newPosition);
         return;
       }
     }
 
-    this.controls.moveForward(value);
-  }
-
-  moveRight(value = this.velocity.x) {
-    const direction = this.camera
-      .getWorldDirection(new THREE.Vector3())
-      .setY(0)
-      .normalize()
-      .cross(this.camera.up)
-      .multiplyScalar(value);
-    this.raycaster.set(this.camera.position, direction);
-    const intersections = this.raycaster.intersectObjects(this.world.collidableObjects, true);
-
-    if (intersections.length > 0) {
-      const intersection = intersections[0];
-      const { distance } = intersection;
-
-      if (Math.abs(value) > distance - this.minDistance) {
-        this.controls.moveRight(Math.sign(value) * (distance - this.minDistance));
-        return;
-      }
-    }
-
-    this.controls.moveRight(value);
-  }
-
-  moveUp(value = this.velocity.y) {
-    const direction = this.camera.up.normalize().multiplyScalar(value);
-    this.raycaster.set(this.camera.position, direction);
-    const intersections = this.raycaster.intersectObjects(this.world.collidableObjects, true);
-
-    if (intersections.length > 0) {
-      const intersection = intersections[0];
-      const { distance } = intersection;
-
-      if (Math.abs(value) > distance - this.minDistance) {
-        this.controls.getObject().position.y += Math.sign(value) * (distance - this.minDistance);
-        return;
-      }
-    }
-
-    this.controls.getObject().position.y += value;
+    const newPosition = this.camera.position
+      .clone()
+      .add(new THREE.Vector3(directionVector.x, directionVector.y, directionVector.z));
+    this.camera.position.copy(newPosition);
   }
 
   look(axis, degrees = 45) {
@@ -144,14 +119,22 @@ export default class Drone {
   }
 
   updatePosition() {
-    if (this.velocity.x) {
-      this.moveRight();
-    }
-    if (this.velocity.y) {
-      this.moveUp();
-    }
-    if (this.velocity.z) {
-      this.moveForward();
-    }
+    const forwardDirection = this.camera
+      .getWorldDirection(new THREE.Vector3())
+      .clone()
+      .setY(0)
+      .normalize()
+      .multiplyScalar(this.velocity.z);
+    const rightDirection = this.camera
+      .getWorldDirection(new THREE.Vector3())
+      .clone()
+      .setY(0)
+      .cross(this.camera.up)
+      .normalize()
+      .multiplyScalar(this.velocity.x);
+    const upDirection = this.camera.up.clone().multiplyScalar(this.velocity.y);
+
+    const moveVector = forwardDirection.add(rightDirection).add(upDirection);
+    this.move(moveVector);
   }
 }
