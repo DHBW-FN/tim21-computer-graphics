@@ -9,6 +9,10 @@ const clock = new Clock();
 
 export default class World {
   constructor() {
+    this.frameCount = 0;
+    this.startTime = performance.now();
+    this.fpsElement = document.getElementById("fpsCounter");
+
     this.lights = [];
     this.cameras = {};
     this.cubeLoader = new THREE.CubeTextureLoader();
@@ -16,6 +20,7 @@ export default class World {
 
     // Initialize the scene, renderer, and objects
     this.scene = new THREE.Scene();
+    this.collidableObjects = [];
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(this.renderer.domElement);
@@ -24,12 +29,12 @@ export default class World {
     this.addLights();
 
     // Create a drone and add it to the scene
-    this.drone = new Drone();
+    this.drone = new Drone(this);
     this.drone.addToScene(this.scene);
     this.cameras.drone = this.drone.camera;
     this.cameras.drone.name = "drone";
 
-    // Set up background depending on time of day
+    // Set up background depending on the time of day
     this.date = new Date();
     this.isNight = this.date.getHours() > 18 || this.date.getHours() < 6;
     // TODO: Add light depending on Background
@@ -41,7 +46,8 @@ export default class World {
 
     // Create and add a model to the scene
     this.modelLoader = new ModelLoader();
-    this.modelLoader.load("/assets/models/world/World.gltf").then((model) => {
+    ModelLoader.showBoundingBox = false;
+    this.modelLoader.load("/assets/models/world/World.gltf", this.collidableObjects).then((model) => {
       this.scene.add(model);
     });
 
@@ -70,6 +76,20 @@ export default class World {
 
       if (this.activeCamera === this.cameras.drone) {
         this.drone.updatePosition();
+      }
+
+      // Calculate FPS
+      this.frameCount += 1;
+      const currentTime = performance.now();
+      const elapsedTime = currentTime - this.startTime;
+
+      if (elapsedTime >= 1000) {
+        const fps = Math.round((this.frameCount * 1000) / elapsedTime);
+        this.fpsElement.textContent = `FPS: ${fps}`;
+
+        // Reset counters for the next second
+        this.frameCount = 0;
+        this.startTime = currentTime;
       }
 
       // render a frame
