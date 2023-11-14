@@ -16,7 +16,7 @@ export default class ModelLoader {
     this.loader = new GLTFLoader();
   }
 
-  load(modelPath, listWithObjects) {
+  load(modelPath, collidableObjects) {
     return new Promise((resolve, reject) => {
       this.loader.load(
         modelPath,
@@ -36,7 +36,7 @@ export default class ModelLoader {
           });
 
           // Add the bounding objects to the list of collidable objects
-          listWithObjects.push(
+          collidableObjects.push(
             ...modifiedGltf.scene.children
               .map((child) => {
                 if (ModelLoader.ignoreCollisionObjects.includes(child.name)) {
