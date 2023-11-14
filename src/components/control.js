@@ -1,18 +1,4 @@
-import * as THREE from "three";
 import world from "../main";
-
-let accelerationInterval;
-
-function continuousAcceleration(direction, accelerationVector) {
-  accelerationInterval = setInterval(() => {
-    world.drone.velocity
-      .addScaledVector(accelerationVector, world.drone.acceleration)
-      .clamp(
-        new THREE.Vector3(-world.drone.maxSpeed, -world.drone.maxSpeed, -world.drone.maxSpeed),
-        new THREE.Vector3(world.drone.maxSpeed, world.drone.maxSpeed, world.drone.maxSpeed),
-      );
-  }, 50);
-}
 
 function initControls() {
   const toggleButton = document.getElementById("toggleButton");
@@ -22,8 +8,6 @@ function initControls() {
   const startPositionButton = document.getElementById("startPositionButton");
   const cycleCamerasButton = document.getElementById("cycleCamerasButton");
   const controlButtons = document.querySelectorAll(".control-button");
-
-  let rotateInterval;
 
   toggleButton.addEventListener("click", (event) => {
     event.stopPropagation();
@@ -59,86 +43,106 @@ function initControls() {
     button.addEventListener("mousedown", () => {
       switch (button.id) {
         case "forward":
-          continuousAcceleration("z", new THREE.Vector3(0, 0, 1));
+          world.drone.controls.pressedKeys.add("KeyW");
           break;
         case "backward":
-          continuousAcceleration("z", new THREE.Vector3(0, 0, -1));
+          world.drone.controls.pressedKeys.add("KeyS");
           break;
         case "left":
-          continuousAcceleration("x", new THREE.Vector3(-1, 0, 0));
+          world.drone.controls.pressedKeys.add("KeyA");
           break;
         case "right":
-          continuousAcceleration("x", new THREE.Vector3(1, 0, 0));
+          world.drone.controls.pressedKeys.add("KeyD");
           break;
         case "up":
-          continuousAcceleration("y", new THREE.Vector3(0, 1, 0));
+          world.drone.controls.pressedKeys.add("KeyR");
           break;
         case "down":
-          continuousAcceleration("y", new THREE.Vector3(0, -1, 0));
+          world.drone.controls.pressedKeys.add("KeyF");
           break;
         case "rotate-up":
-          rotateInterval = setInterval(() => {
-            const forward = world.drone.camera.getWorldDirection(new THREE.Vector3());
-            const axis = forward.clone().cross(world.drone.camera.up);
-            world.drone.look(axis, 30);
-          }, 1);
+          world.drone.controls.pressedKeys.add("ArrowUp");
           break;
         case "rotate-down":
-          rotateInterval = setInterval(() => {
-            const forward = world.drone.camera.getWorldDirection(new THREE.Vector3());
-            const axis = forward.clone().cross(world.drone.camera.up);
-            world.drone.look(axis, -30);
-          }, 1);
+          world.drone.controls.pressedKeys.add("ArrowDown");
           break;
         case "rotate-right":
-          rotateInterval = setInterval(() => {
-            world.drone.look(new THREE.Vector3(0, 1, 0), -30);
-          }, 1);
+          world.drone.controls.pressedKeys.add("ArrowRight");
           break;
         case "rotate-left":
-          rotateInterval = setInterval(() => {
-            world.drone.look(new THREE.Vector3(0, 1, 0), 30);
-          }, 1);
+          world.drone.controls.pressedKeys.add("ArrowLeft");
           break;
         default:
           break;
       }
     });
     button.addEventListener("mouseup", () => {
-      clearInterval(accelerationInterval);
-      clearInterval(rotateInterval);
       switch (button.id) {
         case "forward":
+          world.drone.controls.pressedKeys.delete("KeyW");
+          break;
         case "backward":
-          world.drone.velocity.z = 0;
+          world.drone.controls.pressedKeys.delete("KeyS");
           break;
         case "left":
+          world.drone.controls.pressedKeys.delete("KeyA");
+          break;
         case "right":
-          world.drone.velocity.x = 0;
+          world.drone.controls.pressedKeys.delete("KeyD");
           break;
         case "up":
+          world.drone.controls.pressedKeys.delete("KeyR");
+          break;
         case "down":
-          world.drone.velocity.y = 0;
+          world.drone.controls.pressedKeys.delete("KeyF");
+          break;
+        case "rotate-up":
+          world.drone.controls.pressedKeys.delete("ArrowUp");
+          break;
+        case "rotate-down":
+          world.drone.controls.pressedKeys.delete("ArrowDown");
+          break;
+        case "rotate-right":
+          world.drone.controls.pressedKeys.delete("ArrowRight");
+          break;
+        case "rotate-left":
+          world.drone.controls.pressedKeys.delete("ArrowLeft");
           break;
         default:
           break;
       }
     });
     button.addEventListener("mouseleave", () => {
-      clearInterval(accelerationInterval);
-      clearInterval(rotateInterval);
       switch (button.id) {
         case "forward":
+          world.drone.controls.pressedKeys.delete("KeyW");
+          break;
         case "backward":
-          world.drone.velocity.z = 0;
+          world.drone.controls.pressedKeys.delete("KeyS");
           break;
         case "left":
+          world.drone.controls.pressedKeys.delete("KeyA");
+          break;
         case "right":
-          world.drone.velocity.x = 0;
+          world.drone.controls.pressedKeys.delete("KeyD");
           break;
         case "up":
+          world.drone.controls.pressedKeys.delete("KeyR");
+          break;
         case "down":
-          world.drone.velocity.y = 0;
+          world.drone.controls.pressedKeys.delete("KeyF");
+          break;
+        case "rotate-up":
+          world.drone.controls.pressedKeys.delete("ArrowUp");
+          break;
+        case "rotate-down":
+          world.drone.controls.pressedKeys.delete("ArrowDown");
+          break;
+        case "rotate-right":
+          world.drone.controls.pressedKeys.delete("ArrowRight");
+          break;
+        case "rotate-left":
+          world.drone.controls.pressedKeys.delete("ArrowLeft");
           break;
         default:
           break;
