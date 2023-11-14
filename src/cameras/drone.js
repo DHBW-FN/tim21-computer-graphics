@@ -12,7 +12,7 @@ export default class Drone {
     this.maxSpeed = 0.5;
     this.acceleration = this.maxSpeed / 100;
     this.deceleration = this.maxSpeed / 50;
-    this.sensitivity = 0.005;
+    this.sensitivity = 0.02;
     this.minDistance = 5;
     this.velocity = new THREE.Vector3(0, 0, 0);
     this.raycaster = new Raycaster(
