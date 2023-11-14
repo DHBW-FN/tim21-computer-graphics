@@ -1,5 +1,42 @@
 import world from "../main";
 
+function handleButtonRelease(buttonId) {
+  switch (buttonId) {
+    case "forward":
+      world.drone.controls.pressedKeys.delete("KeyW");
+      break;
+    case "backward":
+      world.drone.controls.pressedKeys.delete("KeyS");
+      break;
+    case "left":
+      world.drone.controls.pressedKeys.delete("KeyA");
+      break;
+    case "right":
+      world.drone.controls.pressedKeys.delete("KeyD");
+      break;
+    case "up":
+      world.drone.controls.pressedKeys.delete("KeyR");
+      break;
+    case "down":
+      world.drone.controls.pressedKeys.delete("KeyF");
+      break;
+    case "rotate-up":
+      world.drone.controls.pressedKeys.delete("ArrowUp");
+      break;
+    case "rotate-down":
+      world.drone.controls.pressedKeys.delete("ArrowDown");
+      break;
+    case "rotate-right":
+      world.drone.controls.pressedKeys.delete("ArrowRight");
+      break;
+    case "rotate-left":
+      world.drone.controls.pressedKeys.delete("ArrowLeft");
+      break;
+    default:
+      break;
+  }
+}
+
 function initControls() {
   const toggleButton = document.getElementById("toggleButton");
   const controls = document.getElementById("controls");
@@ -76,78 +113,9 @@ function initControls() {
           break;
       }
     });
-    button.addEventListener("mouseup", () => {
-      switch (button.id) {
-        case "forward":
-          world.drone.controls.pressedKeys.delete("KeyW");
-          break;
-        case "backward":
-          world.drone.controls.pressedKeys.delete("KeyS");
-          break;
-        case "left":
-          world.drone.controls.pressedKeys.delete("KeyA");
-          break;
-        case "right":
-          world.drone.controls.pressedKeys.delete("KeyD");
-          break;
-        case "up":
-          world.drone.controls.pressedKeys.delete("KeyR");
-          break;
-        case "down":
-          world.drone.controls.pressedKeys.delete("KeyF");
-          break;
-        case "rotate-up":
-          world.drone.controls.pressedKeys.delete("ArrowUp");
-          break;
-        case "rotate-down":
-          world.drone.controls.pressedKeys.delete("ArrowDown");
-          break;
-        case "rotate-right":
-          world.drone.controls.pressedKeys.delete("ArrowRight");
-          break;
-        case "rotate-left":
-          world.drone.controls.pressedKeys.delete("ArrowLeft");
-          break;
-        default:
-          break;
-      }
-    });
-    button.addEventListener("mouseleave", () => {
-      switch (button.id) {
-        case "forward":
-          world.drone.controls.pressedKeys.delete("KeyW");
-          break;
-        case "backward":
-          world.drone.controls.pressedKeys.delete("KeyS");
-          break;
-        case "left":
-          world.drone.controls.pressedKeys.delete("KeyA");
-          break;
-        case "right":
-          world.drone.controls.pressedKeys.delete("KeyD");
-          break;
-        case "up":
-          world.drone.controls.pressedKeys.delete("KeyR");
-          break;
-        case "down":
-          world.drone.controls.pressedKeys.delete("KeyF");
-          break;
-        case "rotate-up":
-          world.drone.controls.pressedKeys.delete("ArrowUp");
-          break;
-        case "rotate-down":
-          world.drone.controls.pressedKeys.delete("ArrowDown");
-          break;
-        case "rotate-right":
-          world.drone.controls.pressedKeys.delete("ArrowRight");
-          break;
-        case "rotate-left":
-          world.drone.controls.pressedKeys.delete("ArrowLeft");
-          break;
-        default:
-          break;
-      }
-    });
+    button.addEventListener("mouseup", () => handleButtonRelease(button.id));
+    button.addEventListener("mouseleave", () => handleButtonRelease(button.id));
+
     button.addEventListener("click", (event) => {
       event.stopPropagation();
     });
