@@ -1,122 +1,57 @@
 import world from "../main";
 
+const keys = {
+  forward: "KeyW",
+  backward: "KeyS",
+  left: "KeyA",
+  right: "KeyD",
+  up: "KeyR",
+  down: "KeyF",
+  "rotate-up": "ArrowUp",
+  "rotate-down": "ArrowDown",
+  "rotate-right": "ArrowRight",
+  "rotate-left": "ArrowLeft",
+};
+
+function toggleDayNight() {
+  world.isNight = !world.isNight;
+  if (world.isNight) {
+    world.setNightBackground();
+  } else {
+    world.setDayBackground();
+  }
+}
+
+function handleButtonEvents(button) {
+  button.addEventListener("mousedown", () => world.drone.controls.pressedKeys.add(keys[button.id]));
+  button.addEventListener("mouseup", () => world.drone.controls.pressedKeys.delete(keys[button.id]));
+  button.addEventListener("mouseleave", () => world.drone.controls.pressedKeys.delete(keys[button.id]));
+  button.addEventListener("click", (event) => event.stopPropagation());
+}
+
 function initControls() {
   const toggleButton = document.getElementById("toggleButton");
   const controls = document.getElementById("controls");
-  const controlsExplanationHeading = document.getElementById("controlsExplanationHeading");
-  const dayNightToggle = document.getElementById("dayNightToggle");
-  const startPositionButton = document.getElementById("startPositionButton");
-  const cycleCamerasButton = document.getElementById("cycleCamerasButton");
   const controlButtons = document.querySelectorAll(".control-button");
+  const controlsExplanationHeading = document.getElementById("controlsExplanationHeading");
+  const cycleCamerasButton = document.getElementById("cycleCamerasButton");
+  const startPositionButton = document.getElementById("startPositionButton");
+  const dayNightToggleButton = document.getElementById("dayNightToggle");
 
-  let rotateInterval;
-
-  toggleButton.addEventListener("click", (event) => {
-    event.stopPropagation();
-    if (controls.classList.contains("hidden")) {
-      controls.classList.remove("hidden");
-      controlsExplanationHeading.classList.remove("hidden");
-      toggleButton.innerHTML = "&#9654;";
-    } else {
-      controls.classList.add("hidden");
-      controlsExplanationHeading.classList.add("hidden");
-      toggleButton.innerHTML = "&#9664;";
-    }
+  toggleButton.addEventListener("click", () => {
+    controls.classList.toggle("hidden");
+    controlsExplanationHeading.classList.toggle("hidden");
+    toggleButton.innerHTML = controls.classList.contains("hidden") ? "&#9664;" : "&#9654;";
   });
-
-  dayNightToggle.addEventListener("click", () => {
-    world.isNight = !world.isNight;
-    if (world.isNight) {
-      world.setNightBackground();
-    } else {
-      world.setDayBackground();
-    }
-  });
-
+  dayNightToggleButton.addEventListener("click", toggleDayNight);
   startPositionButton.addEventListener("click", () => {
     world.resetCameras();
   });
-
   cycleCamerasButton.addEventListener("click", () => {
     world.cycleCameras();
   });
-
-  controlButtons.forEach((button) => {
-    button.addEventListener("mousedown", () => {
-      switch (button.id) {
-        case "forward":
-          world.drone.velocity.z = world.drone.moveSpeed;
-          break;
-        case "backward":
-          world.drone.velocity.z = -world.drone.moveSpeed;
-          break;
-        case "left":
-          world.drone.velocity.x = -world.drone.moveSpeed;
-          break;
-        case "right":
-          world.drone.velocity.x = world.drone.moveSpeed;
-          break;
-        case "up":
-          world.drone.velocity.y = world.drone.moveSpeed;
-          break;
-        case "down":
-          world.drone.velocity.y = -world.drone.moveSpeed;
-          break;
-        case "rotate-up":
-          rotateInterval = setInterval(() => {
-            world.drone.lookUp(30);
-          }, 1);
-          break;
-        case "rotate-down":
-          rotateInterval = setInterval(() => {
-            world.drone.lookUp(-30);
-          }, 1);
-          break;
-        case "rotate-right":
-          rotateInterval = setInterval(() => {
-            world.drone.lookRight(-30);
-          }, 1);
-          break;
-        case "rotate-left":
-          rotateInterval = setInterval(() => {
-            world.drone.lookRight(30);
-          }, 1);
-          break;
-        default:
-          break;
-      }
-    });
-    button.addEventListener("mouseup", () => {
-      clearInterval(rotateInterval);
-      switch (button.id) {
-        case "forward":
-        case "backward":
-          world.drone.velocity.z = 0;
-          break;
-        case "left":
-        case "right":
-          world.drone.velocity.x = 0;
-          break;
-        case "up":
-        case "down":
-          world.drone.velocity.y = 0;
-          break;
-        default:
-          break;
-      }
-    });
-    button.addEventListener("mouseleave", () => {
-      clearInterval(rotateInterval);
-    });
-    button.addEventListener("click", (event) => {
-      event.stopPropagation();
-    });
-  });
-
-  // Prevent the controls from locking when the button or explanation is clicked
-  document.getElementById("controlsExplanation").addEventListener("click", (event) => {
-    event.stopPropagation();
-  });
+  controlButtons.forEach(handleButtonEvents);
+  document.getElementById("controlsExplanation").addEventListener("click", (event) => event.stopPropagation());
 }
 
 if (document.readyState !== "loading") {
