@@ -26,7 +26,6 @@ function initControls() {
 
   dayNightToggle.addEventListener("click", () => {
     world.isNight = !world.isNight;
-    // TODO: Add light depending on Background
     if (world.isNight) {
       world.setNightBackground();
     } else {
