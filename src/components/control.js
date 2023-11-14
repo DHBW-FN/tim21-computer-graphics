@@ -11,8 +11,6 @@ function initControls() {
 
   let rotateInterval;
 
-  let isNight = false;
-
   toggleButton.addEventListener("click", (event) => {
     event.stopPropagation();
     if (controls.classList.contains("hidden")) {
@@ -27,8 +25,12 @@ function initControls() {
   });
 
   dayNightToggle.addEventListener("click", () => {
-    isNight = !isNight;
-    // TODO: Add code to toggle night mode
+    world.isNight = !world.isNight;
+    if (world.isNight) {
+      world.setNightBackground();
+    } else {
+      world.setDayBackground();
+    }
   });
 
   startPositionButton.addEventListener("click", () => {
