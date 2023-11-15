@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/extensions,import/no-unresolved
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { BufferGeometry, Group, Mesh, MeshBasicMaterial } from "three";
+import { BufferGeometry, FrontSide, Group, Mesh, MeshBasicMaterial } from "three";
 import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree } from "three-mesh-bvh";
 
 export default class ModelLoader {
@@ -36,6 +36,11 @@ export default class ModelLoader {
               child.geometry.computeBoundsTree();
             }
 
+            if (child.material) {
+              child.material.side = FrontSide;
+              child.material.shadowSide = FrontSide;
+            }
+
             model.instances.forEach((instance, index) => {
               const instanceMesh = child.clone();
               instanceMesh.updateMatrixWorld();
@@ -63,6 +68,7 @@ export default class ModelLoader {
             });
           });
 
+          console.log(group);
           resolve(group);
         })
         .catch((error) => {

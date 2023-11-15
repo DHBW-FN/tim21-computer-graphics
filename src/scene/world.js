@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { AmbientLight, Clock, DirectionalLight } from "three";
+import { Clock, DirectionalLight } from "three";
 import Drone from "../cameras/drone";
 import ModelLoader from "../helpers/modelloader";
 import Snackbar from "../components/snackbar";
@@ -23,6 +23,8 @@ export default class World {
     this.scene = new THREE.Scene();
     this.collidableObjects = [];
     this.renderer = new THREE.WebGLRenderer();
+    this.renderer.shadowMap.enabled = true;
+    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(this.renderer.domElement);
 
@@ -49,6 +51,9 @@ export default class World {
     this.modelLoader = new ModelLoader();
     ModelLoader.showBoundingBox = false;
     this.modelLoader.loadAsync(models.base).then((group) => {
+      this.scene.add(group);
+    });
+    this.modelLoader.loadAsync(models.eiffeltower).then((group) => {
       this.scene.add(group);
     });
 
@@ -122,17 +127,36 @@ export default class World {
   addLights() {
     // Add sun
     this.sun = new DirectionalLight(0xffffff, 10);
-    this.sun.position.set(200, 600, 200);
+    this.sun.position.set(740 / 2, 400, -460 / 2);
+    this.scene.add(this.sun.target);
+    this.sun.target.position.set(370, 0, -230);
+    this.sun.castShadow = true;
+
+    // Set up shadow properties for the light
+    this.sun.shadow.mapSize.width = 1024 * 2 ** 4;
+    this.sun.shadow.mapSize.height = 1024 * 2 ** 4;
+    // this.sun.shadow.camera.near = 0;
+    // this.sun.shadow.camera.far = 500;
+
+    // Adjust the shadow camera's left, right, top, and bottom parameters to cover a larger area
+    this.sun.shadow.camera.left = -740 / 2; // Set as needed
+    this.sun.shadow.camera.right = 740 / 2; // Set as needed
+    this.sun.shadow.camera.top = 460 / 2; // Set as needed
+    this.sun.shadow.camera.bottom = -460 / 2; // Set as needed
+
     this.lights.push(this.sun);
 
     // Add ambient light
-    const ambientLight = new AmbientLight(0xffffff, 1);
-    this.lights.push(ambientLight);
+    // const ambientLight = new AmbientLight(0xffffff, 1);
+    // this.lights.push(ambientLight);
 
     // Add lights to the scene
     this.lights.forEach((light) => {
       this.scene.add(light);
     });
+
+    const helper = new THREE.CameraHelper(this.sun.shadow.camera);
+    this.scene.add(helper);
   }
 
   toggleControls() {
