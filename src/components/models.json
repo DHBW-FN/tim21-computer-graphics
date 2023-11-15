@@ -1,0 +1,8 @@
+{
+  "base": {
+    "path": "assets/models/world/World.gltf",
+    "instances": [
+      {}
+    ]
+  }
+}

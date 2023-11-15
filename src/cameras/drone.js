@@ -1,6 +1,6 @@
 import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
 import * as THREE from "three";
-import { Raycaster, Vector3 } from "three";
+import { Mesh, Raycaster, Vector3 } from "three";
 import Snackbar from "../components/snackbar";
 
 export default class Drone {
@@ -91,8 +91,16 @@ export default class Drone {
   move(directionVector) {
     const direction = directionVector.clone();
 
+    const collidableObjects = [];
+
+    this.world.scene.traverse((child) => {
+      if (child instanceof Mesh && child.collidable) {
+        collidableObjects.push(child);
+      }
+    });
+
     this.raycaster.set(this.camera.position, direction);
-    const intersections = this.raycaster.intersectObjects(this.world.collidableObjects, true);
+    const intersections = this.raycaster.intersectObjects(collidableObjects, true);
 
     if (intersections.length > 0) {
       const intersection = intersections[0];
