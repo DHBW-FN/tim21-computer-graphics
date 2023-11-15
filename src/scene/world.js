@@ -1,9 +1,10 @@
 import * as THREE from "three";
-import { AmbientLight, DirectionalLight, Clock } from "three";
+import { AmbientLight, Clock, DirectionalLight } from "three";
 import Drone from "../cameras/drone";
 import ModelLoader from "../helpers/modelloader";
 import Snackbar from "../components/snackbar";
 import loadModels from "../helpers/animationModelLoader";
+import models from "../components/models.json";
 
 const clock = new Clock();
 
@@ -47,8 +48,8 @@ export default class World {
     // Create and add a model to the scene
     this.modelLoader = new ModelLoader();
     ModelLoader.showBoundingBox = false;
-    this.modelLoader.load("/assets/models/world/World.gltf", this.collidableObjects).then((model) => {
-      this.scene.add(model);
+    this.modelLoader.loadAsync(models.base).then((group) => {
+      this.scene.add(group);
     });
 
     // Add debug camera
