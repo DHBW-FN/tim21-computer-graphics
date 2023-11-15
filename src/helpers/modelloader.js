@@ -39,12 +39,24 @@ export default class ModelLoader {
             model.instances.forEach((instance, index) => {
               const instanceMesh = child.clone();
               instanceMesh.updateMatrixWorld();
-              instance.position ? instanceMesh.position.copy(instance.position) : null;
-              instance.rotation ? instanceMesh.rotation.copy(instance.rotation) : null;
-              instance.scale ? instanceMesh.scale.copy(instance.scale) : null;
-              instance.castShadow !== false ? (instanceMesh.castShadow = true) : null;
-              instance.receiveShadow !== false ? (instanceMesh.receiveShadow = true) : null;
-              instance.collidable !== false ? (instanceMesh.collidable = true) : null;
+              if (instance.position) {
+                instanceMesh.position.copy(instance.position);
+              }
+              if (instance.rotation) {
+                instanceMesh.rotation.copy(instance.rotation);
+              }
+              if (instance.scale) {
+                instanceMesh.scale.copy(instance.scale);
+              }
+              if (instance.castShadow !== false) {
+                instanceMesh.castShadow = true;
+              }
+              if (instance.receiveShadow !== false) {
+                instanceMesh.receiveShadow = true;
+              }
+              if (instance.collidable !== false) {
+                instanceMesh.collidable = true;
+              }
 
               instanceMesh.name = `${child.name}-${index}`;
               group.add(instanceMesh);
