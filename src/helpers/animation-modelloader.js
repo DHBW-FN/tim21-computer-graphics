@@ -1,9 +1,9 @@
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import carAnimations from "../components/carAnimations.json";
+import carAnimations from "../components/car-animations.json";
 import storkAnimations from "../components/storkAnimations.json";
 
-import setupBirds from "../components/setupBirds";
-import setupCar from "../components/setupCars";
+import setupBirds from "../components/setup-birds";
+import setupCar from "../components/setup-cars";
 
 export default async function loadModels() {
   const loader = new GLTFLoader();

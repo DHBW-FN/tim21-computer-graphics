@@ -1,12 +1,12 @@
 import {
-  AnimationMixer,
   AnimationClip,
-  VectorKeyframeTrack,
-  Vector3,
+  AnimationMixer,
   Quaternion,
   QuaternionKeyframeTrack,
+  Vector3,
+  VectorKeyframeTrack,
 } from "three";
-import carAnimations from "./carAnimations.json";
+import carAnimations from "./car-animations.json";
 
 const yAxis = new Vector3(0, 1, 0);
 

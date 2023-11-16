@@ -3,7 +3,7 @@ import { Clock, DirectionalLight } from "three";
 import Drone from "../cameras/drone";
 import ModelLoader from "../helpers/modelloader";
 import Snackbar from "../components/snackbar";
-import loadModels from "../helpers/animationModelLoader";
+import loadModels from "../helpers/animation-modelloader";
 import models from "../components/models.json";
 import Grass from "../components/grass/grass";
 import EventManager from "../utils/eventmanager";
