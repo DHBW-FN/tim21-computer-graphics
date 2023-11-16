@@ -38,10 +38,10 @@ export default class World {
     // Set up background depending on the time of day
     this.isNight = !this.timeManager.isDay();
     // TODO: Add light depending on Background
-    if (this.isNight) {
-      this.setNightBackground();
-    } else {
+    if (this.timeManager.isDay()) {
       this.setDayBackground();
+    } else {
+      this.setNightBackground();
     }
 
     // Add event listeners
@@ -78,14 +78,7 @@ export default class World {
 
   animate() {
     this.renderer.setAnimationLoop((time) => {
-      this.grass.forEach((grass) => {
-        grass.update(time);
-      });
-      this.tick();
-
-      if (this.activeCamera === this.cameras.drone) {
-        this.drone.updatePosition();
-      }
+      this.tick(time);
 
       // Calculate FPS
       this.frameCount += 1;
@@ -101,13 +94,20 @@ export default class World {
         this.startTime = currentTime;
       }
 
-      // render a frame
       this.renderer.render(this.scene, this.activeCamera);
     });
   }
 
-  tick() {
+  tick(time) {
     const delta = clock.getDelta();
+
+    if (this.activeCamera === this.cameras.drone) {
+      this.drone.updatePosition();
+    }
+
+    this.grass.forEach((grass) => {
+      grass.update(time);
+    });
 
     this.updatables.forEach((object) => {
       object.tick(delta);
