@@ -39,7 +39,7 @@ export const fragmentShader = /* glsl */ `
 
   void main() {
     vec3 color = mix(green * 0.7, green, vPosition.y);
-    color = mix(color, texture2D(uCloud, vUv).rgb, 0.4);
+    color = mix(color, texture2D(uCloud, vUv).rgb, 0.1);
 
     float lighting = normalize(dot(vNormal, vec3(10)));
     gl_FragColor = vec4(color + lighting * 0.03, 1.0);

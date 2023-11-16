@@ -15,7 +15,8 @@
           "x": 615,
           "y": 0,
           "z": -230
-        }
+        },
+        "receiveShadow": false
       }
     ]
   }
