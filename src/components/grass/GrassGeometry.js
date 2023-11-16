@@ -1,5 +1,4 @@
 import * as THREE from "three";
-import { fragmentShader, vertexShader } from "./shaders";
 
 const BLADE_WIDTH = 0.1;
 const BLADE_HEIGHT = 0.8;
@@ -11,7 +10,7 @@ function interpolate(val, oldMin, oldMax, newMin, newMax) {
   return ((val - oldMin) * (newMax - newMin)) / (oldMax - oldMin) + newMin;
 }
 
-export class GrassGeometry extends THREE.BufferGeometry {
+export default class GrassGeometry extends THREE.BufferGeometry {
   constructor(position, sizeX, sizeY, count) {
     super();
 
@@ -19,9 +18,9 @@ export class GrassGeometry extends THREE.BufferGeometry {
     const uvs = [];
     const indices = [];
 
-    for (let i = 0; i < count; i++) {
+    for (let i = 0; i < count; i += 1) {
       const x = position.x + (Math.random() - 0.5) * sizeX;
-      const y = position.y;
+      const { y } = position;
       const z = position.z + (Math.random() - 0.5) * sizeY;
 
       uvs.push(
@@ -31,7 +30,7 @@ export class GrassGeometry extends THREE.BufferGeometry {
         ]),
       );
 
-      const blade = this.computeBlade([x, y, z], i);
+      const blade = GrassGeometry.computeBlade([x, y, z], i);
       positions.push(...blade.positions);
       indices.push(...blade.indices);
     }
@@ -42,7 +41,7 @@ export class GrassGeometry extends THREE.BufferGeometry {
     this.computeVertexNormals();
   }
 
-  computeBlade(center, index = 0) {
+  static computeBlade(center, index = 0) {
     const height = BLADE_HEIGHT + Math.random() * BLADE_HEIGHT_VARIATION;
     const vIndex = index * BLADE_VERTEX_COUNT;
 
@@ -51,9 +50,9 @@ export class GrassGeometry extends THREE.BufferGeometry {
     const bend = Math.random() * Math.PI * 2;
     const bendVec = [Math.sin(bend), 0, -Math.cos(bend)];
 
-    const bl = yawVec.map((n, i) => n * (BLADE_WIDTH / 2) * 1 + center[i]);
+    const bl = yawVec.map((n, i) => n * (BLADE_WIDTH / 2) + center[i]);
     const br = yawVec.map((n, i) => n * (BLADE_WIDTH / 2) * -1 + center[i]);
-    const tl = yawVec.map((n, i) => n * (BLADE_WIDTH / 4) * 1 + center[i]);
+    const tl = yawVec.map((n, i) => n * (BLADE_WIDTH / 4) + center[i]);
     const tr = yawVec.map((n, i) => n * (BLADE_WIDTH / 4) * -1 + center[i]);
     const tc = bendVec.map((n, i) => n * BLADE_TIP_OFFSET + center[i]);
 
@@ -67,32 +66,3 @@ export class GrassGeometry extends THREE.BufferGeometry {
     };
   }
 }
-
-const cloudTexture = new THREE.TextureLoader().load("/assets/cloud.jpg");
-cloudTexture.wrapS = cloudTexture.wrapT = THREE.RepeatWrapping;
-
-class Grass extends THREE.Mesh {
-  constructor(position, sizeX, sizeY, count) {
-    const geometry = new GrassGeometry(position, sizeX, sizeY, count);
-    const material = new THREE.ShaderMaterial({
-      uniforms: {
-        uCloud: { value: cloudTexture },
-        uTime: { value: 0 },
-      },
-      side: THREE.DoubleSide,
-      vertexShader,
-      fragmentShader,
-    });
-    super(geometry, material);
-
-    const floor = new THREE.Mesh(new THREE.PlaneGeometry(sizeX, sizeY, 1, 1).rotateX(Math.PI / 2), material);
-    floor.position.set(position.x, position.y, position.z);
-    this.add(floor);
-  }
-
-  update(time) {
-    this.material.uniforms.uTime.value = time;
-  }
-}
-
-export default Grass;

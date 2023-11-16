@@ -5,7 +5,7 @@ import ModelLoader from "../helpers/modelloader";
 import Snackbar from "../components/snackbar";
 import loadModels from "../helpers/animationModelLoader";
 import models from "../components/models.json";
-import Grass from "../components/grass.js";
+import Grass from "../components/grass/Grass";
 
 const clock = new Clock();
 
@@ -23,7 +23,6 @@ export default class World {
 
     // Initialize the scene, renderer, and objects
     this.scene = new THREE.Scene();
-    this.collidableObjects = [];
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -74,21 +73,33 @@ export default class World {
     // Set the initial camera
     this.activeCamera = this.cameras.drone;
 
-    this.grass.push(new Grass(new THREE.Vector3(142.5, 0.01, -165), 205, 90, 100000));
-    this.grass.push(new Grass(new THREE.Vector3(142.5, 0.01, -230), 205, 30, 100000));
-    this.grass.push(new Grass(new THREE.Vector3(142.5, 0.01, -295), 205, 90, 100000));
-
-    this.grass.push(new Grass(new THREE.Vector3(387.5, 0.01, -165), 205, 90, 100000));
-    this.grass.push(new Grass(new THREE.Vector3(387.5, 0.01, -230), 205, 30, 100000));
-    this.grass.push(new Grass(new THREE.Vector3(387.5, 0.01, -295), 205, 90, 100000));
-
-    this.grass.push(new Grass(new THREE.Vector3(597.5, 0.01, -105), 170, 62, 100000));
-    this.grass.forEach((grass) => {
-      this.scene.add(grass);
+    World.getGrassPlanes().then((grassPlanes) => {
+      grassPlanes.forEach((field) => {
+        this.grass.push(field);
+        this.scene.add(field);
+      });
     });
 
     // Add event listeners
     document.addEventListener("click", () => this.toggleControls());
+  }
+
+  static async getGrassPlanes() {
+    return new Promise((resolve) => {
+      const grassPlanes = [];
+
+      grassPlanes.push(new Grass(new THREE.Vector3(142.5, 0.01, -165), 205, 90, 100000));
+      grassPlanes.push(new Grass(new THREE.Vector3(142.5, 0.01, -230), 205, 30, 100000));
+      grassPlanes.push(new Grass(new THREE.Vector3(142.5, 0.01, -295), 205, 90, 100000));
+
+      grassPlanes.push(new Grass(new THREE.Vector3(387.5, 0.01, -165), 205, 90, 1000000));
+      grassPlanes.push(new Grass(new THREE.Vector3(387.5, 0.01, -230), 205, 30, 300000));
+      grassPlanes.push(new Grass(new THREE.Vector3(387.5, 0.01, -295), 205, 90, 1000000));
+
+      grassPlanes.push(new Grass(new THREE.Vector3(615, 0.01, -111), 170, 62, 100000));
+      grassPlanes.push(new Grass(new THREE.Vector3(615, 0.01, -348.75), 170, 62.5, 100000));
+      resolve(grassPlanes);
+    });
   }
 
   animate() {

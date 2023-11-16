@@ -39,8 +39,10 @@ export default class ModelLoader {
             model.instances.forEach((instance, index) => {
               const instanceMesh = child.clone();
 
-              instanceMesh.traverse(function (node) {
+              // Fix for one-sided transparency of Eiffel Tower
+              instanceMesh.traverse((node) => {
                 if (node.material) {
+                  // eslint-disable-next-line no-param-reassign
                   node.material.side = DoubleSide;
                 }
               });
@@ -69,8 +71,6 @@ export default class ModelLoader {
               group.add(instanceMesh);
             });
           });
-
-          console.log(group);
           resolve(group);
         })
         .catch((error) => {
