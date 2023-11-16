@@ -73,8 +73,7 @@ export default class World {
     // Set the initial camera
     this.activeCamera = this.cameras.drone;
 
-    this.grass = new Grass(10, 8, 10000);
-
+    this.grass = new Grass(new THREE.Vector3(142.5, 0.01, -165), 205, 90, 1000000);
     this.scene.add(this.grass);
 
     // Add event listeners

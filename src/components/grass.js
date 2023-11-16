@@ -12,7 +12,7 @@ function interpolate(val, oldMin, oldMax, newMin, newMax) {
 }
 
 export class GrassGeometry extends THREE.BufferGeometry {
-  constructor(size, count) {
+  constructor(position, sizeX, sizeY, count) {
     super();
 
     const positions = [];
@@ -20,22 +20,18 @@ export class GrassGeometry extends THREE.BufferGeometry {
     const indices = [];
 
     for (let i = 0; i < count; i++) {
-      const surfaceMin = (size / 2) * -1;
-      const surfaceMax = size / 2;
-      const radius = (size / 2) * Math.random();
-      const theta = Math.random() * 2 * Math.PI;
-
-      const x = radius * Math.cos(theta);
-      const y = radius * Math.sin(theta);
+      const x = position.x + (Math.random() - 0.5) * sizeX;
+      const y = position.y;
+      const z = position.z + (Math.random() - 0.5) * sizeY;
 
       uvs.push(
         ...Array.from({ length: BLADE_VERTEX_COUNT }).flatMap(() => [
-          interpolate(x, surfaceMin, surfaceMax, 0, 1),
-          interpolate(y, surfaceMin, surfaceMax, 0, 1),
+          interpolate(x, -sizeX / 2, sizeX / 2, 0, 1),
+          interpolate(z, -sizeY / 2, sizeY / 2, 0, 1),
         ]),
       );
 
-      const blade = this.computeBlade([x, 0, y], i);
+      const blade = this.computeBlade([x, y, z], i);
       positions.push(...blade.positions);
       indices.push(...blade.indices);
     }
@@ -46,26 +42,21 @@ export class GrassGeometry extends THREE.BufferGeometry {
     this.computeVertexNormals();
   }
 
-  // Grass blade generation, covered in https://smythdesign.com/blog/stylized-grass-webgl
-  // TODO: reduce vertex count, optimize & possibly move to GPU
   computeBlade(center, index = 0) {
     const height = BLADE_HEIGHT + Math.random() * BLADE_HEIGHT_VARIATION;
     const vIndex = index * BLADE_VERTEX_COUNT;
 
-    // Randomize blade orientation and tip angle
     const yaw = Math.random() * Math.PI * 2;
     const yawVec = [Math.sin(yaw), 0, -Math.cos(yaw)];
     const bend = Math.random() * Math.PI * 2;
     const bendVec = [Math.sin(bend), 0, -Math.cos(bend)];
 
-    // Calc bottom, middle, and tip vertices
     const bl = yawVec.map((n, i) => n * (BLADE_WIDTH / 2) * 1 + center[i]);
     const br = yawVec.map((n, i) => n * (BLADE_WIDTH / 2) * -1 + center[i]);
     const tl = yawVec.map((n, i) => n * (BLADE_WIDTH / 4) * 1 + center[i]);
     const tr = yawVec.map((n, i) => n * (BLADE_WIDTH / 4) * -1 + center[i]);
     const tc = bendVec.map((n, i) => n * BLADE_TIP_OFFSET + center[i]);
 
-    // Attenuate height
     tl[1] += height / 2;
     tr[1] += height / 2;
     tc[1] += height;
@@ -77,12 +68,12 @@ export class GrassGeometry extends THREE.BufferGeometry {
   }
 }
 
-const cloudTexture = new THREE.TextureLoader().load("/cloud.jpg");
+const cloudTexture = new THREE.TextureLoader().load("/assets/cloud.jpg");
 cloudTexture.wrapS = cloudTexture.wrapT = THREE.RepeatWrapping;
 
 class Grass extends THREE.Mesh {
-  constructor(size, count) {
-    const geometry = new GrassGeometry(size, count);
+  constructor(position, sizeX, sizeY, count) {
+    const geometry = new GrassGeometry(position, sizeX, sizeY, count);
     const material = new THREE.ShaderMaterial({
       uniforms: {
         uCloud: { value: cloudTexture },
@@ -94,8 +85,9 @@ class Grass extends THREE.Mesh {
     });
     super(geometry, material);
 
-    const floor = new THREE.Mesh(new THREE.CircleGeometry(15, 8).rotateX(Math.PI / 2), material);
-    floor.position.y = -Number.EPSILON;
+    const floor = new THREE.Mesh(new THREE.PlaneGeometry(sizeX, sizeY * 2, 1, 1), material);
+    floor.position.set(position.x, position.y, position.z + sizeY / 2);
+    floor.rotateX(-Math.PI / 2);
     this.add(floor);
   }
 
