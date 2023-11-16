@@ -5,6 +5,7 @@ import ModelLoader from "../helpers/modelloader";
 import Snackbar from "../components/snackbar";
 import loadModels from "../helpers/animationModelLoader";
 import models from "../components/models.json";
+import Grass from "../components/grass.js";
 
 const clock = new Clock();
 
@@ -72,12 +73,17 @@ export default class World {
     // Set the initial camera
     this.activeCamera = this.cameras.drone;
 
+    this.grass = new Grass(10, 8, 10000);
+
+    this.scene.add(this.grass);
+
     // Add event listeners
     document.addEventListener("click", () => this.toggleControls());
   }
 
   animate() {
-    this.renderer.setAnimationLoop(() => {
+    this.renderer.setAnimationLoop((time) => {
+      this.grass.update(time);
       this.tick();
 
       if (this.activeCamera === this.cameras.drone) {
@@ -132,17 +138,15 @@ export default class World {
     this.sun.target.position.set(370, 0, -230);
     this.sun.castShadow = true;
 
-    // Set up shadow properties for the light
     this.sun.shadow.mapSize.width = 1024 * 2 ** 4;
     this.sun.shadow.mapSize.height = 1024 * 2 ** 4;
     // this.sun.shadow.camera.near = 0;
     // this.sun.shadow.camera.far = 500;
 
-    // Adjust the shadow camera's left, right, top, and bottom parameters to cover a larger area
-    this.sun.shadow.camera.left = -740 / 2; // Set as needed
-    this.sun.shadow.camera.right = 740 / 2; // Set as needed
-    this.sun.shadow.camera.top = 460 / 2; // Set as needed
-    this.sun.shadow.camera.bottom = -460 / 2; // Set as needed
+    this.sun.shadow.camera.left = -740 / 2;
+    this.sun.shadow.camera.right = 740 / 2;
+    this.sun.shadow.camera.top = 460 / 2;
+    this.sun.shadow.camera.bottom = -460 / 2;
 
     this.lights.push(this.sun);
 
