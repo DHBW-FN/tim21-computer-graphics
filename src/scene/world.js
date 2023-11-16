@@ -19,6 +19,7 @@ export default class World {
     this.cameras = {};
     this.cubeLoader = new THREE.CubeTextureLoader();
     this.updatables = [];
+    this.grass = [];
 
     // Initialize the scene, renderer, and objects
     this.scene = new THREE.Scene();
@@ -73,8 +74,18 @@ export default class World {
     // Set the initial camera
     this.activeCamera = this.cameras.drone;
 
-    this.grass = new Grass(new THREE.Vector3(142.5, 0.01, -165), 205, 90, 1000000);
-    this.scene.add(this.grass);
+    this.grass.push(new Grass(new THREE.Vector3(142.5, 0.01, -165), 205, 90, 100000));
+    this.grass.push(new Grass(new THREE.Vector3(142.5, 0.01, -230), 205, 30, 100000));
+    this.grass.push(new Grass(new THREE.Vector3(142.5, 0.01, -295), 205, 90, 100000));
+
+    this.grass.push(new Grass(new THREE.Vector3(387.5, 0.01, -165), 205, 90, 100000));
+    this.grass.push(new Grass(new THREE.Vector3(387.5, 0.01, -230), 205, 30, 100000));
+    this.grass.push(new Grass(new THREE.Vector3(387.5, 0.01, -295), 205, 90, 100000));
+
+    this.grass.push(new Grass(new THREE.Vector3(597.5, 0.01, -105), 170, 62, 100000));
+    this.grass.forEach((grass) => {
+      this.scene.add(grass);
+    });
 
     // Add event listeners
     document.addEventListener("click", () => this.toggleControls());
@@ -82,7 +93,9 @@ export default class World {
 
   animate() {
     this.renderer.setAnimationLoop((time) => {
-      this.grass.update(time);
+      this.grass.forEach((grass) => {
+        grass.update(time);
+      });
       this.tick();
 
       if (this.activeCamera === this.cameras.drone) {
