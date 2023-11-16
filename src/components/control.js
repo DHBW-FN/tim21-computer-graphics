@@ -1,5 +1,9 @@
 import world from "../main";
 
+/**
+ * Key mappings for controlling the drone.
+ * @type {Object<string, string>}
+ */
 const keys = {
   forward: "KeyW",
   backward: "KeyS",
@@ -13,6 +17,11 @@ const keys = {
   "rotate-left": "ArrowLeft",
 };
 
+/**
+ * Toggles between day and night background.
+ * Updates the world's background and state accordingly.
+ * @function
+ */
 function toggleDayNight() {
   world.isNight = !world.isNight;
   if (world.isNight) {
@@ -22,6 +31,11 @@ function toggleDayNight() {
   }
 }
 
+/**
+ * Attaches event listeners for mouse and button events to control the drone.
+ * @function
+ * @param {HTMLButtonElement} button - The button element representing a control.
+ */
 function handleButtonEvents(button) {
   button.addEventListener("mousedown", () => world.drone.controls.pressedKeys.add(keys[button.id]));
   button.addEventListener("mouseup", () => world.drone.controls.pressedKeys.delete(keys[button.id]));
@@ -29,6 +43,10 @@ function handleButtonEvents(button) {
   button.addEventListener("click", (event) => event.stopPropagation());
 }
 
+/**
+ * Initializes the user interface controls and attaches event listeners.
+ * @function
+ */
 function initControls() {
   const toggleButton = document.getElementById("toggleButton");
   const controls = document.getElementById("controls");
@@ -54,6 +72,7 @@ function initControls() {
   document.getElementById("controlsExplanation").addEventListener("click", (event) => event.stopPropagation());
 }
 
+// Initialize controls when the document is ready
 if (document.readyState !== "loading") {
   initControls();
 } else {

@@ -3,18 +3,48 @@ import * as THREE from "three";
 import { Mesh, Raycaster, Vector3 } from "three";
 import Snackbar from "../components/snackbar";
 
+/**
+ * Represents a drone in the 3D world with controls.
+ * @class
+ */
 export default class Drone {
+  /**
+   * Constructs a new Drone instance.
+   * @constructor
+   * @param {Object} world - The 3D world environment.
+   */
   constructor(world) {
+    /** @type {Object} */
     this.world = world;
+
+    /** @type {THREE.PerspectiveCamera} */
     this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+    /** @type {PointerLockControls} */
     this.controls = new PointerLockControls(this.camera, document.body);
+
+    /** @type {Set<string>} */
     this.controls.pressedKeys = new Set();
+
+    /** @type {number} */
     this.maxSpeed = 0.5;
+
+    /** @type {number} */
     this.acceleration = this.maxSpeed / 100;
+
+    /** @type {number} */
     this.deceleration = this.maxSpeed / 50;
+
+    /** @type {number} */
     this.sensitivity = 0.02;
+
+    /** @type {number} */
     this.minDistance = 5;
+
+    /** @type {THREE.Vector3} */
     this.velocity = new THREE.Vector3(0, 0, 0);
+
+    /** @type {Raycaster} */
     this.raycaster = new Raycaster(
       this.camera.position,
       this.camera.getWorldDirection(new Vector3()),
@@ -26,6 +56,7 @@ export default class Drone {
     this.setStartPosition();
     this.addEventListeners();
 
+    /** @type {Object} */
     this.keymap = {
       KeyW: { direction: "z", sign: 1 },
       KeyS: { direction: "z", sign: -1 },
@@ -54,15 +85,28 @@ export default class Drone {
     };
   }
 
+  /**
+   * Sets the initial position of the drone.
+   * @method
+   */
   setStartPosition() {
     this.camera.position.set(370, 1, -230);
     this.camera.lookAt(615, 0, -230);
   }
 
+  /**
+   * Adds the drone to the scene.
+   * @method
+   * @param {THREE.Scene} scene - The 3D scene.
+   */
   addToScene(scene) {
     scene.add(this.controls.getObject());
   }
 
+  /**
+   * Adds event listeners for keyboard and pointer lock events.
+   * @method
+   */
   addEventListeners() {
     document.addEventListener("keydown", (event) => this.onKeyDown(event));
     document.addEventListener("keyup", (event) => this.onKeyUp(event));
@@ -70,24 +114,47 @@ export default class Drone {
     this.controls.addEventListener("unlock", () => Drone.onPointerUnlock());
   }
 
+  /**
+   * Handles the keydown event for drone controls.
+   * @method
+   * @param {KeyboardEvent} event - The keyboard event.
+   */
   onKeyDown(event) {
     if (!this.controls.isLocked) return;
 
     this.controls.pressedKeys.add(event.code);
   }
 
+  /**
+   * Handles the keyup event for drone controls.
+   * @method
+   * @param {KeyboardEvent} event - The keyboard event.
+   */
   onKeyUp(event) {
     this.controls.pressedKeys.delete(event.code);
   }
 
+  /**
+   * Handles the pointer lock event.
+   * @method
+   */
   static onPointerLock() {
     Snackbar.show("Controls locked", 1000);
   }
 
+  /**
+   * Handles the pointer unlock event.
+   * @method
+   */
   static onPointerUnlock() {
     Snackbar.show("Controls unlocked", 1000);
   }
 
+  /**
+   * Moves the drone in the specified direction.
+   * @method
+   * @param {THREE.Vector3} directionVector - The direction vector.
+   */
   move(directionVector) {
     const direction = directionVector.clone();
 
@@ -121,6 +188,12 @@ export default class Drone {
     this.camera.position.copy(newPosition);
   }
 
+  /**
+   * Changes the drone's orientation.
+   * @method
+   * @param {string} axis - The axis of rotation.
+   * @param {number} degrees - The rotation angle in degrees.
+   */
   look(axis, degrees = 45) {
     const radians = (degrees * Math.PI) / 180;
     const effectiveRotation = radians * this.sensitivity;
@@ -128,6 +201,10 @@ export default class Drone {
     this.camera.quaternion.multiplyQuaternions(quaternion, this.camera.quaternion);
   }
 
+  /**
+   * Updates the position and orientation of the drone based on user input.
+   * @method
+   */
   updatePosition() {
     // Decelerate
     if (!this.controls.pressedKeys.has("KeyW") && !this.controls.pressedKeys.has("KeyS")) {
