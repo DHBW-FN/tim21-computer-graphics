@@ -6,11 +6,16 @@ import Snackbar from "../components/snackbar";
 import loadModels from "../helpers/animationModelLoader";
 import models from "../components/models.json";
 import Grass from "../components/grass/Grass";
+import EventManager from "../utils/EventManager";
+import TimeManager from "../utils/TimeManager";
 
 const clock = new Clock();
 
 export default class World {
   constructor() {
+    this.eventManager = new EventManager();
+    this.timeManager = new TimeManager();
+
     this.frameCount = 0;
     this.startTime = performance.now();
     this.fpsElement = document.getElementById("fpsCounter");
@@ -27,20 +32,11 @@ export default class World {
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     this.renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(this.renderer.domElement);
 
-    // Add lights to the scene
-    this.addLights();
-
-    // Create a drone and add it to the scene
-    this.drone = new Drone(this);
-    this.drone.addToScene(this.scene);
-    this.cameras.drone = this.drone.camera;
-    this.cameras.drone.name = "drone";
+    this.modelLoader = new ModelLoader();
 
     // Set up background depending on the time of day
-    this.date = new Date();
-    this.isNight = this.date.getHours() > 18 || this.date.getHours() < 6;
+    this.isNight = !this.timeManager.isDay();
     // TODO: Add light depending on Background
     if (this.isNight) {
       this.setNightBackground();
@@ -48,40 +44,18 @@ export default class World {
       this.setDayBackground();
     }
 
-    // Create and add a model to the scene
-    this.modelLoader = new ModelLoader();
-    ModelLoader.showBoundingBox = false;
-    this.modelLoader.loadAsync(models.base).then((group) => {
-      this.scene.add(group);
-    });
-    this.modelLoader.loadAsync(models.eiffeltower).then((group) => {
-      this.scene.add(group);
-    });
-
-    // Add debug camera
-    this.cameras.debug = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    this.cameras.debug.name = "debug";
-    this.cameras.debug.position.set(370, 250, 175);
-    this.cameras.debug.lookAt(370, 75, -230);
-
-    // Add stationary camera
-    this.cameras.stationary = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    this.cameras.stationary.name = "stationary";
-    this.cameras.stationary.position.set(370, 1, -230);
-    this.cameras.stationary.lookAt(615, 100, -230);
-
-    // Set the initial camera
-    this.activeCamera = this.cameras.drone;
-
-    World.getGrassPlanes().then((grassPlanes) => {
-      grassPlanes.forEach((field) => {
-        this.grass.push(field);
-        this.scene.add(field);
-      });
-    });
-
     // Add event listeners
     document.addEventListener("click", () => this.toggleControls());
+
+    this.eventManager.addListener(TimeManager.DAY_CHANGE_EVENT, (event) => this.onDayChange(event));
+  }
+
+  onDayChange(event) {
+    if (event.isDay) {
+      this.setDayBackground();
+    } else {
+      this.setNightBackground();
+    }
   }
 
   static async getGrassPlanes() {
@@ -141,6 +115,23 @@ export default class World {
   }
 
   async init() {
+    // Load models
+    this.modelLoader.loadAsync(models.base).then((group) => {
+      this.scene.add(group);
+    });
+    this.modelLoader.loadAsync(models.eiffeltower).then((group) => {
+      this.scene.add(group);
+    });
+
+    // Load grass
+    World.getGrassPlanes().then((grassPlanes) => {
+      grassPlanes.forEach((field) => {
+        this.grass.push(field);
+        this.scene.add(field);
+      });
+    });
+
+    // Load animations
     loadModels()
       .then(({ storks, cars }) => {
         this.updatables.push(...storks);
@@ -151,6 +142,37 @@ export default class World {
           this.scene.add(object);
         });
       });
+
+    // Add lights
+    this.addLights();
+
+    // Initialize cameras
+    await this.initCameras();
+
+    document.body.appendChild(this.renderer.domElement);
+  }
+
+  async initCameras() {
+    // Add debug camera
+    this.cameras.debug = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    this.cameras.debug.name = "debug";
+    this.cameras.debug.position.set(370, 250, 175);
+    this.cameras.debug.lookAt(370, 75, -230);
+
+    // Add stationary camera
+    this.cameras.stationary = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    this.cameras.stationary.name = "stationary";
+    this.cameras.stationary.position.set(370, 1, -230);
+    this.cameras.stationary.lookAt(615, 100, -230);
+
+    // Add drone camera
+    this.drone = new Drone(this);
+    this.drone.addToScene(this.scene);
+    this.cameras.drone = this.drone.camera;
+    this.cameras.drone.name = "drone";
+
+    // Set the initial camera
+    this.activeCamera = this.cameras.drone;
   }
 
   addLights() {
