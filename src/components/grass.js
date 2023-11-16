@@ -68,7 +68,7 @@ export class GrassGeometry extends THREE.BufferGeometry {
   }
 }
 
-const cloudTexture = new THREE.TextureLoader().load("/assets/cloud.jpg");
+const cloudTexture = new THREE.TextureLoader().load("/cloud.jpg");
 cloudTexture.wrapS = cloudTexture.wrapT = THREE.RepeatWrapping;
 
 class Grass extends THREE.Mesh {
@@ -85,9 +85,8 @@ class Grass extends THREE.Mesh {
     });
     super(geometry, material);
 
-    const floor = new THREE.Mesh(new THREE.PlaneGeometry(sizeX, sizeY * 2, 1, 1), material);
-    floor.position.set(position.x, position.y, position.z + sizeY / 2);
-    floor.rotateX(-Math.PI / 2);
+    const floor = new THREE.Mesh(new THREE.PlaneGeometry(sizeX, sizeY, 1, 1).rotateX(Math.PI / 2), material);
+    floor.position.set(position.x, position.y, position.z);
     this.add(floor);
   }
 
