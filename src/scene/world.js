@@ -53,16 +53,16 @@ export default class World {
     return new Promise((resolve) => {
       const grassPlanes = [];
 
-      grassPlanes.push(new Grass(new THREE.Vector3(142.5, 0.01, -165), 205, 90, 100000));
-      grassPlanes.push(new Grass(new THREE.Vector3(142.5, 0.01, -230), 205, 30, 33000));
-      grassPlanes.push(new Grass(new THREE.Vector3(142.5, 0.01, -295), 205, 90, 100000));
+      grassPlanes.push(new Grass(new THREE.Vector3(142.5, 0, -165), 205, 90, 100000));
+      grassPlanes.push(new Grass(new THREE.Vector3(142.5, 0, -230), 205, 30, 33000));
+      grassPlanes.push(new Grass(new THREE.Vector3(142.5, 0, -295), 205, 90, 100000));
 
-      grassPlanes.push(new Grass(new THREE.Vector3(387.5, 0.01, -165), 205, 90, 1000000));
-      grassPlanes.push(new Grass(new THREE.Vector3(387.5, 0.01, -230), 205, 30, 300000));
-      grassPlanes.push(new Grass(new THREE.Vector3(387.5, 0.01, -295), 205, 90, 1000000));
+      grassPlanes.push(new Grass(new THREE.Vector3(387.5, 0, -165), 205, 90, 1000000));
+      grassPlanes.push(new Grass(new THREE.Vector3(387.5, 0, -230), 205, 30, 300000));
+      grassPlanes.push(new Grass(new THREE.Vector3(387.5, 0, -295), 205, 90, 1000000));
 
-      grassPlanes.push(new Grass(new THREE.Vector3(615, 0.01, -111), 170, 62, 100000));
-      grassPlanes.push(new Grass(new THREE.Vector3(615, 0.01, -348.75), 170, 62.5, 100000));
+      grassPlanes.push(new Grass(new THREE.Vector3(615, 0, -111), 170, 62, 100000));
+      grassPlanes.push(new Grass(new THREE.Vector3(615, 0, -348.75), 170, 62.5, 100000));
       resolve(grassPlanes);
     });
   }

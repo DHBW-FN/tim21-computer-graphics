@@ -21,6 +21,7 @@ class Grass extends THREE.Mesh {
     super(geometry, material);
 
     const floor = new THREE.Mesh(new THREE.PlaneGeometry(sizeX, sizeY, 1, 1).rotateX(Math.PI / 2), material);
+    floor.collidable = true;
     floor.position.set(position.x, position.y, position.z);
     this.add(floor);
   }
