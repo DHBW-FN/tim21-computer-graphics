@@ -1,4 +1,4 @@
-import EventManager from "./EventManager";
+import EventManager from "./eventmanager";
 
 export default class TimeManager {
   static DAY_START = 6;

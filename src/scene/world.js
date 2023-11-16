@@ -5,9 +5,9 @@ import ModelLoader from "../helpers/modelloader";
 import Snackbar from "../components/snackbar";
 import loadModels from "../helpers/animationModelLoader";
 import models from "../components/models.json";
-import Grass from "../components/grass/Grass";
-import EventManager from "../utils/EventManager";
-import TimeManager from "../utils/TimeManager";
+import Grass from "../components/grass/grass";
+import EventManager from "../utils/eventmanager";
+import TimeManager from "../utils/timemanager";
 
 const clock = new Clock();
 
