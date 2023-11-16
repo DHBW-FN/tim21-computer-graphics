@@ -1,5 +1,5 @@
 import { AnimationClip, AnimationMixer, VectorKeyframeTrack } from "three";
-import storkAnimations from "./storkAnimations.json";
+import storkAnimations from "./stork-animations.json";
 
 export default function setupModel(data, id) {
   const model = data.scene.children[0];

@@ -1,6 +1,6 @@
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import carAnimations from "../components/car-animations.json";
-import storkAnimations from "../components/storkAnimations.json";
+import storkAnimations from "../components/stork-animations.json";
 
 import setupBirds from "../components/setup-birds";
 import setupCar from "../components/setup-cars";
