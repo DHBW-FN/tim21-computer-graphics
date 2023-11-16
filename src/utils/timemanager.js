@@ -11,8 +11,6 @@ export default class TimeManager {
     this.currentTime = new Date();
     this.updateInterval = 1000;
     this.eventManager = new EventManager();
-
-    this.startUpdating();
   }
 
   updateTime() {
@@ -24,11 +22,7 @@ export default class TimeManager {
     const wasDay = this.isDay(prevTime);
 
     if (isDay !== wasDay) {
-      this.eventManager.emit(TimeManager.DAY_CHANGE_EVENT, {
-        isDay,
-        currentTime: this.currentTime,
-        deltaTime,
-      });
+      this.notify(isDay, this.currentTime, deltaTime);
     }
 
     return deltaTime;
@@ -40,10 +34,28 @@ export default class TimeManager {
   }
 
   startUpdating() {
+    this.notify(this.isDay(), this.currentTime, 0);
+
     this.intervalId = setInterval(() => this.updateTime(), this.updateInterval);
   }
 
   stopUpdating() {
     clearInterval(this.intervalId);
+  }
+
+  setDay() {
+    this.notify(true, this.currentTime, 0);
+  }
+
+  setNight() {
+    this.notify(false, this.currentTime, 0);
+  }
+
+  notify(isDay = this.isDay(), currentTime = this.currentTime, deltaTime = 0) {
+    this.eventManager.emit(TimeManager.DAY_CHANGE_EVENT, {
+      isDay,
+      currentTime,
+      deltaTime,
+    });
   }
 }

@@ -35,15 +35,6 @@ export default class World {
 
     this.modelLoader = new ModelLoader();
 
-    // Set up background depending on the time of day
-    this.isNight = !this.timeManager.isDay();
-    // TODO: Add light depending on Background
-    if (this.timeManager.isDay()) {
-      this.setDayBackground();
-    } else {
-      this.setNightBackground();
-    }
-
     // Add event listeners
     document.addEventListener("click", () => this.toggleControls());
 
@@ -52,9 +43,9 @@ export default class World {
 
   onDayChange(event) {
     if (event.isDay) {
-      this.setDayBackground();
+      this.setDay();
     } else {
-      this.setNightBackground();
+      this.setNight();
     }
   }
 
@@ -62,7 +53,7 @@ export default class World {
     return new Promise((resolve) => {
       const grassPlanes = [];
 
-      grassPlanes.push(new Grass(new THREE.Vector3(142.5, 0.01, -165), 205, 90, 100000));
+      grassPlanes.push(new Grass(new THREE.Vector3(142.5, 0.01, -165), 205, 90, 1000000));
       grassPlanes.push(new Grass(new THREE.Vector3(142.5, 0.01, -230), 205, 30, 100000));
       grassPlanes.push(new Grass(new THREE.Vector3(142.5, 0.01, -295), 205, 90, 100000));
 
@@ -146,9 +137,23 @@ export default class World {
     // Add lights
     this.addLights();
 
+    // Set the time of day
+    if (this.timeManager.isDay()) {
+      this.setDay();
+    } else {
+      this.setNight();
+    }
+
     // Initialize cameras
     await this.initCameras();
 
+    this.timeManager.startUpdating();
+
+    // Check if there is already a canvas element in the DOM
+    const canvas = document.querySelector("canvas");
+    if (canvas) {
+      document.body.removeChild(canvas);
+    }
     document.body.appendChild(this.renderer.domElement);
   }
 
@@ -185,8 +190,6 @@ export default class World {
 
     this.sun.shadow.mapSize.width = 1024 * 2 ** 4;
     this.sun.shadow.mapSize.height = 1024 * 2 ** 4;
-    // this.sun.shadow.camera.near = 0;
-    // this.sun.shadow.camera.far = 500;
 
     this.sun.shadow.camera.left = -740 / 2;
     this.sun.shadow.camera.right = 740 / 2;
@@ -195,17 +198,10 @@ export default class World {
 
     this.lights.push(this.sun);
 
-    // Add ambient light
-    // const ambientLight = new AmbientLight(0xffffff, 1);
-    // this.lights.push(ambientLight);
-
     // Add lights to the scene
     this.lights.forEach((light) => {
       this.scene.add(light);
     });
-
-    const helper = new THREE.CameraHelper(this.sun.shadow.camera);
-    this.scene.add(helper);
   }
 
   toggleControls() {
@@ -216,7 +212,7 @@ export default class World {
     }
   }
 
-  setNightBackground() {
+  setNight() {
     this.scene.background = this.cubeLoader.load([
       "assets/nightBoxPieces/back.png",
       "assets/nightBoxPieces/front.png",
@@ -227,7 +223,7 @@ export default class World {
     ]);
   }
 
-  setDayBackground() {
+  setDay() {
     this.scene.background = this.cubeLoader.load([
       "assets/daylightBoxPieces/back.bmp",
       "assets/daylightBoxPieces/front.bmp",

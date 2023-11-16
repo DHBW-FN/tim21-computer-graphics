@@ -13,15 +13,6 @@ const keys = {
   "rotate-left": "ArrowLeft",
 };
 
-function toggleDayNight() {
-  world.isNight = !world.isNight;
-  if (world.isNight) {
-    world.setNightBackground();
-  } else {
-    world.setDayBackground();
-  }
-}
-
 function handleButtonEvents(button) {
   button.addEventListener("mousedown", () => world.drone.controls.pressedKeys.add(keys[button.id]));
   button.addEventListener("mouseup", () => world.drone.controls.pressedKeys.delete(keys[button.id]));
@@ -36,14 +27,20 @@ function initControls() {
   const controlsExplanationHeading = document.getElementById("controlsExplanationHeading");
   const cycleCamerasButton = document.getElementById("cycleCamerasButton");
   const startPositionButton = document.getElementById("startPositionButton");
-  const dayNightToggleButton = document.getElementById("dayNightToggle");
+  const buttonSetDay = document.getElementById("buttonSetDay");
+  const buttonSetNight = document.getElementById("buttonSetNight");
 
   toggleButton.addEventListener("click", () => {
     controls.classList.toggle("hidden");
     controlsExplanationHeading.classList.toggle("hidden");
     toggleButton.innerHTML = controls.classList.contains("hidden") ? "&#9664;" : "&#9654;";
   });
-  dayNightToggleButton.addEventListener("click", toggleDayNight);
+  buttonSetDay.addEventListener("click", () => {
+    world.timeManager.setDay();
+  });
+  buttonSetNight.addEventListener("click", () => {
+    world.timeManager.setNight();
+  });
   startPositionButton.addEventListener("click", () => {
     world.resetCameras();
   });
