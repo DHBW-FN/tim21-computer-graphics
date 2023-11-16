@@ -125,3 +125,17 @@ canvas {
   display: grid;
   grid-template-columns: auto;
 }
+
+#dayNightToggleButtonContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+#buttonSetDay {
+  margin-left: 0;
+}
+
+#buttonSetNight {
+  margin-right: 0;
+}

@@ -2,7 +2,22 @@
   "base": {
     "path": "assets/models/world/World.gltf",
     "instances": [
-      {}
+      {
+        "castShadow": false
+      }
+    ]
+  },
+  "eiffeltower": {
+    "path": "assets/models/eiffeltower/EiffelTower.gltf",
+    "instances": [
+      {
+        "position": {
+          "x": 615,
+          "y": 0,
+          "z": -230
+        },
+        "receiveShadow": false
+      }
     ]
   }
 }

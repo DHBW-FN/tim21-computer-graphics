@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/extensions,import/no-unresolved
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { BufferGeometry, Group, Mesh, MeshBasicMaterial } from "three";
+import { BufferGeometry, DoubleSide, Group, Mesh, MeshBasicMaterial } from "three";
 import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree } from "three-mesh-bvh";
 
 export default class ModelLoader {
@@ -38,6 +38,15 @@ export default class ModelLoader {
 
             model.instances.forEach((instance, index) => {
               const instanceMesh = child.clone();
+
+              // Fix for one-sided transparency of Eiffel Tower
+              instanceMesh.traverse((node) => {
+                if (node.material) {
+                  // eslint-disable-next-line no-param-reassign
+                  node.material.side = DoubleSide;
+                }
+              });
+
               instanceMesh.updateMatrixWorld();
               if (instance.position) {
                 instanceMesh.position.copy(instance.position);
@@ -62,7 +71,6 @@ export default class ModelLoader {
               group.add(instanceMesh);
             });
           });
-
           resolve(group);
         })
         .catch((error) => {
