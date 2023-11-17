@@ -124,7 +124,9 @@ export default class World {
     });
 
     // Load plants
-    this.loadPlants();
+    this.loadPlants().then((group) => {
+      this.scene.add(group);
+    });
 
     // Load animations
     loadModels()
@@ -252,11 +254,23 @@ export default class World {
     this.activeCamera = this.cameras.drone;
   }
 
-  loadPlants() {
-    Object.keys(plants).forEach((key) => {
-      const model = plants[key];
-      this.modelLoader.loadAsync(model).then((group) => {
-        this.scene.add(group);
+  async loadPlants() {
+    return new Promise((resolve, reject) => {
+      const plantsGroup = new THREE.Group();
+
+      Object.keys(plants).forEach((key) => {
+        const model = plants[key];
+        this.modelLoader
+          .loadAsync(model)
+          .then((group) => {
+            plantsGroup.add(group);
+          })
+          .then(() => {
+            resolve(plantsGroup);
+          })
+          .catch((error) => {
+            reject(error);
+          });
       });
     });
   }
