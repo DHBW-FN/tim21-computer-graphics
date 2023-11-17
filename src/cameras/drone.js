@@ -22,6 +22,12 @@ export default class Drone {
       this.maxSpeed + this.minDistance,
     );
     this.raycaster.firstHitOnly = true;
+    this.flashLight = new THREE.SpotLight(0xffffff, 10000, 50, Math.PI / 4, 0.5);
+    this.flashLight.position.copy(this.camera.position);
+    this.flashLight.target.position.copy(this.controls.getDirection(new Vector3())); // TODO: Get target position
+    this.world.lightManager.addLight(this.flashLight, "flashLight", 0, 1000000);
+    this.world.scene.add(this.flashLight);
+    this.world.scene.add(this.flashLight.target);
 
     this.setStartPosition();
     this.addEventListeners();
@@ -119,6 +125,10 @@ export default class Drone {
       .clone()
       .add(new THREE.Vector3(directionVector.x, directionVector.y, directionVector.z));
     this.camera.position.copy(newPosition);
+    this.world.lightManager.getLight("flashLight").light.position.copy(newPosition);
+    this.world.lightManager
+      .getLight("flashLight")
+      .light.target.position.copy(this.camera.getWorldDirection(new Vector3()));
   }
 
   look(axis, degrees = 45) {
