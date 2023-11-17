@@ -194,6 +194,7 @@ export default class World {
 
   initLights() {
     this.scene.add(this.lightManager.getSun().light);
+    this.scene.add(this.lightManager.getSun().light.target);
   }
 
   toggleControls() {

@@ -41,7 +41,7 @@ export default class LightManager {
     sun.shadow.camera.top = 460 / 2;
     sun.shadow.camera.bottom = -460 / 2;
 
-    return this.addLight(sun, "sun", "day", 10, 1);
+    return this.addLight(sun, "sun", 10, 0.5);
   }
 
   getSun() {
@@ -51,11 +51,14 @@ export default class LightManager {
     return this.lights.sun;
   }
 
-  addLight(light, name, type, dayIntensity, nightIntensity) {
+  getLight(name) {
+    return this.lights[name];
+  }
+
+  addLight(light, name, dayIntensity, nightIntensity) {
     const newLight = {
       light,
       name,
-      type,
       dayIntensity,
       nightIntensity,
     };
