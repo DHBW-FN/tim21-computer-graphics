@@ -16,6 +16,7 @@ class Grass extends THREE.Mesh {
       ...UniformsLib.fog,
       uCloud: { value: cloudTexture },
       uTime: { value: 0 },
+      uLightIntensity: { value: 1 },
     };
     const material = new THREE.ShaderMaterial({
       uniforms: combinedUniforms,
@@ -37,8 +38,9 @@ class Grass extends THREE.Mesh {
     this.add(floor);
   }
 
-  update(time) {
+  update(time, lightIntensity = 1) {
     this.material.uniforms.uTime.value = time;
+    this.material.uniforms.uLightIntensity.value = lightIntensity;
   }
 }
 

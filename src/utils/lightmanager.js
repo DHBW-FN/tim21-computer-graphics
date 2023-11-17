@@ -41,7 +41,7 @@ export default class LightManager {
     sun.shadow.camera.top = 460 / 2;
     sun.shadow.camera.bottom = -460 / 2;
 
-    return this.addLight(sun, "sun", "day", 10, 0);
+    return this.addLight(sun, "sun", "day", 10, 1);
   }
 
   getSun() {

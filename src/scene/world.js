@@ -100,7 +100,11 @@ export default class World {
     }
 
     this.grass.forEach((grass) => {
-      grass.update(time);
+      grass.update(
+        time,
+        this.lightManager.getSun().light.intensity /
+          Math.max(this.lightManager.getSun().dayIntensity, this.lightManager.getSun().nightIntensity),
+      );
     });
 
     this.updatables.forEach((object) => {

@@ -51,6 +51,7 @@ export const fragmentShader = /* glsl */ `
   #include <dithering_pars_fragment>
   
   uniform sampler2D uCloud;
+  uniform float uLightIntensity;
 
   varying vec3 vPosition;
   varying vec2 vUv;
@@ -68,6 +69,7 @@ export const fragmentShader = /* glsl */ `
     float shadowPower = 0.5;
 
     color = mix(color, shadowColor, (1.0 - getShadowMask() ) * shadowPower);
+    color = color * uLightIntensity;
     
     gl_FragColor = vec4(color, 1.0);
     #include <fog_fragment>
