@@ -1,16 +1,16 @@
-# CG Doku
 - [Installation](#installation)
 - [Bedienung](#bedienung)
 - [Weitere Interaktionsmöglichkeiten](#interaktionen)
 
 ---
 
+# Nutzerdokumentation
 <a name="installation"></a>
 ## Installation
 Um die Anwendung lokal auf dem Gerät laufen zu lassen, müssen Sie die
 folgenden Schritte durchführen:
 1. Repository klonen/Code herunterladen
-2. Dependencies installieren
+2. Dependencies installieren mit `npm install`
 3. Anwendung starten durch den Befehl `npm start`
 
 Anschließend wird in der Konsole eine URL ausgegeben, unter der die
@@ -42,7 +42,7 @@ Buttons können wieder angeklickt werden.
 Alternativ zur Steuerung mit der Tastatur und Maus kann der Nutzer auch die Buttons
 im User Interface verwenden. Dieses ist unten abgebildet. Durch klicken auf diese Buttons kann sich der Nutzer
 in allen Bewegungsrichtungen frei bewegen.
-![Steuerungspanel](Steuerungspanel.png)
+![Steuerungspanel](images/Steuerungspanel.png)
 
 <a name="interaktionen"></a>
 ## Weitere Interaktionsmöglichkeiten
@@ -51,7 +51,7 @@ ausführen. Diese sind im Folgenden aufgelistet:
 * Tag/Nacht-Wechsel
 * Wechsel der Kamera
 * Drohne auf Startpositon setzen
-* ![UI Buttons](Buttons.png)
+* ![UI Buttons](images/Buttons.png)
 
 ### Tag/Nacht-Wechsel
 Durch das Klicken auf den Button `Day/Night` kann der Nutzer zwischen Tag und Nacht
@@ -81,8 +81,45 @@ Durch den letzten Button kann die Drohnenkamera wieder auf die Startposition
 gesetzt werden. Dies ist vor allem dann hilfreich, wenn der Nutzer sich
 in der Szene verirrt hat und nicht mehr weiß, wo er sich befindet.
 
+# Entwicklerdokumentation
 <a name="idee"></a>
-## Idee
+
+## Arbeitsweise
+### Projektmanagement mit ZenHub
+Zur Verwaltung der Aufgaben haben wir ZenHub verwendet. Dieses Tool
+hat es uns ermöglicht, die Aufgaben in einzelne Tickets zu
+unterteilen und diese dann auch zu verfolgen.
+In ZenHub haben wir insgesamt 4 Epics erstellt, welche nochmals tiefer unterteilt
+waren in einzelne Issues. Folgende Epics haben wir definiert:
+![ZenHubEpics](images/ZenhubEpics.png)
+
+Anschließend wurden diese Epics nochmals unterteilt in einzelne Issues.
+Am Ende hatten wir somit insgesamt 58 Issues, welche wir dann in den
+folgenden Wochen abgearbeitet haben. Jeder Issue wurde mit einem Titel,
+einer Beschreibung, Akzeptanzkriterien und einem Label versehen.
+
+### Versionsverwaltung
+Um die Arbeit an der Szene zu erleichtern, haben wir uns dazu entschieden,
+Git als Versionsverwaltung zu verwenden. Dies hat den Vorteil, dass wir
+die Arbeit aufteilen konnten und jeder an seinem Teil der Szene arbeiten
+konnte. Gleichzeitig konnten wir so auch die Änderungen der anderen
+Teammitglieder verfolgen und bei Bedarf auch Änderungen rückgängig machen.
+
+Jeder Issue aus ZenHub hat einem Branch entsprochen. Nachdem der
+entsprechende Code geschrieben wurde, wurde in den `develop`-Branch
+mit einer Pull Request gemerged. Diese Pull Requests wurde von 
+mindestens einem anderen Teammitglied überprüft und anschließend
+entweder freigegeben oder Änderungen wurden vorgeschlagen.
+
+### Meetings
+Um die Arbeit an der Szene zu koordinieren, haben wir uns jede Woche
+getroffen und die Aufgaben für die kommende Woche besprochen. Dabei
+haben wir uns an den Issues orientiert und diese dann auf die einzelnen
+Teammitglieder aufgeteilt. Außerdem haben wir uns in diesen Meetings
+auch über die bisherige Arbeit ausgetauscht und uns gegenseitig
+Feedback gegeben.
+
+## Designprozess
 Begonnen hat alles mit der ersten Idee. Unser Ziel war es, den Eiffelturm 
 sowie die nähere Umgebung möglichst originalgetreu
 nachzubilden. Das Kernstück ist dabei ganz klar der Eiffelturm gewesen, 
@@ -93,13 +130,13 @@ in einem realistischen Maßstab darstellen. Das bedeutet, dass wir uns
 Satellitenaufnahmen der Umgebung herausgesucht haben und diese dann
 vermessen haben, um die Maße der Umgebung zu bestimmen. Das Ergebnis
 dieser Vermessung ist in den folgenden Abbildungen zu sehen.
-![Layout 1](Layout1.jpeg)
-![Layout 2](Layout2.jpeg)
-Das Ziel war es somit, eine Fläche von 460*740 metern nachzubilden.
+![Layout 1](images/Layout1.jpeg)
+![Layout 2](images/Layout2.jpeg)
+Das Ziel war es somit, eine Fläche von 460*740 Metern nachzubilden.
 
 <a name="modellierung"></a>
-## Modellierung
-### Umgebung
+### Modellierung
+#### Umgebung
 Begonnen haben wir damit, den Bodenbereich zu modellieren. Dazu haben wir
 eine Ebene erstellt und ebenso wie auf dem Bild zu sehen, die Umrisse der
 Umgebung nachgezeichnet. Diese Ebene war somit anschließend eingeteilt in:
@@ -112,25 +149,29 @@ Umgebung nachgezeichnet. Diese Ebene war somit anschließend eingeteilt in:
 Anschließend haben wir die einzelnen Bereiche mit Texturen versehen, um diese
 auch optisch voneinander abgrenzen zu können. Das Ergebnis ist in der folgenden
 Abbildung zu sehen.
-![Layout in Blender](LayoutBlender.png)
+![Layout in Blender](images/LayoutBlender.png)
 
-### Eiffelturm
+Um die Szene weiter mit Leben zu füllen, haben wir weitere Modelle in die Szene
+eingefügt. Diese sind nachfolgend mit Link aufgezählt:
+* [Eiffelturm](https://sketchfab.com/3d-models/eiffel-tower-model-3d-with-best-quality-c3391c293e70471e9a112f7855adcf2f)
+* [Vögel](https://github.com/mrdoob/three.js/blob/dev/examples/models/gltf/Stork.glb)
+* [Autos]()
 Der nächste Schritt bestand daraus, ein passendes Modell für den Eiffelturm zu finden.
 Als diese gefunden war bestand die Aufgabe darin, diesen auf der Ebene passend 
 zu platzieren.
 
-### Bäume
+#### Bäume
 Bis jetzt war ausschließlich der Eiffelturm auf der Ebene zu sehen. Um die Umgebung
 zu erweitern haben wir als nächstes Bäume auf den Grünflachen des Parks platziert.
 
-### Häuser
+#### Häuser
 
-### Autos
+#### Autos
 
-### Vögel
+#### Vögel
 
 <a name="einbindungThreejs"></a>
-## Einbindung der Modelle in three.js
+### Einbindung der Modelle in three.js
 
 <a name="animation"></a>
 ## Animation
@@ -242,24 +283,6 @@ zu verwenden:
 ```
 Orientiert haben wir uns somit am Airbnb Code Style Guide. Dieser ist sehr
 ausführlich und bietet viele Möglichkeiten, den Code zu überprüfen.
-
-## Versionsverwaltung
-Um die Arbeit an der Szene zu erleichtern, haben wir uns dazu entschieden,
-Git als Versionsverwaltung zu verwenden. Dies hat den Vorteil, dass wir
-die Arbeit aufteilen konnten und jeder an seinem Teil der Szene arbeiten
-konnte. Gleichzeitig konnten wir so auch die Änderungen der anderen
-Teammitglieder verfolgen und bei Bedarf auch Änderungen rückgängig machen.
-
-Zusätzlich dazu haben wir ZenHub verwendet, um die verschiedenen Aufgaben zu verwalten.
-Dieses Tool hat es uns ermöglicht, die Aufgaben in einzelne Tickets zu
-unterteilen und diese dann auch zu verfolgen.
-In ZenHub haben wir insgesamt 4 Epics erstellt, welche nochmals tiefer unterteilt
-waren in einzelne Issues. Folgende Epics haben wir definiert:
-* Modeling
-* Lighting and Day-Night Cycle
-* Interactivity and Fine-Tuning
-* Documentation and Presentation
-
 
 ## Probleme
 ### Performance
