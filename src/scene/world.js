@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { Clock, DirectionalLight } from "three";
+import { Clock } from "three";
 import Drone from "../cameras/drone";
 import ModelLoader from "../helpers/modelloader";
 import Snackbar from "../components/snackbar";
@@ -9,6 +9,7 @@ import plants from "../components/plants.json";
 import Grass from "../components/grass/grass";
 import EventManager from "../utils/eventmanager";
 import TimeManager from "../utils/timemanager";
+import LightManager from "../utils/lightmanager";
 
 const clock = new Clock();
 
@@ -16,6 +17,7 @@ export default class World {
   constructor() {
     this.eventManager = new EventManager();
     this.timeManager = new TimeManager();
+    this.lightManager = new LightManager();
 
     this.frameCount = 0;
     this.startTime = performance.now();
@@ -141,7 +143,7 @@ export default class World {
       });
 
     // Add lights
-    this.addLights();
+    this.initLights();
 
     // Set the time of day
     if (this.timeManager.isDay()) {
@@ -186,28 +188,8 @@ export default class World {
     this.activeCamera = this.cameras.drone;
   }
 
-  addLights() {
-    // Add sun
-    this.sun = new DirectionalLight(0xffffff, 10);
-    this.sun.position.set(740 / 2, 400, -460 / 2);
-    this.scene.add(this.sun.target);
-    this.sun.target.position.set(370, 0, -230);
-    this.sun.castShadow = true;
-
-    this.sun.shadow.mapSize.width = 1024 * 2 ** 4;
-    this.sun.shadow.mapSize.height = 1024 * 2 ** 4;
-
-    this.sun.shadow.camera.left = -740 / 2;
-    this.sun.shadow.camera.right = 740 / 2;
-    this.sun.shadow.camera.top = 460 / 2;
-    this.sun.shadow.camera.bottom = -460 / 2;
-
-    this.lights.push(this.sun);
-
-    // Add lights to the scene
-    this.lights.forEach((light) => {
-      this.scene.add(light);
-    });
+  initLights() {
+    this.scene.add(this.lightManager.getSun().light);
   }
 
   toggleControls() {
