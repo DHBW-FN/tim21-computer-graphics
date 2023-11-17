@@ -60,13 +60,16 @@ export const fragmentShader = /* glsl */ `
 
   void main() {
     vec3 color = mix(green * 0.7, green, vPosition.y);
+    color = mix(color, texture2D(uCloud, vUv).rgb, 0.1);
 
     float lighting = normalize(dot(vNormal, vec3(10)));
   
     vec3 shadowColor = vec3(0, 0, 0);
     float shadowPower = 0.5;
+
+    color = mix(color, shadowColor, (1.0 - getShadowMask() ) * shadowPower);
     
-    gl_FragColor = vec4( mix(color, shadowColor, (1.0 - getShadowMask() ) * shadowPower), 1.0);
+    gl_FragColor = vec4(color, 1.0);
     #include <fog_fragment>
     #include <dithering_fragment>
   }
