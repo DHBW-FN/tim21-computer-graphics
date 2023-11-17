@@ -52,7 +52,7 @@ export default class LightManager {
   }
 
   getLight(name) {
-    return this.lights[name];
+    return this.lights.filter((light) => light.name === name)[0];
   }
 
   addLight(light, name, dayIntensity, nightIntensity) {

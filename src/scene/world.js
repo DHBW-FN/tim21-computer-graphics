@@ -195,6 +195,36 @@ export default class World {
   initLights() {
     this.scene.add(this.lightManager.getSun().light);
     this.scene.add(this.lightManager.getSun().light.target);
+
+    const spotLightIntensity = 10000;
+
+    const spotLight1 = new THREE.SpotLight(0xffffff, spotLightIntensity, 0, Math.PI / 4, 0);
+    spotLight1.castShadow = true;
+    spotLight1.position.set(530, 0, -142);
+    spotLight1.target.position.set(615, 50, -230);
+    this.scene.add(this.lightManager.addLight(spotLight1, "spotLight1", 0, spotLightIntensity).light);
+    this.scene.add(this.lightManager.getLight("spotLight1").light.target);
+
+    const spotLight2 = new THREE.SpotLight(0xffffff, spotLightIntensity, 0, Math.PI / 4, 0.5);
+    spotLight2.castShadow = true;
+    spotLight2.position.set(700, 0, -142);
+    spotLight2.target.position.set(615, 50, -230);
+    this.scene.add(this.lightManager.addLight(spotLight2, "spotLight2", 0, spotLightIntensity).light);
+    this.scene.add(this.lightManager.getLight("spotLight2").light.target);
+
+    const spotLight3 = new THREE.SpotLight(0xffffff, spotLightIntensity, 0, Math.PI / 4, 0.5);
+    spotLight2.castShadow = true;
+    spotLight3.position.set(700, 0, -317.5);
+    spotLight3.target.position.set(615, 50, -230);
+    this.scene.add(this.lightManager.addLight(spotLight3, "spotLight3", 0, spotLightIntensity).light);
+    this.scene.add(this.lightManager.getLight("spotLight3").light.target);
+
+    const spotLight4 = new THREE.SpotLight(0xffffff, spotLightIntensity, 0, Math.PI / 4, 0.5);
+    spotLight4.castShadow = true;
+    spotLight4.position.set(530, 0, -317.5);
+    spotLight4.target.position.set(615, 50, -230);
+    this.scene.add(this.lightManager.addLight(spotLight4, "spotLight4", 0, spotLightIntensity).light);
+    this.scene.add(this.lightManager.getLight("spotLight4").light.target);
   }
 
   toggleControls() {
