@@ -1,4 +1,8 @@
 export const vertexShader = /* glsl */ `
+  #include <common>
+  #include <fog_pars_vertex>
+  #include <shadowmap_pars_vertex>
+  
   uniform float uTime;
 
   varying vec3 vPosition;
@@ -14,6 +18,14 @@ export const vertexShader = /* glsl */ `
   }
 
   void main() {
+    #include <begin_vertex>
+    #include <beginnormal_vertex>
+    #include <project_vertex>
+    #include <worldpos_vertex>
+    #include <defaultnormal_vertex>
+    #include <shadowmap_vertex>
+    #include <fog_vertex>
+  
     vPosition = position;
     vUv = uv;
     vNormal = normalize(normalMatrix * normal);
@@ -29,6 +41,15 @@ export const vertexShader = /* glsl */ `
 `;
 
 export const fragmentShader = /* glsl */ `
+  #include <common>
+  #include <packing>
+  #include <fog_pars_fragment>
+  #include <bsdfs>
+  #include <lights_pars_begin>
+  #include <shadowmap_pars_fragment>
+  #include <shadowmask_pars_fragment>
+  #include <dithering_pars_fragment>
+  
   uniform sampler2D uCloud;
 
   varying vec3 vPosition;
@@ -42,6 +63,14 @@ export const fragmentShader = /* glsl */ `
     color = mix(color, texture2D(uCloud, vUv).rgb, 0.1);
 
     float lighting = normalize(dot(vNormal, vec3(10)));
-    gl_FragColor = vec4(color + lighting * 0.03, 1.0);
+  
+    vec3 shadowColor = vec3(0, 0, 0);
+    float shadowPower = 0.5;
+
+    color = mix(color, shadowColor, (1.0 - getShadowMask() ) * shadowPower);
+    
+    gl_FragColor = vec4(color, 1.0);
+    #include <fog_fragment>
+    #include <dithering_fragment>
   }
 `;
