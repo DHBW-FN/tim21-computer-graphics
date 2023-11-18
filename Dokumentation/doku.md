@@ -25,8 +25,6 @@
   - [Kollisionserkennung](#kollisionserkennung)
   - [Probleme](#probleme)
     - [Performance](#performance)
-    - [Kollisionserkennung](#kollisionserkennung)
-    - [Modelle laden](#modelleladen)
 
 
 ---
@@ -128,7 +126,14 @@ hat es uns ermöglicht, die Aufgaben in einzelne Tickets zu
 unterteilen und diese dann auch zu verfolgen.
 In ZenHub haben wir insgesamt 4 Epics erstellt, welche nochmals tiefer unterteilt
 waren in einzelne Issues. Folgende Epics haben wir definiert:
-![ZenHubEpics](images/ZenhubEpics.png)
+* Project Setup
+* Initial UI Layout
+* User Controls
+* Camera and Drone Functionality
+* Modelling
+* Lighting and Day/Night Cycle
+* Interactivity and Fine-Tuning
+* Documentation and Presentation
 
 Anschließend wurden diese Epics nochmals unterteilt in einzelne Issues.
 Am Ende hatten wir somit insgesamt 58 Issues, welche wir dann in den
@@ -158,8 +163,17 @@ Teammitglieder aufgeteilt. Außerdem haben wir uns in diesen Meetings
 auch über die bisherige Arbeit ausgetauscht und uns gegenseitig
 Feedback gegeben.
 
+<a name="aufbaucode"></a>
+## Aufbau des Codes
+Insgesamt handelt es sich bei der Gestaltung einer Szene um ein sehr komplexes Projekt.
+Dementsprechend ist ein guter Aufbau des Codes sehr wichtig, um den Überblick zu behalten.
+Deswegen war uns von Anfang an wichtig, dass der Code gut strukturiert ist und
+dass die einzelnen Teile der Szene gut voneinander getrennt sind.
+
+Angefangen hat das ganze mit der Definition eines Code Styles.
+
 <a name="codestyle"></a>
-## Code Style
+### Code Style
 Um einen einheitlichen Code Style über alle Dateien hinweg zu gewährleisten, haben
 wir uns dazu entschieden, ESLint zu verwenden. Dieses Tool hilft dabei, den Code
 zu überprüfen und Fehler zu finden. Dabei wird auch der Code Style überprüft und
@@ -187,6 +201,44 @@ zu verwenden:
 ```
 Orientiert haben wir uns somit am Airbnb Code Style Guide. Dieser ist sehr
 ausführlich und bietet viele Möglichkeiten, den Code zu überprüfen.
+
+### Dateistruktur
+Das ganze Proejekt konnte selbstverständlich nicht in einer einzigen Datei
+implementiert werden. Dies wäre aufgrund der größe des Projekts sehr schnell
+unübersichtlich geworden. 
+
+Der gesamte Dateibaum ist nachfolgend abgebildet:
+
+![Dateistruktur](images/Dateistruktur.png)
+
+Die wichtigste Datei ist dabei die `index.html`. Diese Datei ist die
+Einstiegsdatei in die Anwendung. In dieser Datei wird die Szene initialisiert
+und anschließend wird die `main.js` sowie `control.js` eingebunden. Auch die
+CSS-Dateien werden in dieser Datei eingebunden.
+
+Die Datei `main.js` ist die zentrale Datei für die Initialisierung der Szene.
+In dieser Datei wird die Klasse `World` intialisiert.
+
+Definiert ist die Klasse `World` in der Datei `world.js`. Diese Klasse
+ist die zentrale Klasse für die Szene. In dieser werden alle wichtigen
+Komponenten der Szene initialisiert. Dazu gehören zum Beispiel die
+Kameras und die Drohne, die Beleuchtung und das Laden der Modelle.
+
+Die restlichen Dateien werden nachfolgend kurz beschrieben:
+* `control.js` --> Steuerung der Drohne und der Buttons
+* `drone.js` --> Definition der Klasse Drohne, mit welcher in der Szene geflogen werden kann
+* `setupBirds.js` --> Initialisierung der Animation für die Vögel
+* `setupCars.js` --> Initialisierung der Animation für die Autos
+* `snackbar.js` --> Definition der Klasse Snackbar --> Anzeige von Meldungen
+* `animationModelLoader.js` --> Dynamische Einbindung der animierten Modelle
+* `modelLoader.js` --> Dynamische asynchrone Einbindung der Modelle & Defintion der Klasse ModelLoader
+
+Im Ordner `public` sind alle Modelle, Texturen und Bilder gespeichert, die
+in der Szene verwendet werden. Dazu gehören insbesondere die Modelle für
+den Eiffelturm und den Boden. 
+
+
+### Klassenstruktur
 
 <a name="designprozess"></a>
 ## Designprozess
@@ -382,9 +434,3 @@ Diese Library hat es uns ermöglicht, eine Kollisionserkennung
 performant umzusetzen, ohne dabei riesige Bounding Boxen zu verwenden.
 Stattdessen war es uns dadurch möglich, die tatsächlichen Formen der
 Objekte als Kollisionsobjekte zu verwenden.
-
-<a name="kollisionserkennung"></a>
-### Kollisionserkennung
-
-<a name="modelleladen"></a>
-### Modelle laden
