@@ -119,6 +119,7 @@ in der Szene verirrt hat und nicht mehr weiß, wo er sich befindet.
 
 <a name="arbeitsweise"></a>
 ## Arbeitsweise
+
 <a name="projektmanagement"></a>
 ### Projektmanagement mit ZenHub
 Zur Verwaltung der Aufgaben haben wir ZenHub verwendet. Dieses Tool
@@ -169,8 +170,6 @@ Insgesamt handelt es sich bei der Gestaltung einer Szene um ein sehr komplexes P
 Dementsprechend ist ein guter Aufbau des Codes sehr wichtig, um den Überblick zu behalten.
 Deswegen war uns von Anfang an wichtig, dass der Code gut strukturiert ist und
 dass die einzelnen Teile der Szene gut voneinander getrennt sind.
-
-Angefangen hat das ganze mit der Definition eines Code Styles.
 
 <a name="codestyle"></a>
 ### Code Style
@@ -225,13 +224,18 @@ Komponenten der Szene initialisiert. Dazu gehören zum Beispiel die
 Kameras und die Drohne, die Beleuchtung und das Laden der Modelle.
 
 Die restlichen Dateien werden nachfolgend kurz beschrieben:
-* `control.js` --> Steuerung der Drohne und der Buttons
 * `drone.js` --> Definition der Klasse Drohne, mit welcher in der Szene geflogen werden kann
-* `setupBirds.js` --> Initialisierung der Animation für die Vögel
-* `setupCars.js` --> Initialisierung der Animation für die Autos
-* `snackbar.js` --> Definition der Klasse Snackbar --> Anzeige von Meldungen
-* `animationModelLoader.js` --> Dynamische Einbindung der animierten Modelle
-* `modelLoader.js` --> Dynamische asynchrone Einbindung der Modelle & Defintion der Klasse ModelLoader
+* `setup-birds.js` --> Initialisierung der Animation für die Vögel
+* `setup-cars.js` --> Initialisierung der Animation für die Autos
+* `grass.js` --> Definition der Klasse Grass --> Erzeugung des Grases
+* `grass-geometry.js` --> Definition der Klasse GrassGeometry --> Erzeugung der Geometrie für das Gras
+* `grass-shaders.js` --> Definition der Shader, welche zum Rendering des Grases verwendet werden
+* `control.js` --> Steuerung der Drohne und der Buttons
+* `snackbar.js` --> Definition der Klasse Snackbar --> Anzeigen von Meldungen
+* `animation-modelLoader.js` --> Dynamische Einbindung der animierten Modelle
+* `modelloader.js` --> Dynamische asynchrone Einbindung der Modelle & Defintion der Klasse ModelLoader
+* `eventmanager.js` --> Definition der Klasse EventManager --> Verwaltung der Events
+* `timemanager.js` --> Definition der Klasse TimeManager --> Verwaltung der Zeit
 
 Im Ordner `public` sind alle Modelle, Texturen und Bilder gespeichert, die
 in der Szene verwendet werden. Dazu gehören insbesondere die Modelle für
@@ -426,6 +430,7 @@ um die Performance nicht zu sehr zu beeinträchtigen. Auch bei der Auswahl
 der Häuser und Autos haben wir darauf geachtet, dass diese nicht zu hoch aufgelöst
 sind und somit zu viel Rechenleistung benötigen.
 
+### Kollisionserkennung
 Auch die Kollisionserkennung ist in diesem Kontext zu nennen. Da wir
 die Kollisionserkennung mit Hilfe von Raycasting umgesetzt haben, mussten
 wir darauf achten, dass dafür ein möglichst effizienter Algorithmus 
