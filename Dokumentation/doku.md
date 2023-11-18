@@ -54,7 +54,7 @@ ausführen. Diese sind im Folgenden aufgelistet:
 * ![UI Buttons](images/Buttons.png)
 
 ### Tag/Nacht-Wechsel
-Durch das Klicken auf den Button `Day/Night` kann der Nutzer zwischen Tag und Nacht
+Durch das Klicken auf den Button `Day` oder `Night` kann der Nutzer zwischen Tag und Nacht
 wechseln. Dabei wird die Szene entsprechend angepasst. Zum einen wird
 die Umgebung auf einen Sternenhimmel bzw. einen Himmel mit Wolken geändert.
 Zum anderen ändert sich die Beleuchtung der Szene. Während tagsüber eine
@@ -155,7 +155,18 @@ Um die Szene weiter mit Leben zu füllen, haben wir weitere Modelle in die Szene
 eingefügt. Diese sind nachfolgend mit Link aufgezählt:
 * [Eiffelturm](https://sketchfab.com/3d-models/eiffel-tower-model-3d-with-best-quality-c3391c293e70471e9a112f7855adcf2f)
 * [Vögel](https://github.com/mrdoob/three.js/blob/dev/examples/models/gltf/Stork.glb)
-* [Autos]()
+* [Autos](https://free3d.com/de/3d-model/low-poly-car-40967.html)
+* Bäume:
+  - https://www.turbosquid.com/3d-models/3d-acacia-tree-vol-15blender-model-2106120
+  - https://www.turbosquid.com/3d-models/gentree-105-generic-tree-105-3d-model-2062795
+  - https://www.turbosquid.com/3d-models/gentree-103-generic-tree-103-3d-model-2062798
+  - https://sketchfab.com/3d-models/low-poly-shrub-small-texture-6e16ec47d7c246a69efffb9e857165ed
+  - https://free3d.com/3d-model/small-bush-76246.html
+  - https://www.blenderkit.com/get-blenderkit/712109e8-7599-4036-8bc7-d4a25f2d4640/
+  - https://www.turbosquid.com/3d-models/callistemon-tree-model-2062119
+* Häuser:
+  * tbd
+
 Der nächste Schritt bestand daraus, ein passendes Modell für den Eiffelturm zu finden.
 Als diese gefunden war bestand die Aufgabe darin, diesen auf der Ebene passend 
 zu platzieren.
@@ -249,7 +260,10 @@ Somit haben die Vögel unabhängig voneinander zwei Actions, die sie ausführen.
 
 ### Gras
 Um die Szene noch lebendiger wirken zu lassen, haben wir uns dazu entschieden,
-auch das Gras auf den Grünflächen zu animieren.
+auch das Gras auf den Grünflächen zu animieren. Dies haben wir mit Hilfe von
+Shadermaterialien umgesetzt. Dabei haben wir ein Shadermaterial erstellt, welches
+die einzelnen Grashalme animiert. Dieses Shadermaterial wird dann auf die
+Grasflächen angewendet. Das Ergebnis ist in der folgenden Abbildung zu sehen.
 
 ## Licht
 ## Kollisionserkennung
@@ -308,5 +322,3 @@ Objekte als Kollisionsobjekte zu verwenden.
 ### Kollisionserkennung
 
 ### Modelle laden
-
-## Quellen
