@@ -1,9 +1,36 @@
-- [Installation](#installation)
-- [Bedienung](#bedienung)
-- [Weitere Interaktionsmöglichkeiten](#interaktionen)
+# Inhaltsverzeichnis
+
+- [Nutzerdokumentation](#nutzerdokumentation)
+  - [Installation](#installation)
+  - [Bedienung](#bedienung)
+    - [Tastatur & Maus](#tastaturmaus)
+    - [Buttons im User Interface](#buttons)
+  - [Weitere Interaktionsmöglichkeiten](#interaktionen)
+    - [Tag/Nacht-Wechsel](#tagnacht)
+    - [Wechsel der Kamera](#kamera)
+    - [Drohne auf Startposition setzen](#startposition)
+- [Entwicklerdokumentation](#entwicklerdokumentation)
+  - [Arbeitsweise](#arbeitsweise)
+    - [Projektmanagement mit ZenHub](#projektmanagement)
+    - [Versionsverwaltung](#versionsverwaltung)
+    - [Meetings](#meetings)
+  - [Code Style](#codestyle)
+  - [Designprozess](#designprozess)
+    - [Modellierung](#modellierung)
+    - [Einbindung der Modelle in three.js](#einbindungThreejs)
+  - [Animationen](#animation)
+    - [Autos](#autos)
+    - [Vögel](#vögel)
+    - [Gras](#gras)
+  - [Kollisionserkennung](#kollisionserkennung)
+  - [Probleme](#probleme)
+    - [Performance](#performance)
+    - [Kollisionserkennung](#kollisionserkennung)
+    - [Modelle laden](#modelleladen)
+
 
 ---
-
+<a name="nutzerdokumentation"></a>
 # Nutzerdokumentation
 <a name="installation"></a>
 ## Installation
@@ -24,6 +51,8 @@ hat der Nutzer die Möglichkeit, sich in der Szene umher zu bewegen. Dazu bieten
 sich zwei Möglichkeiten:
 * Tastatur & Maus
 * Buttons im User Interface
+
+<a name="tastaturmaus"></a>
 ### Tastatur & Maus
 Um sich mit Hilfe der Tastatur und Maus in der Szene zu bewegen, muss der Nutzer
 zuerst einmal auf die Szene klicken. Dadurch wird die Steuerung gesperrt. 
@@ -38,6 +67,7 @@ Um die Steuerung mit der Hilfe der Tastatur wieder zu verlassen, muss nur wieder
 mit der Maus geklickt werden. Dadurch wird auch der Mauszeiger wieder sichtbar und 
 Buttons können wieder angeklickt werden.
 
+<a name="buttons"></a>
 ### Buttons im User Interface
 Alternativ zur Steuerung mit der Tastatur und Maus kann der Nutzer auch die Buttons
 im User Interface verwenden. Dieses ist unten abgebildet. Durch klicken auf diese Buttons kann sich der Nutzer
@@ -54,6 +84,7 @@ ausführen. Diese sind im Folgenden aufgelistet:
 
 ![UI Buttons](images/Buttons.png)
 
+<a name="tagnacht"></a>
 ### Tag/Nacht-Wechsel
 Durch das Klicken auf den Button `Day` oder `Night` kann der Nutzer zwischen Tag und Nacht
 wechseln. Dabei wird die Szene entsprechend angepasst. Zum einen wird
@@ -62,6 +93,7 @@ Zum anderen ändert sich die Beleuchtung der Szene. Während tagsüber eine
 Sonne die Szene beleuchtet, sorgen nachts einzelne, über die Szene verteilte 
 Lichtquellen für die Beleuchtung.
 
+<a name="kamera"></a>
 ### Wechsel der Kamera
 Durch das Klicken auf den Button `Camera` kann der Nutzer zwischen den
 verfügbaren Kameras hin und her wechseln. Dabei wird die aktuelle Kamera
@@ -77,15 +109,19 @@ Debugkamera ist dabei so platziert, dass die gesamte Szene auf einmal
 zu sehen ist. Die Stationäre Kamera bietet einen realistischen Ausblick auf den
 Eiffelturm.
 
+<a name="startposition"></a>
 ### Drohne auf Startposition setzen
 Durch den letzten Button kann die Drohnenkamera wieder auf die Startposition
 gesetzt werden. Dies ist vor allem dann hilfreich, wenn der Nutzer sich
 in der Szene verirrt hat und nicht mehr weiß, wo er sich befindet.
 
+---
+<a name="entwicklerdokumentation"></a>
 # Entwicklerdokumentation
-<a name="idee"></a>
 
+<a name="arbeitsweise"></a>
 ## Arbeitsweise
+<a name="projektmanagement"></a>
 ### Projektmanagement mit ZenHub
 Zur Verwaltung der Aufgaben haben wir ZenHub verwendet. Dieses Tool
 hat es uns ermöglicht, die Aufgaben in einzelne Tickets zu
@@ -99,6 +135,7 @@ Am Ende hatten wir somit insgesamt 58 Issues, welche wir dann in den
 folgenden Wochen abgearbeitet haben. Jeder Issue wurde mit einem Titel,
 einer Beschreibung, Akzeptanzkriterien und einem Label versehen.
 
+<a name="versionsverwaltung"></a>
 ### Versionsverwaltung
 Um die Arbeit an der Szene zu erleichtern, haben wir uns dazu entschieden,
 Git als Versionsverwaltung zu verwenden. Dies hat den Vorteil, dass wir
@@ -112,6 +149,16 @@ mit einer Pull Request gemerged. Diese Pull Requests wurde von
 mindestens einem anderen Teammitglied überprüft und anschließend
 entweder freigegeben oder Änderungen wurden vorgeschlagen.
 
+<a name="meetings"></a>
+### Meetings
+Um die Arbeit an der Szene zu koordinieren, haben wir uns jede Woche
+getroffen und die Aufgaben für die kommende Woche besprochen. Dabei
+haben wir uns an den Issues orientiert und diese dann auf die einzelnen
+Teammitglieder aufgeteilt. Außerdem haben wir uns in diesen Meetings
+auch über die bisherige Arbeit ausgetauscht und uns gegenseitig
+Feedback gegeben.
+
+<a name="codestyle"></a>
 ## Code Style
 Um einen einheitlichen Code Style über alle Dateien hinweg zu gewährleisten, haben
 wir uns dazu entschieden, ESLint zu verwenden. Dieses Tool hilft dabei, den Code
@@ -141,14 +188,7 @@ zu verwenden:
 Orientiert haben wir uns somit am Airbnb Code Style Guide. Dieser ist sehr
 ausführlich und bietet viele Möglichkeiten, den Code zu überprüfen.
 
-### Meetings
-Um die Arbeit an der Szene zu koordinieren, haben wir uns jede Woche
-getroffen und die Aufgaben für die kommende Woche besprochen. Dabei
-haben wir uns an den Issues orientiert und diese dann auf die einzelnen
-Teammitglieder aufgeteilt. Außerdem haben wir uns in diesen Meetings
-auch über die bisherige Arbeit ausgetauscht und uns gegenseitig
-Feedback gegeben.
-
+<a name="designprozess"></a>
 ## Designprozess
 Begonnen hat alles mit der ersten Idee. Unser Ziel war es, den Eiffelturm 
 sowie die nähere Umgebung möglichst originalgetreu
@@ -229,6 +269,7 @@ von Paris hin und her fahren.
 Zum anderen haben wir die Animationen der Vögel, die sich in der Luft bewegen
 und dabei ihre Flügel bewegen.
 
+<a name="autos"></a>
 ### Autos
 Insgesamt wurden 6 Autos in der Szene platziert. Mit der Hilfe von Keyframes
 haben wir die Autos auf den Straßen hin und her fahren lassen. Dabei haben
@@ -284,6 +325,7 @@ angegeben werden. Das heißt, dass die ersten drei Werte der `positions` die Pos
 ersten Keyframes darstellen (also x, y, z), die nächsten drei Werte die Positionen des
 zweiten Keyframes und so weiter.
 
+<a name="vögel"></a>
 ### Vögel
 Ähnlich zum Aufbau der Autos wurden auch die Vögel animiert. Auch hier wurden
 die einzelnen Keyframes in einer JSON-Datei definiert und anschließend
@@ -294,6 +336,7 @@ welches wir uns aus dem Internet heruntergeladen haben. In der Umsetzung im
 Programmcode mussten diese zwei separaten Animationen dann zusammengeführt werden.
 Somit haben die Vögel unabhängig voneinander zwei Actions, die sie ausführen.
 
+<a name="gras"></a>
 ### Gras
 Um die Szene noch lebendiger wirken zu lassen, haben wir uns dazu entschieden,
 auch das Gras auf den Grünflächen zu animieren. Dies haben wir mit Hilfe von
@@ -304,6 +347,7 @@ konnten wir so die Performance der Szene aufrechterhalten.
 Das Ergebnis ist in der folgenden Abbildung zu sehen.
 ![Gras](images/Grass.png)
 
+<a name="kollisionserkennung"></a>
 ## Kollisionserkennung
 Damit die Drohnenkamera nicht durch Objekte fliegen kann, musste eine
 Kollisionserkennung implementiert werden. Um dies möglichst performant
@@ -316,7 +360,9 @@ verhindert.
 In der Konsequenz führt das dazu, dass die Drohne nicht durch Objekte fliegen
 kann.
 
+<a name="probleme"></a>
 ## Probleme
+<a name="performance"></a>
 ### Performance
 Ein Problem, welches wir während der Entwicklung der Szene immer wieder
 hatten, war die Performance. Aufgrund der Größe der Szene und der Anzahl
@@ -337,6 +383,8 @@ performant umzusetzen, ohne dabei riesige Bounding Boxen zu verwenden.
 Stattdessen war es uns dadurch möglich, die tatsächlichen Formen der
 Objekte als Kollisionsobjekte zu verwenden.
 
+<a name="kollisionserkennung"></a>
 ### Kollisionserkennung
 
+<a name="modelleladen"></a>
 ### Modelle laden
