@@ -196,7 +196,7 @@ export default class World {
     this.scene.add(this.lightManager.getSun().light);
     this.scene.add(this.lightManager.getSun().light.target);
 
-    const spotLightIntensity = 10000;
+    const spotLightIntensity = 25000;
 
     const spotLight1 = new THREE.SpotLight(0xffffff, spotLightIntensity, 0, Math.PI / 4, 0);
     spotLight1.castShadow = true;
