@@ -11,20 +11,13 @@ export default class LightManager {
   }
 
   onDayChange(event) {
-    if (event.isDay) {
-      this.lights.map((lightObject) => {
-        // eslint-disable-next-line no-param-reassign
-        lightObject.light.intensity = lightObject.dayIntensity || 0;
-        return lightObject;
-      });
-    }
-    if (!event.isDay) {
-      this.lights.map((lightObject) => {
-        // eslint-disable-next-line no-param-reassign
-        lightObject.light.intensity = lightObject.nightIntensity || 0;
-        return lightObject;
-      });
-    }
+    this.lights.map((lightObject) => {
+      // eslint-disable-next-line no-param-reassign
+      lightObject.light.intensity = event.isDay ? lightObject.dayIntensity || 0 : lightObject.nightIntensity || 0;
+      // eslint-disable-next-line no-param-reassign
+      lightObject.light.visible = lightObject.light.intensity !== 0;
+      return lightObject;
+    });
   }
 
   initSun() {
