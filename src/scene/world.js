@@ -5,6 +5,7 @@ import ModelLoader from "../helpers/modelloader";
 import Snackbar from "../components/snackbar";
 import loadModels from "../helpers/animation-modelloader";
 import models from "../components/models.json";
+import plants from "../components/plants.json";
 import Grass from "../components/grass/grass";
 import EventManager from "../utils/eventmanager";
 import TimeManager from "../utils/timemanager";
@@ -120,6 +121,11 @@ export default class World {
         this.grass.push(field);
         this.scene.add(field);
       });
+    });
+
+    // Load plants
+    this.loadPlants().then((group) => {
+      this.scene.add(group);
     });
 
     // Load animations
@@ -246,5 +252,26 @@ export default class World {
     Snackbar.show("Resetting camera position", 3000);
     this.drone.setStartPosition();
     this.activeCamera = this.cameras.drone;
+  }
+
+  async loadPlants() {
+    return new Promise((resolve, reject) => {
+      const plantsGroup = new THREE.Group();
+
+      Object.keys(plants).forEach((key) => {
+        const model = plants[key];
+        this.modelLoader
+          .loadAsync(model)
+          .then((group) => {
+            plantsGroup.add(group);
+          })
+          .then(() => {
+            resolve(plantsGroup);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    });
   }
 }
