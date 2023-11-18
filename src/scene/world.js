@@ -6,6 +6,7 @@ import Snackbar from "../components/snackbar";
 import loadModels from "../helpers/animation-modelloader";
 import models from "../components/models.json";
 import plants from "../components/plants.json";
+import buildings from "../components/buildings.json";
 import Grass from "../components/grass/grass";
 import EventManager from "../utils/eventmanager";
 import TimeManager from "../utils/timemanager";
@@ -125,6 +126,11 @@ export default class World {
 
     // Load plants
     this.loadPlants().then((group) => {
+      this.scene.add(group);
+    });
+
+    // Load buildings
+    this.loadBuildings().then((group) => {
       this.scene.add(group);
     });
 
@@ -267,6 +273,27 @@ export default class World {
           })
           .then(() => {
             resolve(plantsGroup);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    });
+  }
+
+  async loadBuildings() {
+    return new Promise((resolve, reject) => {
+      const buildingsGroup = new THREE.Group();
+
+      Object.keys(buildings).forEach((key) => {
+        const model = buildings[key];
+        this.modelLoader
+          .loadAsync(model)
+          .then((group) => {
+            buildingsGroup.add(group);
+          })
+          .then(() => {
+            resolve(buildingsGroup);
           })
           .catch((error) => {
             reject(error);
