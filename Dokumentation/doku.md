@@ -51,7 +51,8 @@ ausführen. Diese sind im Folgenden aufgelistet:
 * Tag/Nacht-Wechsel
 * Wechsel der Kamera
 * Drohne auf Startpositon setzen
-* ![UI Buttons](images/Buttons.png)
+
+![UI Buttons](images/Buttons.png)
 
 ### Tag/Nacht-Wechsel
 Durch das Klicken auf den Button `Day` oder `Night` kann der Nutzer zwischen Tag und Nacht
@@ -111,6 +112,35 @@ mit einer Pull Request gemerged. Diese Pull Requests wurde von
 mindestens einem anderen Teammitglied überprüft und anschließend
 entweder freigegeben oder Änderungen wurden vorgeschlagen.
 
+## Code Style
+Um einen einheitlichen Code Style über alle Dateien hinweg zu gewährleisten, haben
+wir uns dazu entschieden, ESLint zu verwenden. Dieses Tool hilft dabei, den Code
+zu überprüfen und Fehler zu finden. Dabei wird auch der Code Style überprüft und
+es werden Warnungen ausgegeben, wenn der Code nicht dem gewünschten Code Style
+entspricht.
+
+Letztendlich haben wir uns dazu entschieden, folgende Konfiguration für ESLint
+zu verwenden:
+```
+{
+  env: {
+    browser: true,
+    es2021: true,
+  },
+  extends: ["airbnb-base", "prettier"],
+  parserOptions: {
+    ecmaVersion: "latest",
+    sourceType: "module",
+  },
+  plugins: ["prettier"],
+  rules: {
+    "prettier/prettier": "error",
+  },
+}
+```
+Orientiert haben wir uns somit am Airbnb Code Style Guide. Dieser ist sehr
+ausführlich und bietet viele Möglichkeiten, den Code zu überprüfen.
+
 ### Meetings
 Um die Arbeit an der Szene zu koordinieren, haben wir uns jede Woche
 getroffen und die Aufgaben für die kommende Woche besprochen. Dabei
@@ -136,7 +166,6 @@ Das Ziel war es somit, eine Fläche von 460*740 Metern nachzubilden.
 
 <a name="modellierung"></a>
 ### Modellierung
-#### Umgebung
 Begonnen haben wir damit, den Bodenbereich zu modellieren. Dazu haben wir
 eine Ebene erstellt und ebenso wie auf dem Bild zu sehen, die Umrisse der
 Umgebung nachgezeichnet. Diese Ebene war somit anschließend eingeteilt in:
@@ -152,7 +181,10 @@ Abbildung zu sehen.
 ![Layout in Blender](images/LayoutBlender.png)
 
 Um die Szene weiter mit Leben zu füllen, haben wir weitere Modelle in die Szene
-eingefügt. Diese sind nachfolgend mit Link aufgezählt:
+eingefügt. Das wichtigste Modell ist dabei natürlich der Eiffelturm. Dieser wurde
+als erstes Modell in die Szene eingefügt. Anschließend haben wir uns um die
+restlichen Modelle gekümmert. Dabei haben wir uns auf folgende Modelle
+konzentriert:
 * [Eiffelturm](https://sketchfab.com/3d-models/eiffel-tower-model-3d-with-best-quality-c3391c293e70471e9a112f7855adcf2f)
 * [Vögel](https://github.com/mrdoob/three.js/blob/dev/examples/models/gltf/Stork.glb)
 * [Autos](https://free3d.com/de/3d-model/low-poly-car-40967.html)
@@ -167,25 +199,29 @@ eingefügt. Diese sind nachfolgend mit Link aufgezählt:
 * Häuser:
   * tbd
 
-Der nächste Schritt bestand daraus, ein passendes Modell für den Eiffelturm zu finden.
-Als diese gefunden war bestand die Aufgabe darin, diesen auf der Ebene passend 
-zu platzieren.
-
-#### Bäume
-Bis jetzt war ausschließlich der Eiffelturm auf der Ebene zu sehen. Um die Umgebung
-zu erweitern haben wir als nächstes Bäume auf den Grünflachen des Parks platziert.
-
-#### Häuser
-
-#### Autos
-
-#### Vögel
-
 <a name="einbindungThreejs"></a>
 ### Einbindung der Modelle in three.js
+Nachdem die Modelle herausgesucht und heruntergeladen wurden, mussten diese
+in three.js in die Szene eingebunden werden. Um dies möglichst einfach umzusetzen
+und möglichst flexibel zu gestalten, haben wir eine eigene Klasse ModelLoader erstellt.
+Diese Klasse ermöglicht es, asynchron Modelle mit Hilfe von JSON-Dateien in die Szene einzubinden.
+Dabei wird die JSON-Datei mit den Informationen über das Modell eingelesen und anschließend
+werden die einzelnen Objekte des Modells in die Szene eingefügt.
+
+In der JSON-Datei werden dabei folgende Informationen über das Modell gespeichert:
+* Dateiname/Dateipfad
+* Pro Modell in entsprechender Anzahl des Auftretens in der Szene:
+  * Position
+  * Rotation
+  * castShadow
+  * receiveShadow
+
+Somit konnten wir nur anhand der JSON-Datei festlegen, welche Modelle in der Szene
+dargestellt werden sollen und wie diese platziert werden sollen. Dies hat den Vorteil,
+dass wir die JSON-Datei beliebig anpassen können, ohne dass der Code angepasst werden muss.
 
 <a name="animation"></a>
-## Animation
+## Animationen
 Um die Szene lebendiger wirken zu lassen, mussten Animationen in die Szene eingebaut werden.
 Dabei haben wir uns auf zwei Arten von Animationen fokussiert. 
 Zum einen haben wir die Animationen der Autos, die sich auf den Straßen
@@ -263,40 +299,22 @@ Um die Szene noch lebendiger wirken zu lassen, haben wir uns dazu entschieden,
 auch das Gras auf den Grünflächen zu animieren. Dies haben wir mit Hilfe von
 Shadermaterialien umgesetzt. Dabei haben wir ein Shadermaterial erstellt, welches
 die einzelnen Grashalme animiert. Dieses Shadermaterial wird dann auf die
-Grasflächen angewendet. Das Ergebnis ist in der folgenden Abbildung zu sehen.
+Grasflächen angewendet. Trotz der großen Anzahl an Grashalmen
+konnten wir so die Performance der Szene aufrechterhalten.
+Das Ergebnis ist in der folgenden Abbildung zu sehen.
+![Gras](images/Grass.png)
 
-## Licht
 ## Kollisionserkennung
-## Kamerabewegung
+Damit die Drohnenkamera nicht durch Objekte fliegen kann, musste eine
+Kollisionserkennung implementiert werden. Um dies möglichst performant
+umzusetzen, haben wir uns dazu entschieden, Raycasting zu verwenden.
+Dabei wird ein Strahl von der Drohnenkamera ausgesendet und anschließend
+überprüft, ob dieser Strahl mit einem Objekt kollidiert. Ist dies der
+Fall, so wird die Bewegung der Drohnenkamera in die entsprechende Richtung
+verhindert. 
 
-## Code Style
-Um einen einheitlichen Code Style über alle Dateien hinweg zu gewährleisten, haben
-wir uns dazu entschieden, ESLint zu verwenden. Dieses Tool hilft dabei, den Code
-zu überprüfen und Fehler zu finden. Dabei wird auch der Code Style überprüft und
-es werden Warnungen ausgegeben, wenn der Code nicht dem gewünschten Code Style
-entspricht. 
-
-Letztendlich haben wir uns dazu entschieden, folgende Konfiguration für ESLint
-zu verwenden:
-```
-{
-  env: {
-    browser: true,
-    es2021: true,
-  },
-  extends: ["airbnb-base", "prettier"],
-  parserOptions: {
-    ecmaVersion: "latest",
-    sourceType: "module",
-  },
-  plugins: ["prettier"],
-  rules: {
-    "prettier/prettier": "error",
-  },
-}
-```
-Orientiert haben wir uns somit am Airbnb Code Style Guide. Dieser ist sehr
-ausführlich und bietet viele Möglichkeiten, den Code zu überprüfen.
+In der Konsequenz führt das dazu, dass die Drohne nicht durch Objekte fliegen
+kann.
 
 ## Probleme
 ### Performance
