@@ -22,12 +22,15 @@ export default class Drone {
       this.maxSpeed + this.minDistance,
     );
     this.raycaster.firstHitOnly = true;
-    this.flashLight = new THREE.SpotLight(0xffffff, 10000, 50, Math.PI / 4, 0.5);
+
+    // Add flashlight
+    const flashlightIntensity = 100000;
+    this.flashLight = new THREE.SpotLight(0xffffff, flashlightIntensity, 50, Math.PI / 8, 0.5);
     this.flashLight.position.copy(this.camera.position);
-    this.flashLight.target.position.copy(this.controls.getDirection(new Vector3())); // TODO: Get target position
-    this.world.lightManager.addLight(this.flashLight, "flashLight", 0, 1000000);
-    this.world.scene.add(this.flashLight);
-    this.world.scene.add(this.flashLight.target);
+    this.flashLight.target.position.copy(this.camera.getWorldDirection(new Vector3()).add(this.camera.position));
+    this.world.lightManager.addLight(this.flashLight, "flashLight", 0, flashlightIntensity);
+    this.world.scene.add(this.world.lightManager.getLight("flashLight").light);
+    this.world.scene.add(this.world.lightManager.getLight("flashLight").light.target);
 
     this.setStartPosition();
     this.addEventListeners();
@@ -79,6 +82,8 @@ export default class Drone {
   onKeyDown(event) {
     if (!this.controls.isLocked) return;
 
+    if (!this.keymap[event.code]) return;
+
     this.controls.pressedKeys.add(event.code);
   }
 
@@ -125,10 +130,12 @@ export default class Drone {
       .clone()
       .add(new THREE.Vector3(directionVector.x, directionVector.y, directionVector.z));
     this.camera.position.copy(newPosition);
-    this.world.lightManager.getLight("flashLight").light.position.copy(newPosition);
+
+    // Update flashlight position
+    this.world.lightManager.getLight("flashLight").light.position.copy(this.camera.position);
     this.world.lightManager
       .getLight("flashLight")
-      .light.target.position.copy(this.camera.getWorldDirection(new Vector3()));
+      .light.target.position.copy(this.camera.getWorldDirection(new Vector3()).add(this.camera.position));
   }
 
   look(axis, degrees = 45) {
@@ -139,6 +146,10 @@ export default class Drone {
   }
 
   updatePosition() {
+    this.world.lightManager
+      .getLight("flashLight")
+      .light.target.position.copy(this.camera.getWorldDirection(new Vector3()).add(this.camera.position));
+
     if (this.velocity.length() === 0 && this.controls.pressedKeys.size === 0) return;
 
     // Decelerate
