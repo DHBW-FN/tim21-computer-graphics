@@ -129,6 +129,8 @@ export default class Drone {
   }
 
   updatePosition() {
+    if (this.velocity.length() === 0 && this.controls.pressedKeys.size === 0) return;
+
     // Decelerate
     if (!this.controls.pressedKeys.has("KeyW") && !this.controls.pressedKeys.has("KeyS")) {
       if (this.velocity.z >= 0) {
