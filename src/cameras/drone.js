@@ -26,8 +26,8 @@ export default class Drone {
     this.setStartPosition();
 
     // Add flashlight
-    const flashlightIntensity = 100000;
-    this.flashLight = new THREE.SpotLight(0xffffff, flashlightIntensity, 50, Math.PI / 8, 0.5);
+    const flashlightIntensity = 2500;
+    this.flashLight = new THREE.SpotLight(0xffffff, flashlightIntensity, 50, Math.PI / 7, 1);
     this.world.lightManager.addLight(this.flashLight, "flashLight", 0, flashlightIntensity);
     this.updateFlashlight();
     this.world.scene.add(this.world.lightManager.getLight("flashLight").light);
