@@ -197,7 +197,7 @@ export default class World {
 
     const spotLightIntensity = 25000;
 
-    const spotLight1 = new THREE.SpotLight(0xffffff, spotLightIntensity, 0, Math.PI / 4, 0);
+    const spotLight1 = new THREE.SpotLight(0xffffff, spotLightIntensity, 0, Math.PI / 4, 0.5);
     spotLight1.castShadow = true;
     spotLight1.position.set(530, 0, -142);
     spotLight1.target.position.set(615, 50, -230);
