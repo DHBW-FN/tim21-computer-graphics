@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/extensions,import/no-unresolved
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { BufferGeometry, DoubleSide, Group, Mesh, MeshBasicMaterial } from "three";
+import { BufferGeometry, DoubleSide, Group, MathUtils, Mesh, MeshBasicMaterial } from "three";
 import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree } from "three-mesh-bvh";
 
 export default class ModelLoader {
@@ -52,7 +52,11 @@ export default class ModelLoader {
                 instanceMesh.position.copy(instance.position);
               }
               if (instance.rotation) {
-                instanceMesh.rotation.copy(instance.rotation);
+                instanceMesh.rotation.set(
+                  MathUtils.degToRad(instance.rotation.x),
+                  MathUtils.degToRad(instance.rotation.y),
+                  MathUtils.degToRad(instance.rotation.z),
+                );
               }
               if (instance.scale) {
                 instanceMesh.scale.copy(instance.scale);
