@@ -1,5 +1,6 @@
 /**
  * Class representing an event manager for handling and managing custom events.
+ * @module
  */
 export default class EventManager {
   /**

@@ -5,7 +5,7 @@ import Snackbar from "../components/snackbar";
 
 /**
  * Class representing a drone with controls for movement and interaction.
- * @class
+ * @module
  */
 export default class Drone {
   /**

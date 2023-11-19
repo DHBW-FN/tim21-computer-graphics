@@ -19,7 +19,6 @@ const keys = {
 
 /**
  * Handles button events for mouse interactions with controls.
- *
  * @param {HTMLElement} button - The button element to handle events for.
  */
 function handleButtonEvents(button) {

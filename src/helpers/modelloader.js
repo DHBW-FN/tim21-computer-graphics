@@ -5,6 +5,7 @@ import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree } from "three-
 
 /**
  * Utility class for loading 3D models with additional functionality like bounding boxes and instance handling.
+ * @module
  */
 export default class ModelLoader {
   /**

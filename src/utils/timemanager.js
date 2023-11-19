@@ -2,6 +2,7 @@ import EventManager from "./eventmanager";
 
 /**
  * Class representing a time manager for tracking and notifying events related to the time of day.
+ * @module
  */
 export default class TimeManager {
   /**

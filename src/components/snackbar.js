@@ -1,5 +1,6 @@
 /**
  * Snackbar class for displaying temporary messages.
+ * @module
  */
 export default class Snackbar {
   /**
