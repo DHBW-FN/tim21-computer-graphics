@@ -495,9 +495,9 @@
       },
       {
         "position": {
-          "_x": 333.76,
-          "_y": 0,
-          "_z": -189.18
+          "x": 333.76,
+          "y": 0,
+          "z": -189.18
         },
         "castShadow": false,
         "receiveShadow": false
@@ -1221,7 +1221,7 @@
           "x": 0,
           "y": 90,
           "z": 0,
-          "order": "XYZ"
+          "_order": "XYZ"
         },
         "scale": {
             "x": 2,
