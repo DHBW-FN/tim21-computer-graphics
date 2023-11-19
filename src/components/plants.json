@@ -495,9 +495,9 @@
       },
       {
         "position": {
-          "_x": 333.76,
-          "_y": 0,
-          "_z": -189.18
+          "x": 333.76,
+          "y": 0,
+          "z": -189.18
         },
         "castShadow": false,
         "receiveShadow": false
@@ -1218,9 +1218,9 @@
           "z": -263
         },
         "rotation": {
-          "_x": 0,
-          "_y": 90,
-          "_z": 0,
+          "x": 0,
+          "y": 90,
+          "z": 0,
           "_order": "XYZ"
         },
         "scale": {
@@ -1258,8 +1258,8 @@
       }
     ]
   },
-  "GenTree_yellow": {
-    "path": "assets/plants/GenTree_yellow.glb",
+  "GenTreeyellow": {
+    "path": "assets/plants/GenTreeyellow.glb",
     "instances": [
       {
         "position": {
