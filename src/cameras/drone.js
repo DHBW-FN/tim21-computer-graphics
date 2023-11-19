@@ -23,6 +23,8 @@ export default class Drone {
     );
     this.raycaster.firstHitOnly = true;
 
+    this.setStartPosition();
+
     // Add flashlight
     const flashlightIntensity = 100000;
     this.flashLight = new THREE.SpotLight(0xffffff, flashlightIntensity, 50, Math.PI / 8, 0.5);
@@ -32,7 +34,6 @@ export default class Drone {
     this.world.scene.add(this.world.lightManager.getLight("flashLight").light);
     this.world.scene.add(this.world.lightManager.getLight("flashLight").light.target);
 
-    this.setStartPosition();
     this.addEventListeners();
 
     this.keymap = {
