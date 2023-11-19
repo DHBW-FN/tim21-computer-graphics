@@ -24,6 +24,15 @@ export default class Drone {
     this.raycaster.firstHitOnly = true;
 
     this.setStartPosition();
+
+    // Add flashlight
+    const flashlightIntensity = 2500;
+    this.flashLight = new THREE.SpotLight(0xffffff, flashlightIntensity, 50, Math.PI / 7, 1);
+    this.world.lightManager.addLight(this.flashLight, "flashLight", 0, flashlightIntensity);
+    this.updateFlashlight();
+    this.world.scene.add(this.world.lightManager.getLight("flashLight").light);
+    this.world.scene.add(this.world.lightManager.getLight("flashLight").light.target);
+
     this.addEventListeners();
 
     this.keymap = {
@@ -66,12 +75,14 @@ export default class Drone {
   addEventListeners() {
     document.addEventListener("keydown", (event) => this.onKeyDown(event));
     document.addEventListener("keyup", (event) => this.onKeyUp(event));
-    this.controls.addEventListener("lock", () => Drone.onPointerLock());
-    this.controls.addEventListener("unlock", () => Drone.onPointerUnlock());
+    this.controls.addEventListener("lock", Drone.onPointerLock);
+    this.controls.addEventListener("unlock", Drone.onPointerUnlock);
   }
 
   onKeyDown(event) {
     if (!this.controls.isLocked) return;
+
+    if (!this.keymap[event.code]) return;
 
     this.controls.pressedKeys.add(event.code);
   }
@@ -89,6 +100,10 @@ export default class Drone {
   }
 
   move(directionVector) {
+    if (directionVector.length() === 0) {
+      return;
+    }
+
     const direction = directionVector.clone();
 
     const collidableObjects = [];
@@ -115,9 +130,7 @@ export default class Drone {
       }
     }
 
-    const newPosition = this.camera.position
-      .clone()
-      .add(new THREE.Vector3(directionVector.x, directionVector.y, directionVector.z));
+    const newPosition = this.camera.position.clone().add(directionVector);
     this.camera.position.copy(newPosition);
   }
 
@@ -129,10 +142,19 @@ export default class Drone {
   }
 
   updatePosition() {
-    if (this.velocity.length() === 0 && this.controls.pressedKeys.size === 0) return;
+    const pressedKeys = Array.from(this.controls.pressedKeys);
+
+    // Look around
+    pressedKeys
+      .filter((key) => this.keymap[key] && this.keymap[key].action === "look")
+      .forEach((key) => {
+        const mapping = this.keymap[key];
+        const vector = typeof mapping.vector === "function" ? mapping.vector() : mapping.vector;
+        this.look(vector, mapping.degrees);
+      });
 
     // Decelerate
-    if (!this.controls.pressedKeys.has("KeyW") && !this.controls.pressedKeys.has("KeyS")) {
+    if (!pressedKeys.includes("KeyW") && !pressedKeys.includes("KeyS")) {
       if (this.velocity.z >= 0) {
         this.velocity.z = Math.max(0, this.velocity.z - this.deceleration);
       }
@@ -140,7 +162,7 @@ export default class Drone {
         this.velocity.z = Math.min(0, this.velocity.z + this.deceleration);
       }
     }
-    if (!this.controls.pressedKeys.has("KeyA") && !this.controls.pressedKeys.has("KeyD")) {
+    if (!pressedKeys.includes("KeyA") && !pressedKeys.includes("KeyD")) {
       if (this.velocity.x >= 0) {
         this.velocity.x = Math.max(0, this.velocity.x - this.deceleration);
       }
@@ -148,7 +170,7 @@ export default class Drone {
         this.velocity.x = Math.min(0, this.velocity.x + this.deceleration);
       }
     }
-    if (!this.controls.pressedKeys.has("KeyR") && !this.controls.pressedKeys.has("KeyF")) {
+    if (!pressedKeys.includes("KeyR") && !pressedKeys.includes("KeyF")) {
       if (this.velocity.y >= 0) {
         this.velocity.y = Math.max(0, this.velocity.y - this.deceleration);
       }
@@ -158,7 +180,7 @@ export default class Drone {
     }
 
     // Accelerate
-    this.controls.pressedKeys.forEach((key) => {
+    pressedKeys.forEach((key) => {
       const mapping = this.keymap[key];
       if (mapping) {
         switch (mapping.direction) {
@@ -173,11 +195,6 @@ export default class Drone {
             break;
           default:
             break;
-        }
-
-        if (mapping.action === "look") {
-          const vector = typeof mapping.vector === "function" ? mapping.vector() : mapping.vector;
-          this.look(vector, mapping.degrees);
         }
       }
     });
@@ -204,5 +221,13 @@ export default class Drone {
 
     const moveVector = forwardDirection.add(rightDirection).add(upDirection);
     this.move(moveVector);
+    this.updateFlashlight();
+  }
+
+  updateFlashlight() {
+    this.world.lightManager.getLight("flashLight").light.position.copy(this.camera.position);
+    this.world.lightManager
+      .getLight("flashLight")
+      .light.target.position.copy(this.camera.getWorldDirection(new Vector3()).add(this.camera.position));
   }
 }

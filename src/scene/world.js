@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { Clock, DirectionalLight } from "three";
+import { Clock } from "three";
 import Drone from "../cameras/drone";
 import ModelLoader from "../helpers/modelloader";
 import Snackbar from "../components/snackbar";
@@ -9,6 +9,7 @@ import plants from "../components/plants.json";
 import Grass from "../components/grass/grass";
 import EventManager from "../utils/eventmanager";
 import TimeManager from "../utils/timemanager";
+import LightManager from "../utils/lightmanager";
 
 const clock = new Clock();
 
@@ -16,12 +17,8 @@ export default class World {
   constructor() {
     this.eventManager = new EventManager();
     this.timeManager = new TimeManager();
+    this.lightManager = new LightManager();
 
-    this.frameCount = 0;
-    this.startTime = performance.now();
-    this.fpsElement = document.getElementById("fpsCounter");
-
-    this.lights = [];
     this.cameras = {};
     this.cubeLoader = new THREE.CubeTextureLoader();
     this.updatables = [];
@@ -38,7 +35,6 @@ export default class World {
 
     // Add event listeners
     document.addEventListener("click", () => this.toggleControls());
-
     this.eventManager.addListener(TimeManager.DAY_CHANGE_EVENT, (event) => this.onDayChange(event));
   }
 
@@ -72,20 +68,6 @@ export default class World {
     this.renderer.setAnimationLoop((time) => {
       this.tick(time);
 
-      // Calculate FPS
-      this.frameCount += 1;
-      const currentTime = performance.now();
-      const elapsedTime = currentTime - this.startTime;
-
-      if (elapsedTime >= 1000) {
-        const fps = Math.round((this.frameCount * 1000) / elapsedTime);
-        this.fpsElement.textContent = `FPS: ${fps}`;
-
-        // Reset counters for the next second
-        this.frameCount = 0;
-        this.startTime = currentTime;
-      }
-
       this.renderer.render(this.scene, this.activeCamera);
     });
   }
@@ -98,7 +80,11 @@ export default class World {
     }
 
     this.grass.forEach((grass) => {
-      grass.update(time);
+      grass.update(
+        time,
+        this.lightManager.getSun().light.intensity /
+          Math.max(this.lightManager.getSun().dayIntensity, this.lightManager.getSun().nightIntensity),
+      );
     });
 
     this.updatables.forEach((object) => {
@@ -141,7 +127,7 @@ export default class World {
       });
 
     // Add lights
-    this.addLights();
+    this.initLights();
 
     // Set the time of day
     if (this.timeManager.isDay()) {
@@ -186,28 +172,39 @@ export default class World {
     this.activeCamera = this.cameras.drone;
   }
 
-  addLights() {
-    // Add sun
-    this.sun = new DirectionalLight(0xffffff, 10);
-    this.sun.position.set(740 / 2, 400, -460 / 2);
-    this.scene.add(this.sun.target);
-    this.sun.target.position.set(370, 0, -230);
-    this.sun.castShadow = true;
+  initLights() {
+    this.scene.add(this.lightManager.getSun().light);
+    this.scene.add(this.lightManager.getSun().light.target);
 
-    this.sun.shadow.mapSize.width = 1024 * 2 ** 4;
-    this.sun.shadow.mapSize.height = 1024 * 2 ** 4;
+    const spotLightIntensity = 25000;
 
-    this.sun.shadow.camera.left = -740 / 2;
-    this.sun.shadow.camera.right = 740 / 2;
-    this.sun.shadow.camera.top = 460 / 2;
-    this.sun.shadow.camera.bottom = -460 / 2;
+    const spotLight1 = new THREE.SpotLight(0xffffff, spotLightIntensity, 0, Math.PI / 4, 0.5);
+    spotLight1.castShadow = true;
+    spotLight1.position.set(530, 0, -142);
+    spotLight1.target.position.set(615, 50, -230);
+    this.scene.add(this.lightManager.addLight(spotLight1, "spotLight1", 0, spotLightIntensity).light);
+    this.scene.add(this.lightManager.getLight("spotLight1").light.target);
 
-    this.lights.push(this.sun);
+    const spotLight2 = new THREE.SpotLight(0xffffff, spotLightIntensity, 0, Math.PI / 4, 0.5);
+    spotLight2.castShadow = true;
+    spotLight2.position.set(700, 0, -142);
+    spotLight2.target.position.set(615, 50, -230);
+    this.scene.add(this.lightManager.addLight(spotLight2, "spotLight2", 0, spotLightIntensity).light);
+    this.scene.add(this.lightManager.getLight("spotLight2").light.target);
 
-    // Add lights to the scene
-    this.lights.forEach((light) => {
-      this.scene.add(light);
-    });
+    const spotLight3 = new THREE.SpotLight(0xffffff, spotLightIntensity, 0, Math.PI / 4, 0.5);
+    spotLight3.castShadow = true;
+    spotLight3.position.set(700, 0, -317.5);
+    spotLight3.target.position.set(615, 50, -230);
+    this.scene.add(this.lightManager.addLight(spotLight3, "spotLight3", 0, spotLightIntensity).light);
+    this.scene.add(this.lightManager.getLight("spotLight3").light.target);
+
+    const spotLight4 = new THREE.SpotLight(0xffffff, spotLightIntensity, 0, Math.PI / 4, 0.5);
+    spotLight4.castShadow = true;
+    spotLight4.position.set(530, 0, -317.5);
+    spotLight4.target.position.set(615, 50, -230);
+    this.scene.add(this.lightManager.addLight(spotLight4, "spotLight4", 0, spotLightIntensity).light);
+    this.scene.add(this.lightManager.getLight("spotLight4").light.target);
   }
 
   toggleControls() {
