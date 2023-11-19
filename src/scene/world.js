@@ -19,11 +19,6 @@ export default class World {
     this.timeManager = new TimeManager();
     this.lightManager = new LightManager();
 
-    this.frameCount = 0;
-    this.startTime = performance.now();
-    this.fpsElement = document.getElementById("fpsCounter");
-
-    this.lights = [];
     this.cameras = {};
     this.cubeLoader = new THREE.CubeTextureLoader();
     this.updatables = [];
@@ -72,20 +67,6 @@ export default class World {
   animate() {
     this.renderer.setAnimationLoop((time) => {
       this.tick(time);
-
-      // Calculate FPS
-      this.frameCount += 1;
-      const currentTime = performance.now();
-      const elapsedTime = currentTime - this.startTime;
-
-      if (elapsedTime >= 1000) {
-        const fps = Math.round((this.frameCount * 1000) / elapsedTime);
-        this.fpsElement.textContent = `FPS: ${fps}`;
-
-        // Reset counters for the next second
-        this.frameCount = 0;
-        this.startTime = currentTime;
-      }
 
       this.renderer.render(this.scene, this.activeCamera);
     });
