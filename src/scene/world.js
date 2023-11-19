@@ -40,7 +40,6 @@ export default class World {
 
     // Add event listeners
     document.addEventListener("click", () => this.toggleControls());
-
     this.eventManager.addListener(TimeManager.DAY_CHANGE_EVENT, (event) => this.onDayChange(event));
   }
 
