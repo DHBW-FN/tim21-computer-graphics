@@ -6,6 +6,8 @@ import Snackbar from "../components/snackbar";
 import loadModels from "../helpers/animation-modelloader";
 import models from "../components/models.json";
 import plants from "../components/plants.json";
+import buildings from "../components/buildings.json";
+import streetLamps from "../components/streetLamps.json";
 import Grass from "../components/grass/grass";
 import EventManager from "../utils/eventmanager";
 import TimeManager from "../utils/timemanager";
@@ -111,6 +113,16 @@ export default class World {
 
     // Load plants
     this.loadPlants().then((group) => {
+      this.scene.add(group);
+    });
+
+    // Load buildings
+    this.loadBuildings().then((group) => {
+      this.scene.add(group);
+    });
+
+    // Load street lamps
+    this.loadStreetLamps().then((group) => {
       this.scene.add(group);
     });
 
@@ -264,6 +276,48 @@ export default class World {
           })
           .then(() => {
             resolve(plantsGroup);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    });
+  }
+
+  async loadBuildings() {
+    return new Promise((resolve, reject) => {
+      const buildingsGroup = new THREE.Group();
+
+      Object.keys(buildings).forEach((key) => {
+        const model = buildings[key];
+        this.modelLoader
+          .loadAsync(model)
+          .then((group) => {
+            buildingsGroup.add(group);
+          })
+          .then(() => {
+            resolve(buildingsGroup);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    });
+  }
+
+  async loadStreetLamps() {
+    return new Promise((resolve, reject) => {
+      const stretLampsGroup = new THREE.Group();
+
+      Object.keys(streetLamps).forEach((key) => {
+        const model = streetLamps[key];
+        this.modelLoader
+          .loadAsync(model)
+          .then((group) => {
+            stretLampsGroup.add(group);
+          })
+          .then(() => {
+            resolve(stretLampsGroup);
           })
           .catch((error) => {
             reject(error);
