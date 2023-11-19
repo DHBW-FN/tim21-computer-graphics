@@ -1258,8 +1258,8 @@
       }
     ]
   },
-  "GenTreeyellow": {
-    "path": "assets/plants/GenTreeyellow.glb",
+  "GenTree_yellow": {
+    "path": "assets/plants/GenTree_yellow.glb",
     "instances": [
       {
         "position": {
