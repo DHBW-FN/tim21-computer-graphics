@@ -126,6 +126,14 @@ export default class World {
       this.scene.add(group);
     });
 
+    // Add lights to streetlamps
+    this.loadStreetLampsLights().then((lights) => {
+      lights.forEach((light) => {
+        this.scene.add(light);
+        this.scene.add(light.target);
+      });
+    });
+
     // Load animations
     loadModels()
       .then(({ storks, cars }) => {
@@ -324,5 +332,40 @@ export default class World {
           });
       });
     });
+  }
+
+  static async getLightForStreetLamp(lamp) {
+    const offsetVector = new THREE.Vector3(4.139, 11.603, 0);
+    if (lamp.rotation) {
+      offsetVector.applyEuler(new THREE.Euler(lamp.rotation.x, lamp.rotation.y, lamp.rotation.z, "XYZ"));
+    }
+
+    return new Promise((resolve) => {
+      const lightPosition = new THREE.Vector3().copy(lamp.position).add(offsetVector);
+      const light = new THREE.SpotLight(0xffffff, 1000, 0, Math.PI / 4, 1);
+      light.position.copy(lightPosition);
+      light.target.position.copy(lightPosition.setY(0));
+      resolve(light);
+    });
+  }
+
+  async loadStreetLampsLights() {
+    const lights = [];
+
+    await Promise.all(
+      Object.keys(streetLamps).map(async (key) => {
+        const lamp = streetLamps[key];
+
+        await Promise.all(
+          lamp.instances.map(async (instance) => {
+            const light = await World.getLightForStreetLamp(instance);
+            this.lightManager.addLight(light, `${instance.name}-${key}-light`, 0, 1000);
+            lights.push(light);
+          }),
+        );
+      }),
+    );
+
+    return lights;
   }
 }
