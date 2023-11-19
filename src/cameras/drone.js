@@ -100,6 +100,10 @@ export default class Drone {
   }
 
   move(directionVector) {
+    if (directionVector.length() === 0) {
+      return;
+    }
+
     const direction = directionVector.clone();
 
     const collidableObjects = [];
@@ -122,15 +126,12 @@ export default class Drone {
         this.velocity.set(0, 0, 0);
         const newPosition = this.camera.position.clone().addScaledVector(direction, distance - this.minDistance);
         this.camera.position.copy(newPosition);
-        this.updateFlashlight();
         return;
       }
     }
 
     const newPosition = this.camera.position.clone().add(directionVector);
     this.camera.position.copy(newPosition);
-
-    this.updateFlashlight();
   }
 
   look(axis, degrees = 45) {
@@ -143,11 +144,6 @@ export default class Drone {
   updatePosition() {
     const pressedKeys = Array.from(this.controls.pressedKeys);
 
-    if (this.velocity.length() === 0 && pressedKeys.length === 0) {
-      this.updateFlashlight();
-      return;
-    }
-
     // Look around
     pressedKeys
       .filter((key) => this.keymap[key] && this.keymap[key].action === "look")
@@ -156,15 +152,6 @@ export default class Drone {
         const vector = typeof mapping.vector === "function" ? mapping.vector() : mapping.vector;
         this.look(vector, mapping.degrees);
       });
-
-    // Return of only looking around
-    if (
-      this.velocity.length() === 0 &&
-      pressedKeys.every((key) => this.keymap[key] && this.keymap[key].action === "look")
-    ) {
-      this.updateFlashlight();
-      return;
-    }
 
     // Decelerate
     if (!pressedKeys.includes("KeyW") && !pressedKeys.includes("KeyS")) {
@@ -234,6 +221,7 @@ export default class Drone {
 
     const moveVector = forwardDirection.add(rightDirection).add(upDirection);
     this.move(moveVector);
+    this.updateFlashlight();
   }
 
   updateFlashlight() {
