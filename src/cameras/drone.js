@@ -141,12 +141,33 @@ export default class Drone {
   }
 
   updatePosition() {
-    if (this.velocity.length() === 0 && this.controls.pressedKeys.size === 0) {
+    const pressedKeys = Array.from(this.controls.pressedKeys);
+
+    if (this.velocity.length() === 0 && pressedKeys.length === 0) {
       this.updateFlashlight();
       return;
     }
+
+    // Look around
+    pressedKeys
+      .filter((key) => this.keymap[key] && this.keymap[key].action === "look")
+      .forEach((key) => {
+        const mapping = this.keymap[key];
+        const vector = typeof mapping.vector === "function" ? mapping.vector() : mapping.vector;
+        this.look(vector, mapping.degrees);
+      });
+
+    // Return of only looking around
+    if (
+      this.velocity.length() === 0 &&
+      pressedKeys.every((key) => this.keymap[key] && this.keymap[key].action === "look")
+    ) {
+      this.updateFlashlight();
+      return;
+    }
+
     // Decelerate
-    if (!this.controls.pressedKeys.has("KeyW") && !this.controls.pressedKeys.has("KeyS")) {
+    if (!pressedKeys.includes("KeyW") && !pressedKeys.includes("KeyS")) {
       if (this.velocity.z >= 0) {
         this.velocity.z = Math.max(0, this.velocity.z - this.deceleration);
       }
@@ -154,7 +175,7 @@ export default class Drone {
         this.velocity.z = Math.min(0, this.velocity.z + this.deceleration);
       }
     }
-    if (!this.controls.pressedKeys.has("KeyA") && !this.controls.pressedKeys.has("KeyD")) {
+    if (!pressedKeys.includes("KeyA") && !pressedKeys.includes("KeyD")) {
       if (this.velocity.x >= 0) {
         this.velocity.x = Math.max(0, this.velocity.x - this.deceleration);
       }
@@ -162,7 +183,7 @@ export default class Drone {
         this.velocity.x = Math.min(0, this.velocity.x + this.deceleration);
       }
     }
-    if (!this.controls.pressedKeys.has("KeyR") && !this.controls.pressedKeys.has("KeyF")) {
+    if (!pressedKeys.includes("KeyR") && !pressedKeys.includes("KeyF")) {
       if (this.velocity.y >= 0) {
         this.velocity.y = Math.max(0, this.velocity.y - this.deceleration);
       }
@@ -172,7 +193,7 @@ export default class Drone {
     }
 
     // Accelerate
-    this.controls.pressedKeys.forEach((key) => {
+    pressedKeys.forEach((key) => {
       const mapping = this.keymap[key];
       if (mapping) {
         switch (mapping.direction) {
@@ -187,11 +208,6 @@ export default class Drone {
             break;
           default:
             break;
-        }
-
-        if (mapping.action === "look") {
-          const vector = typeof mapping.vector === "function" ? mapping.vector() : mapping.vector;
-          this.look(vector, mapping.degrees);
         }
       }
     });
