@@ -193,7 +193,7 @@ export default class World {
     this.scene.add(this.lightManager.getLight("spotLight2").light.target);
 
     const spotLight3 = new THREE.SpotLight(0xffffff, spotLightIntensity, 0, Math.PI / 4, 0.5);
-    spotLight2.castShadow = true;
+    spotLight3.castShadow = true;
     spotLight3.position.set(700, 0, -317.5);
     spotLight3.target.position.set(615, 50, -230);
     this.scene.add(this.lightManager.addLight(spotLight3, "spotLight3", 0, spotLightIntensity).light);
