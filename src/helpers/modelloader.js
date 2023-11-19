@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/extensions,import/no-unresolved
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { BufferGeometry, DoubleSide, Group, Mesh, MeshBasicMaterial } from "three";
+import { BufferGeometry, DoubleSide, Group, MathUtils, Mesh, MeshBasicMaterial } from "three";
 import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree } from "three-mesh-bvh";
 
 export default class ModelLoader {
@@ -17,6 +17,7 @@ export default class ModelLoader {
   async loadAsync(model) {
     return new Promise((resolve, reject) => {
       const group = new Group();
+      const debugMaterial = new MeshBasicMaterial({ color: 0xff0000, opacity: 0.5, transparent: true });
 
       this.loader
         .loadAsync(model.path)
@@ -29,7 +30,7 @@ export default class ModelLoader {
             }
 
             if (ModelLoader.showBoundingBox) {
-              child.material = new MeshBasicMaterial({ color: 0xff0000, opacity: 0.5, transparent: true });
+              child.material = debugMaterial;
             }
 
             if (!child.geometry.boundsTree) {
@@ -47,12 +48,15 @@ export default class ModelLoader {
                 }
               });
 
-              instanceMesh.updateMatrixWorld();
               if (instance.position) {
                 instanceMesh.position.copy(instance.position);
               }
               if (instance.rotation) {
-                instanceMesh.rotation.copy(instance.rotation);
+                instanceMesh.rotation.set(
+                  MathUtils.degToRad(instance.rotation.x),
+                  MathUtils.degToRad(instance.rotation.y),
+                  MathUtils.degToRad(instance.rotation.z),
+                );
               }
               if (instance.scale) {
                 instanceMesh.scale.copy(instance.scale);
