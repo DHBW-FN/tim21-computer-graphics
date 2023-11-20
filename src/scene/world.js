@@ -434,6 +434,11 @@ class World {
     });
   }
 
+  /**
+   * Returns a promise that resolves to a Three.js light for a given streetlamp.
+   * @param lamp
+   * @returns {Promise<unknown>} - A promise that resolves to a Three.js light.
+   */
   static async getLightForStreetLamp(lamp) {
     const offsetVector = new THREE.Vector3(4.139, 11.603, 0);
     if (lamp.rotation) {
@@ -450,6 +455,10 @@ class World {
     });
   }
 
+  /**
+   * Loads streetlamp lights asynchronously and returns a promise.
+   * @returns {Promise<*[]>} - A promise that resolves to an array of Three.js lights.
+   */
   async loadStreetLampsLights() {
     const lights = [];
     const visibleStreetLampLights = [6, 15, 22, 23, 24, 25];
