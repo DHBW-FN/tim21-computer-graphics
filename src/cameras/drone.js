@@ -81,7 +81,7 @@ class Drone {
     );
     this.raycaster.firstHitOnly = true;
 
-    // Set initial position and set up event listeners
+    // Set initial position
     this.setStartPosition();
 
     // Add flashlight
