@@ -437,8 +437,69 @@ Shader-Materialien umgesetzt. Dabei haben wir ein Shader-Material erstellt, welc
 die einzelnen Grashalme animiert. Dieses Shader-Material wird dann auf die
 Grasflächen angewendet. Trotz der großen Anzahl an Grashalmen
 konnten wir so die Performance der Szene aufrechterhalten.
-Das Ergebnis ist in der folgenden Abbildung zu sehen.
+Das Ergebnis (als Standbild) ist in der folgenden Abbildung zu sehen.
 ![Gras](images/Grass.png)
+Folgender Shade-Code inspiriert von [Quelle](https://codesandbox.io/s/3rk1o6?file=/src/shaders.js)
+wurde verwendet, um durch einen Vertex-Shader die Bewegung der Grashalme zu animieren
+
+```glsl
+float wave(float waveSize, float tipDistance, float centerDistance) {
+    // Tip is the fifth vertex drawn per blade
+    bool isTip = (gl_VertexID + 1) % 5 == 0;
+
+    float waveDistance = isTip ? tipDistance : centerDistance;
+    return sin((uTime / 500.0) + waveSize) * waveDistance;
+}
+```
+
+Zu diesem Vertex-Shader wurde noch ein Fragment-Shader hinzugefügt, welcher
+die Farbe des Grases definiert, sowie die Beleuchtung und Schattenberechnung übernimmt.
+
+```glsl
+#include <common>
+#include <packing>
+#include <fog_pars_fragment>
+#include <bsdfs>
+#include <lights_pars_begin>
+#include <shadowmap_pars_fragment>
+#include <shadowmask_pars_fragment>
+#include <dithering_pars_fragment>
+
+uniform sampler2D uCloud;
+uniform float uLightIntensity;
+
+varying vec3 vPosition;
+varying vec2 vUv;
+varying vec3 vNormal;
+
+vec3 green = vec3(0.2, 0.6, 0.3);
+
+void main() {
+  vec3 color = mix(green * 0.7, green, vPosition.y);
+  color = mix(color, texture2D(uCloud, vUv).rgb, 0.1);
+
+  float lighting = normalize(dot(vNormal, vec3(10)));
+
+  vec3 shadowColor = vec3(0, 0, 0);
+  float shadowPower = 0.5;
+
+  color = mix(color, shadowColor, (1.0 - getShadowMask() ) * shadowPower);
+  color = color * uLightIntensity;
+  
+  gl_FragColor = vec4(color, 1.0);
+  #include <fog_fragment>
+  #include <dithering_fragment>
+}
+```
+
+Die Grundhelligkeit des Grases wird durch den `uLightIntensity`-Uniform-Wert gesteuert.
+Ein weiterer Uniform-Wert `uCloud` wird verwendet, um die Lebendigkeit der Szene zu erhöhen,
+indem der Schatten einer Wolke auf das Gras projiziert wird.
+
+Das ShaderMaterial bekommt somit als zusätzliche uniforms die `uTime`, `uLightIntensity` und `uCloud` übergeben.
+Die `uTime` wird dabei in der `render`-Methode des `World`-Objekts aktualisiert.
+Die `uLightIntensity` wird in der `update`-Methode des `TimeManager`-Objekts aktualisiert, und hängt somit von der
+Tageszeit ab.
 
 ## Kollisionserkennung
 
@@ -449,6 +510,20 @@ Dabei wird ein Strahl von der Drohnen-Kamera ausgesendet und anschließend
 überprüft, ob dieser Strahl mit einem Objekt kollidiert. Ist dies der
 Fall, so wird die Bewegung der Drohnen-Kamera in die entsprechende Richtung
 verhindert.
+
+Da die Szene sehr groß ist und somit auch viele Objekte vorhanden sind,
+musste eine effiziente Lösung gefunden werden. Diese haben wir in der
+Library `three-mesh-bvh` gefunden. Diese Library ermöglicht es, eine
+Bounding Volume Hierarchy zu erstellen, indem die Standardalgorithmen,
+welche in `Three.js` für Raycasting genutzt werden, ersetzt werden.
+Diese Bounding Volume Hierarchy
+wird anschließend für die Kollisionserkennung verwendet. Dabei wird
+die Szene in mehrere Bereiche unterteilt und für jeden Bereich wird
+eine Bounding Box erstellt. Diese Bounding Boxen werden anschließend
+in einer Baumstruktur organisiert. Dadurch kann die Kollisionserkennung
+sehr effizient durchgeführt werden, da nicht für jedes Objekt in der
+Szene überprüft werden muss, ob eine Kollision vorliegt, sondern nur
+für die Bounding Boxen.
 
 In der Konsequenz führt das dazu, dass die Drohne nicht durch Objekte fliegen
 kann.
