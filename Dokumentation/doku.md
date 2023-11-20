@@ -253,6 +253,14 @@ und deren Abhängigkeiten abgebildet:
 Nachfolgend ist noch eine Übersicht über alle Dateien und deren
 Abhängigkeiten abgebildet.
 
+### jsdoc
+Um die Dokumentation des Codes zu erleichtern, haben wir uns dazu entschieden,
+jsdoc zu verwenden. Dieses Tool ermöglicht es, die einzelnen Funktionen 
+und Klassen zu dokumentieren. Dabei wird der Code mit Kommentaren versehen
+und anschließend wird mit Hilfe von jsdoc eine Dokumentation generiert.
+
+Diese ist im Ordner `out` in der Datei `index.html` zu finden.
+
 <a name="designprozess"></a>
 ## Designprozess
 Begonnen hat alles mit der ersten Idee. Unser Ziel war es, den Eiffelturm 
