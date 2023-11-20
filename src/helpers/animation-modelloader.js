@@ -7,7 +7,6 @@ import setupCar from "../components/animations/setup-cars";
 
 /**
  * Asynchronously loads 3D models using the GLTFLoader and sets up animations for birds and cars.
- *
  * @returns {Promise<{ storks: Object[], cars: Object[] }>} A promise resolving to an object containing arrays of stork and car models.
  */
 export default async function loadModels() {

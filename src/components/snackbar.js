@@ -1,8 +1,8 @@
 /**
  * Snackbar class for displaying temporary messages.
- * @module
+ * @class
  */
-export default class Snackbar {
+class Snackbar {
   /**
    * Reference to the snackbar element in the HTML document.
    * @type {HTMLElement}
@@ -37,3 +37,5 @@ export default class Snackbar {
     Snackbar.snackbar.classList.remove("show");
   }
 }
+
+export default Snackbar;

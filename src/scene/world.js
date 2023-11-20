@@ -13,26 +13,80 @@ import EventManager from "../utils/eventmanager";
 import TimeManager from "../utils/timemanager";
 import LightManager from "../utils/lightmanager";
 
+
 const clock = new Clock();
 
-export default class World {
+/**
+ * Represents the virtual world with various elements and functionalities.
+ * @class
+ */
+class World {
+  /**
+   * Creates a World instance.
+   * @constructor
+   */
   constructor() {
+    /**
+     * Event manager for handling events.
+     * @type {EventManager}
+     */
     this.eventManager = new EventManager();
+
+    /**
+     * Time manager for managing the time of day.
+     * @type {TimeManager}
+     */
     this.timeManager = new TimeManager();
+
+    /**
+     * Light manager for managing lights in the scene.
+     * @type {LightManager}
+     */
     this.lightManager = new LightManager();
 
+    /**
+     * Collection of different cameras in the world.
+     * @type {object}
+     */
     this.cameras = {};
+
+    /**
+     * Three.js CubeTextureLoader for loading cube textures.
+     * @type {THREE.CubeTextureLoader}
+     */
     this.cubeLoader = new THREE.CubeTextureLoader();
+
+    /**
+     * Array of updatable objects in the scene.
+     * @type {Array}
+     */
     this.updatables = [];
+
+    /**
+     * Array of grass planes in the scene.
+     * @type {Array}
+     */
     this.grass = [];
 
-    // Initialize the scene, renderer, and objects
+    /**
+     * Three.js scene representing the virtual world.
+     * @type {THREE.Scene}
+     */
     this.scene = new THREE.Scene();
+
+    /**
+     * Three.js WebGLRenderer for rendering the scene.
+     * @type {THREE.WebGLRenderer}
+     */
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     this.renderer.setSize(window.innerWidth, window.innerHeight);
 
+    /**
+     * Model loader for loading 3D models.
+     * @type {ModelLoader}
+     */
     this.modelLoader = new ModelLoader();
 
     // Add event listeners
@@ -40,6 +94,10 @@ export default class World {
     this.eventManager.addListener(TimeManager.DAY_CHANGE_EVENT, (event) => this.onDayChange(event));
   }
 
+  /**
+   * Handles the DAY_CHANGE_EVENT and updates the scene based on the time of day.
+   * @param {object} event - The DAY_CHANGE_EVENT event object.
+   */
   onDayChange(event) {
     if (event.isDay) {
       this.setDay();
@@ -48,6 +106,10 @@ export default class World {
     }
   }
 
+  /**
+   * Retrieves grass planes asynchronously.
+   * @returns {Promise<Array>} - A promise that resolves to an array of Grass planes.
+   */
   static async getGrassPlanes() {
     return new Promise((resolve) => {
       const grassPlanes = [];
@@ -66,6 +128,9 @@ export default class World {
     });
   }
 
+  /**
+   * Initiates the animation loop.
+   */
   animate() {
     this.renderer.setAnimationLoop((time) => {
       this.tick(time);
@@ -74,6 +139,10 @@ export default class World {
     });
   }
 
+  /**
+   * Updates the scene elements based on the time elapsed.
+   * @param {number} time - The elapsed time since the last update.
+   */
   tick(time) {
     const delta = clock.getDelta();
 
@@ -94,6 +163,9 @@ export default class World {
     });
   }
 
+  /**
+   * Initializes the world by loading models, adding lights, and setting the time of day.
+   */
   async init() {
     // Load models
     this.modelLoader.loadAsync(models.base).then((group) => {
@@ -169,6 +241,9 @@ export default class World {
     document.body.appendChild(this.renderer.domElement);
   }
 
+  /**
+   * Initializes different cameras in the world.
+   */
   async initCameras() {
     // Add debug camera
     this.cameras.debug = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -192,6 +267,9 @@ export default class World {
     this.activeCamera = this.cameras.drone;
   }
 
+  /**
+   * Initializes lights in the scene.
+   */
   initLights() {
     this.scene.add(this.lightManager.getSun().light);
     this.scene.add(this.lightManager.getSun().light.target);
@@ -223,6 +301,9 @@ export default class World {
     this.scene.add(this.lightManager.getLight("spotLight4").light.target);
   }
 
+  /**
+   * Toggles camera controls between locked and unlocked states.
+   */
   toggleControls() {
     if (!this.drone.controls.isLocked && this.activeCamera === this.drone.camera) {
       this.drone.controls.lock();
@@ -231,6 +312,9 @@ export default class World {
     }
   }
 
+  /**
+   * Sets the background to represent nighttime.
+   */
   setNight() {
     this.scene.background = this.cubeLoader.load([
       "assets/nightBoxPieces/back.png",
@@ -242,6 +326,9 @@ export default class World {
     ]);
   }
 
+  /**
+   * Sets the background to represent daytime.
+   */
   setDay() {
     this.scene.background = this.cubeLoader.load([
       "assets/daylightBoxPieces/back.bmp",
@@ -253,6 +340,9 @@ export default class World {
     ]);
   }
 
+  /**
+   * Cycles through different cameras in the scene.
+   */
   cycleCameras() {
     const cameras = Object.keys(this.cameras);
     const currentCameraIndex = cameras.indexOf(this.activeCamera.name);
@@ -261,12 +351,19 @@ export default class World {
     Snackbar.show(`Active camera: ${this.activeCamera.name}`, 3000);
   }
 
+  /**
+   * Resets the cameras to their initial positions.
+   */
   resetCameras() {
     Snackbar.show("Resetting camera position", 3000);
     this.drone.setStartPosition();
     this.activeCamera = this.cameras.drone;
   }
 
+  /**
+   * Loads plant models asynchronously and returns a promise.
+   * @returns {Promise<THREE.Group>} - A promise that resolves to a Three.js group containing plant models.
+   */
   async loadPlants() {
     return new Promise((resolve, reject) => {
       const plantsGroup = new THREE.Group();
@@ -288,6 +385,10 @@ export default class World {
     });
   }
 
+  /**
+   * Loads building models asynchronously and returns a promise.
+   * @returns {Promise<THREE.Group>} - A promise that resolves to a Three.js group containing building models.
+   */
   async loadBuildings() {
     return new Promise((resolve, reject) => {
       const buildingsGroup = new THREE.Group();
@@ -309,6 +410,10 @@ export default class World {
     });
   }
 
+/**
+ * Loads streetlamp models asynchronously and returns a promise.
+ * @returns {Promise<THREE.Group>} - A promise that resolves to a Three.js group containing street lamp models.
+  **/
   async loadStreetLamps() {
     return new Promise((resolve, reject) => {
       const stretLampsGroup = new THREE.Group();
@@ -371,3 +476,5 @@ export default class World {
     return lights;
   }
 }
+
+export default World;

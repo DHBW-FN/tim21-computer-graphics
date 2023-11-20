@@ -5,9 +5,9 @@ import Snackbar from "../components/snackbar";
 
 /**
  * Class representing a drone with controls for movement and interaction.
- * @module
+ * @class
  */
-export default class Drone {
+class Drone {
   /**
    * Create a drone instance.
    * @constructor
@@ -333,3 +333,5 @@ export default class Drone {
       .light.target.position.copy(this.camera.getWorldDirection(new Vector3()).add(this.camera.position));
   }
 }
+
+export default Drone;

@@ -1,8 +1,8 @@
 /**
  * Class representing an event manager for handling and managing custom events.
- * @module
+ * @class
  */
-export default class EventManager {
+class EventManager {
   /**
    * Create an EventManager instance.
    * @constructor
@@ -61,3 +61,5 @@ export default class EventManager {
     }
   }
 }
+
+export default EventManager;

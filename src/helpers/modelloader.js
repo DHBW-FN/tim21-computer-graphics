@@ -5,9 +5,9 @@ import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree } from "three-
 
 /**
  * Utility class for loading 3D models with additional functionality like bounding boxes and instance handling.
- * @module
+ * @class
  */
-export default class ModelLoader {
+class ModelLoader {
   /**
    * Flag indicating whether bounding boxes should be shown for loaded models.
    * @type {boolean}
@@ -115,3 +115,5 @@ export default class ModelLoader {
     });
   }
 }
+
+export default ModelLoader;

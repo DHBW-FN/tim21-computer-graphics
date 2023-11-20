@@ -51,10 +51,10 @@ function interpolate(val, oldMin, oldMax, newMin, newMax) {
 
 /**
  * Custom Three.js BufferGeometry for rendering grass.
- * @module
+ * @class
  * @extends THREE.BufferGeometry
  */
-export default class GrassGeometry extends THREE.BufferGeometry {
+class GrassGeometry extends THREE.BufferGeometry {
   /**
    * Create an instance of GrassGeometry.
    *
@@ -128,3 +128,5 @@ export default class GrassGeometry extends THREE.BufferGeometry {
     };
   }
 }
+
+export default GrassGeometry;
