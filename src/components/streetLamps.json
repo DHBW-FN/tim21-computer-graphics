@@ -12,7 +12,8 @@
           "x": 0,
           "y": 135,
           "z": 0
-        }
+        },
+        "receiveShadow": false
       },
       {
         "position": {
@@ -24,7 +25,8 @@
           "x": 0,
           "y": 90,
           "z": 0
-        }
+        },
+        "receiveShadow": false
       },
       {
         "position": {
@@ -36,7 +38,8 @@
           "x": 0,
           "y": 45,
           "z": 0
-        }
+        },
+        "receiveShadow": false
       },
       {
         "position": {
@@ -48,7 +51,8 @@
           "x": 0,
           "y": 135,
           "z": 0
-        }
+        },
+        "receiveShadow": false
       },
       {
         "position": {
@@ -60,7 +64,8 @@
           "x": 0,
           "y": 90,
           "z": 0
-        }
+        },
+        "receiveShadow": false
       },
       {
         "position": {
@@ -72,7 +77,8 @@
           "x": 0,
           "y": 45,
           "z": 0
-        }
+        },
+        "receiveShadow": false
       },
       {
         "position": {
@@ -84,7 +90,8 @@
           "x": 0,
           "y": 135,
           "z": 0
-        }
+        },
+        "receiveShadow": false
       },
       {
         "position": {
@@ -96,7 +103,8 @@
           "x": 0,
           "y": 90,
           "z": 0
-        }
+        },
+        "receiveShadow": false
       },
       {
         "position": {
@@ -108,7 +116,8 @@
           "x": 0,
           "y": 45,
           "z": 0
-        }
+        },
+        "receiveShadow": false
       },
       {
         "position": {
@@ -120,7 +129,8 @@
           "x": 0,
           "y": -135,
           "z": 0
-        }
+        },
+        "receiveShadow": false
       },
       {
         "position": {
@@ -132,7 +142,8 @@
           "x": 0,
           "y": -90,
           "z": 0
-        }
+        },
+        "receiveShadow": false
       },
       {
         "position": {
@@ -144,7 +155,8 @@
           "x": 0,
           "y": -45,
           "z": 0
-        }
+        },
+        "receiveShadow": false
       },
       {
         "position": {
@@ -156,7 +168,8 @@
           "x": 0,
           "y": -135,
           "z": 0
-        }
+        },
+        "receiveShadow": false
       },
       {
         "position": {
@@ -168,7 +181,8 @@
           "x": 0,
           "y": -90,
           "z": 0
-        }
+        },
+        "receiveShadow": false
       },
       {
         "position": {
@@ -180,7 +194,8 @@
           "x": 0,
           "y": -45,
           "z": 0
-        }
+        },
+        "receiveShadow": false
       },
       {
         "position": {
@@ -192,7 +207,8 @@
           "x": 0,
           "y": -135,
           "z": 0
-        }
+        },
+        "receiveShadow": false
       },
       {
         "position": {
@@ -204,7 +220,8 @@
           "x": 0,
           "y": -90,
           "z": 0
-        }
+        },
+        "receiveShadow": false
       },
       {
         "position": {
@@ -216,7 +233,8 @@
           "x": 0,
           "y": -45,
           "z": 0
-        }
+        },
+        "receiveShadow": false
       },
       {
         "position": {
@@ -228,7 +246,8 @@
           "x": 0,
           "y": 135,
           "z": 0
-        }
+        },
+        "receiveShadow": false
       },
       {
         "position": {
@@ -240,7 +259,8 @@
           "x": 0,
           "y": 180,
           "z": 0
-        }
+        },
+        "receiveShadow": false
       },
       {
         "position": {
@@ -252,7 +272,8 @@
           "x": 0,
           "y": 180,
           "z": 0
-        }
+        },
+        "receiveShadow": false
       },
       {
         "position": {
@@ -264,7 +285,8 @@
           "x": 0,
           "y": -135,
           "z": 0
-        }
+        },
+        "receiveShadow": false
       },
       {
         "position": {
@@ -276,21 +298,24 @@
           "x": 0,
           "y": 45,
           "z": 0
-        }
+        },
+        "receiveShadow": false
       },
       {
         "position": {
           "x": 493,
           "y": 0,
           "z": -252
-        }
+        },
+        "receiveShadow": false
       },
       {
         "position": {
           "x": 493,
           "y": 0,
           "z": -205
-        }
+        },
+        "receiveShadow": false
       },
       {
         "position": {
@@ -302,7 +327,8 @@
           "x": 0,
           "y": -45,
           "z": 0
-        }
+        },
+        "receiveShadow": false
       }
     ]
   }
