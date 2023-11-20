@@ -13,7 +13,6 @@ import EventManager from "../utils/eventmanager";
 import TimeManager from "../utils/timemanager";
 import LightManager from "../utils/lightmanager";
 
-
 const clock = new Clock();
 
 /**
@@ -410,10 +409,10 @@ class World {
     });
   }
 
-/**
- * Loads streetlamp models asynchronously and returns a promise.
- * @returns {Promise<THREE.Group>} - A promise that resolves to a Three.js group containing street lamp models.
-  **/
+  /**
+   * Loads streetlamp models asynchronously and returns a promise.
+   * @returns {Promise<THREE.Group>} - A promise that resolves to a Three.js group containing street lamp models.
+   * */
   async loadStreetLamps() {
     return new Promise((resolve, reject) => {
       const stretLampsGroup = new THREE.Group();
