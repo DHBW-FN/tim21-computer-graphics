@@ -14,7 +14,11 @@
     - [Projektmanagement mit ZenHub](#projektmanagement)
     - [Versionsverwaltung](#versionsverwaltung)
     - [Meetings](#meetings)
-  - [Code Style](#codestyle)
+  - [Aufbau des Codes](#aufbaucode)
+    - [Code Style](#codestyle)
+    - [Dateistruktur](#dateistruktur)
+    - [Struktur des Codes](#strukturcode)
+    - [jsdoc](#jsdoc)
   - [Designprozess](#designprozess)
     - [Modellierung](#modellierung)
     - [Einbindung der Modelle in three.js](#einbindungThreejs)
@@ -25,6 +29,8 @@
   - [Kollisionserkennung](#kollisionserkennung)
   - [Probleme](#probleme)
     - [Performance](#performance)
+    - [Kollisionserkennung](#kollisionserkennung)
+
 
 
 ---
@@ -201,6 +207,7 @@ zu verwenden:
 Orientiert haben wir uns somit am Airbnb Code Style Guide. Dieser ist sehr
 ausführlich und bietet viele Möglichkeiten, den Code zu überprüfen.
 
+<a name="dateistruktur"></a>
 ### Dateistruktur
 Das ganze Proejekt konnte selbstverständlich nicht in einer einzigen Datei
 implementiert werden. Dies wäre aufgrund der größe des Projekts sehr schnell
@@ -241,7 +248,7 @@ Im Ordner `public` sind alle Modelle, Texturen und Bilder gespeichert, die
 in der Szene verwendet werden. Dazu gehören insbesondere die Modelle für
 den Eiffelturm und den Boden. 
 
-
+<a name="strukturcode"></a>
 ### Struktur des Codes
 Ein Klassendiagramm ist nachfolgend abgebildet:
 ![Klassendiagramm](images/Klassendiagramm.png)
@@ -448,6 +455,7 @@ um die Performance nicht zu sehr zu beeinträchtigen. Auch bei der Auswahl
 der Häuser und Autos haben wir darauf geachtet, dass diese nicht zu hoch aufgelöst
 sind und somit zu viel Rechenleistung benötigen.
 
+<a name="kollisionserkennung"></a>
 ### Kollisionserkennung
 Auch die Kollisionserkennung ist in diesem Kontext zu nennen. Da wir
 die Kollisionserkennung mit Hilfe von Raycasting umgesetzt haben, mussten
