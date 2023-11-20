@@ -342,7 +342,8 @@ export default class World {
 
     return new Promise((resolve) => {
       const lightPosition = new THREE.Vector3().copy(lamp.position).add(offsetVector);
-      const light = new THREE.SpotLight(0xffffff, 1000, 0, Math.PI / 4, 1);
+      const light = new THREE.SpotLight(0xffffff, 0, 0, Math.PI / 4, 1);
+      light.visible = false;
       light.position.copy(lightPosition);
       light.target.position.copy(lightPosition.setY(0));
       resolve(light);
