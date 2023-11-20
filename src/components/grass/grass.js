@@ -3,6 +3,10 @@ import { UniformsLib } from "three";
 import { fragmentShader, vertexShader } from "./grass-shaders";
 import GrassGeometry from "./grass-geometry";
 
+const cloudTexture = new THREE.TextureLoader().load("/assets/cloud.jpg");
+cloudTexture.wrapS = THREE.RepeatWrapping;
+cloudTexture.wrapT = THREE.RepeatWrapping;
+
 /**
  * Represents a grass mesh with a shader-based material.
  * @class
