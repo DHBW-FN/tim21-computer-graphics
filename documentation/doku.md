@@ -59,7 +59,7 @@ sich zwei Möglichkeiten:
 
 ### Tastatur & Maus
 
-Um sich mit Hilfe der Tastatur und Maus in der Szene zu bewegen, muss der Nutzer
+Um sich mithilfe der Tastatur und Maus in der Szene zu bewegen, muss der Nutzer
 zuerst einmal auf die Szene klicken. Dadurch wird die Steuerung gesperrt.
 Anschließend kann der Nutzer sich mit der Hilfe der Tasten WASD in der Szene
 bewegen. Dabei bewegt sich der Nutzer in die Richtung, in die er schaut.
@@ -76,7 +76,7 @@ Buttons können wieder angeklickt werden.
 ### Buttons im User Interface
 
 Alternativ zur Steuerung mit der Tastatur und Maus kann der Nutzer auch die Buttons
-im User Interface verwenden. Dieses ist unten abgebildet. Durch klicken auf diese Buttons kann sich der Nutzer
+im User Interface verwenden. Dieses ist unten abgebildet. Durch Klicken auf diese Buttons kann sich der Nutzer
 in allen Bewegungsrichtungen frei bewegen.
 ![Steuerungspanel](images/Steuerungspanel.png)
 
@@ -87,7 +87,7 @@ ausführen. Diese sind im Folgenden aufgelistet:
 
 * Tag/Nacht-Wechsel
 * Wechsel der Kamera
-* Drohne auf Startpositon setzen
+* Drohne auf Startposition setzen
 
 ![UI Buttons](images/Buttons.png)
 
@@ -106,20 +106,20 @@ Durch das Klicken auf den Button `Camera` kann der Nutzer zwischen den
 verfügbaren Kameras hin und her wechseln. Dabei wird die aktuelle Kamera
 deaktiviert und die nächste Kamera aktiviert. Die verfügbaren Kameras sind:
 
-* Drohnenkamera
-* Debugkamera
+* Drohnen-Kamera
+* Debug-Kamera
 * Stationäre Kamera
 
-Dabei ist anzumerken, dass der Nutzer sich ausschließlich mit der Drohnenkamera
+Dabei ist anzumerken, dass der Nutzer sich ausschließlich mit der Drohnen-Kamera
 in der Szene bewegen kann. Die anderen Kameras sind lediglich dazu da, um
 die Szene aus verschiedenen Perspektiven betrachten zu können. Die
-Debugkamera ist dabei so platziert, dass die gesamte Szene auf einmal
-zu sehen ist. Die Stationäre Kamera bietet einen realistischen Ausblick auf den
+Debug-Kamera ist dabei so platziert, dass die gesamte Szene auf einmal
+zu sehen ist. Die stationäre Kamera bietet einen realistischen Ausblick auf den
 Eiffelturm.
 
 ### Drohne auf Startposition setzen
 
-Durch den letzten Button kann die Drohnenkamera wieder auf die Startposition
+Durch den letzten Button kann die Drohnen-Kamera wieder auf die Startposition
 gesetzt werden. Dies ist vor allem dann hilfreich, wenn der Nutzer sich
 in der Szene verirrt hat und nicht mehr weiß, wo er sich befindet.
 
@@ -210,7 +210,7 @@ zu verwenden:
 }
 ```
 
-Orientiert haben wir uns somit am Airbnb Code Style Guide. Dieser ist sehr
+Orientiert haben wir uns somit am Airbnb Code Styleguide. Dieser ist sehr
 ausführlich und bietet viele Möglichkeiten, den Code zu überprüfen.
 
 ### Dateistruktur
@@ -229,7 +229,7 @@ und anschließend wird die `main.js` sowie `control.js` eingebunden. Auch die
 CSS-Dateien werden in dieser Datei eingebunden.
 
 Die Datei `main.js` ist die zentrale Datei für die Initialisierung der Szene.
-In dieser Datei wird die Klasse `World` intialisiert.
+In dieser Datei wird die Klasse `World` initialisiert.
 
 Definiert ist die Klasse `World` in der Datei `world.js`. Diese Klasse
 ist die zentrale Klasse für die Szene. In dieser werden alle wichtigen
@@ -241,15 +241,15 @@ Die restlichen Dateien werden nachfolgend kurz beschrieben:
 * `drone.js` --> Definition der Klasse Drohne, mit welcher in der Szene geflogen werden kann
 * `setup-birds.js` --> Initialisierung der Animation für die Vögel
 * `setup-cars.js` --> Initialisierung der Animation für die Autos
-* `grass.js` --> Definition der Klasse Grass --> Erzeugung des Grases
-* `grass-geometry.js` --> Definition der Klasse GrassGeometry --> Erzeugung der Geometrie für das Gras
+* `grass.js` --> Definition der Klasse Grass → Erzeugung des Grases
+* `grass-geometry.js` --> Definition der Klasse GrassGeometry → Erzeugung der Geometrie für das Gras
 * `grass-shaders.js` --> Definition der Shader, welche zum Rendering des Grases verwendet werden
 * `control.js` --> Steuerung der Drohne und der Buttons
-* `snackbar.js` --> Definition der Klasse Snackbar --> Anzeigen von Meldungen
+* `snackbar.js` --> Definition der Klasse Snackbar → Anzeigen von Meldungen
 * `animation-modelLoader.js` --> Dynamische Einbindung der animierten Modelle
-* `modelloader.js` --> Dynamische asynchrone Einbindung der Modelle & Defintion der Klasse ModelLoader
-* `eventmanager.js` --> Definition der Klasse EventManager --> Verwaltung der Events
-* `timemanager.js` --> Definition der Klasse TimeManager --> Verwaltung der Zeit
+* `modelloader.js` --> Dynamische asynchrone Einbindung der Modelle & Definition der Klasse ModelLoader
+* `eventmanager.js` --> Definition der Klasse EventManager → Verwaltung der Events
+* `timemanager.js` --> Definition der Klasse TimeManager → Verwaltung der Zeit
 
 Im Ordner `public` sind alle Modelle, Texturen und Bilder gespeichert, die
 in der Szene verwendet werden. Dazu gehören insbesondere die Modelle für
@@ -272,7 +272,7 @@ Abhängigkeiten abgebildet.
 Um die Dokumentation des Codes zu erleichtern, haben wir uns dazu entschieden,
 jsdoc zu verwenden. Dieses Tool ermöglicht es, die einzelnen Funktionen
 und Klassen zu dokumentieren. Dabei wird der Code mit Kommentaren versehen
-und anschließend wird mit Hilfe von jsdoc eine Dokumentation generiert.
+und anschließend wird mithilfe von jsdoc eine Dokumentation generiert.
 
 Diese ist im Ordner `out` dieser Abgabe in der Datei `index.html` zu finden.
 
@@ -334,7 +334,7 @@ konzentriert:
 Nachdem die Modelle herausgesucht und heruntergeladen wurden, mussten diese
 in three.js in die Szene eingebunden werden. Um dies möglichst einfach umzusetzen
 und möglichst flexibel zu gestalten, haben wir eine eigene Klasse ModelLoader erstellt.
-Diese Klasse ermöglicht es, asynchron Modelle mit Hilfe von JSON-Dateien in die Szene einzubinden.
+Diese Klasse ermöglicht es, asynchron Modelle mithilfe von JSON-Dateien in die Szene einzubinden.
 Dabei wird die JSON-Datei mit den Informationen über das Modell eingelesen und anschließend
 werden die einzelnen Objekte des Modells in die Szene eingefügt.
 
@@ -370,7 +370,7 @@ Animation nicht zu unrealistisch wirkt.
 Umgesetzt haben wir das ganze mit einer JSON-Datei, in der wir die einzelnen
 Keyframes mit den Positionen und Rotationen definiert haben.
 Diese Datei wird bei Start der Szene aufgerufen und so dynamisch die Autos erzeugt.
-Das heißt es ist nicht fest in den Code eingebaut, wie viele Fahrezuge dargestellt werden,
+Das heißt es ist nicht fest in den Code eingebaut, wie viele Fahrzeuge dargestellt werden,
 sondern es wird die Anzahl der Autos aus der JSON-Datei ausgelesen und dann
 dementsprechend viele Autos erzeugt.
 
@@ -432,9 +432,9 @@ Somit haben die Vögel unabhängig voneinander zwei Actions, die sie ausführen.
 ### Gras
 
 Um die Szene noch lebendiger wirken zu lassen, haben wir uns dazu entschieden,
-auch das Gras auf den Grünflächen zu animieren. Dies haben wir mit Hilfe von
-Shadermaterialien umgesetzt. Dabei haben wir ein Shadermaterial erstellt, welches
-die einzelnen Grashalme animiert. Dieses Shadermaterial wird dann auf die
+auch das Gras auf den Grünflächen zu animieren. Dies haben wir mithilfe von
+Shader-Materialien umgesetzt. Dabei haben wir ein Shader-Material erstellt, welches
+die einzelnen Grashalme animiert. Dieses Shader-Material wird dann auf die
 Grasflächen angewendet. Trotz der großen Anzahl an Grashalmen
 konnten wir so die Performance der Szene aufrechterhalten.
 Das Ergebnis ist in der folgenden Abbildung zu sehen.
@@ -442,12 +442,12 @@ Das Ergebnis ist in der folgenden Abbildung zu sehen.
 
 ## Kollisionserkennung
 
-Damit die Drohnenkamera nicht durch Objekte fliegen kann, musste eine
+Damit die Drohnen-Kamera nicht durch Objekte fliegen kann, musste eine
 Kollisionserkennung implementiert werden. Um dies möglichst performant
 umzusetzen, haben wir uns dazu entschieden, Raycasting zu verwenden.
-Dabei wird ein Strahl von der Drohnenkamera ausgesendet und anschließend
+Dabei wird ein Strahl von der Drohnen-Kamera ausgesendet und anschließend
 überprüft, ob dieser Strahl mit einem Objekt kollidiert. Ist dies der
-Fall, so wird die Bewegung der Drohnenkamera in die entsprechende Richtung
+Fall, so wird die Bewegung der Drohnen-Kamera in die entsprechende Richtung
 verhindert.
 
 In der Konsequenz führt das dazu, dass die Drohne nicht durch Objekte fliegen
@@ -470,7 +470,7 @@ sind und somit zu viel Rechenleistung benötigen.
 ### Kollisionserkennung
 
 Auch die Kollisionserkennung ist in diesem Kontext zu nennen. Da wir
-die Kollisionserkennung mit Hilfe von Raycasting umgesetzt haben, mussten
+die Kollisionserkennung mithilfe von Raycasting umgesetzt haben, mussten
 wir darauf achten, dass dafür ein möglichst effizienter Algorithmus
 verwendet wird. Dieser Algorithmus ist in `three-mesh-bvh` vorhanden.
 Diese Library hat es uns ermöglicht, eine Kollisionserkennung
