@@ -32,11 +32,8 @@
     - [Kollisionserkennung](#kollisionserkennung-1)
 
 ---
-<a name="nutzerdokumentation"></a>
 
 # Nutzerdokumentation
-
-<a name="installation"></a>
 
 ## Installation
 
@@ -51,8 +48,6 @@ Anschließend wird in der Konsole eine URL ausgegeben, unter der die
 Anwendung erreichbar ist. Diese URL kann dann in einem beliebigen
 Browser geöffnet werden.
 
-<a name="bedienung"></a>
-
 ## Bedienung
 
 Zu Beginn der Anwendung wird der Nutzer in der Szene platziert. Anschließend
@@ -61,8 +56,6 @@ sich zwei Möglichkeiten:
 
 * Tastatur & Maus
 * Buttons im User Interface
-
-<a name="tastaturmaus"></a>
 
 ### Tastatur & Maus
 
@@ -80,16 +73,12 @@ Um die Steuerung mit der Hilfe der Tastatur wieder zu verlassen, muss nur wieder
 mit der Maus geklickt werden. Dadurch wird auch der Mauszeiger wieder sichtbar und
 Buttons können wieder angeklickt werden.
 
-<a name="buttons"></a>
-
 ### Buttons im User Interface
 
 Alternativ zur Steuerung mit der Tastatur und Maus kann der Nutzer auch die Buttons
 im User Interface verwenden. Dieses ist unten abgebildet. Durch klicken auf diese Buttons kann sich der Nutzer
 in allen Bewegungsrichtungen frei bewegen.
 ![Steuerungspanel](images/Steuerungspanel.png)
-
-<a name="interaktionen"></a>
 
 ## Weitere Interaktionsmöglichkeiten
 
@@ -102,8 +91,6 @@ ausführen. Diese sind im Folgenden aufgelistet:
 
 ![UI Buttons](images/Buttons.png)
 
-<a name="tagnacht"></a>
-
 ### Tag/Nacht-Wechsel
 
 Durch das Klicken auf den Button `Day` oder `Night` kann der Nutzer zwischen Tag und Nacht
@@ -112,8 +99,6 @@ die Umgebung auf einen Sternenhimmel bzw. einen Himmel mit Wolken geändert.
 Zum anderen ändert sich die Beleuchtung der Szene. Während tagsüber eine
 Sonne die Szene beleuchtet, sorgen nachts einzelne, über die Szene verteilte
 Lichtquellen für die Beleuchtung.
-
-<a name="kamera"></a>
 
 ### Wechsel der Kamera
 
@@ -132,8 +117,6 @@ Debugkamera ist dabei so platziert, dass die gesamte Szene auf einmal
 zu sehen ist. Die Stationäre Kamera bietet einen realistischen Ausblick auf den
 Eiffelturm.
 
-<a name="startposition"></a>
-
 ### Drohne auf Startposition setzen
 
 Durch den letzten Button kann die Drohnenkamera wieder auf die Startposition
@@ -141,15 +124,10 @@ gesetzt werden. Dies ist vor allem dann hilfreich, wenn der Nutzer sich
 in der Szene verirrt hat und nicht mehr weiß, wo er sich befindet.
 
 ---
-<a name="entwicklerdokumentation"></a>
 
 # Entwicklerdokumentation
 
-<a name="arbeitsweise"></a>
-
 ## Arbeitsweise
-
-<a name="projektmanagement"></a>
 
 ### Projektmanagement mit ZenHub
 
@@ -173,8 +151,6 @@ Am Ende hatten wir somit insgesamt 58 Issues, welche wir dann in den
 folgenden Wochen abgearbeitet haben. Jeder Issue wurde mit einem Titel,
 einer Beschreibung, Akzeptanzkriterien und einem Label versehen.
 
-<a name="versionsverwaltung"></a>
-
 ### Versionsverwaltung
 
 Um die Arbeit an der Szene zu erleichtern, haben wir uns dazu entschieden,
@@ -189,8 +165,6 @@ mit einer Pull Request gemerged. Diese Pull Requests wurde von
 mindestens einem anderen Teammitglied überprüft und anschließend
 entweder freigegeben oder Änderungen wurden vorgeschlagen.
 
-<a name="meetings"></a>
-
 ### Meetings
 
 Um die Arbeit an der Szene zu koordinieren, haben wir uns jede Woche
@@ -200,16 +174,12 @@ Teammitglieder aufgeteilt. Außerdem haben wir uns in diesen Meetings
 auch über die bisherige Arbeit ausgetauscht und uns gegenseitig
 Feedback gegeben.
 
-<a name="aufbaucode"></a>
-
 ## Aufbau des Codes
 
 Insgesamt handelt es sich bei der Gestaltung einer Szene um ein sehr komplexes Projekt.
 Dementsprechend ist ein guter Aufbau des Codes sehr wichtig, um den Überblick zu behalten.
 Deswegen war uns von Anfang an wichtig, dass der Code gut strukturiert ist und
 dass die einzelnen Teile der Szene gut voneinander getrennt sind.
-
-<a name="codestyle"></a>
 
 ### Code Style
 
@@ -243,11 +213,9 @@ zu verwenden:
 Orientiert haben wir uns somit am Airbnb Code Style Guide. Dieser ist sehr
 ausführlich und bietet viele Möglichkeiten, den Code zu überprüfen.
 
-<a name="dateistruktur"></a>
-
 ### Dateistruktur
 
-Das ganze Proejekt konnte selbstverständlich nicht in einer einzigen Datei
+Das ganze Projekt konnte selbstverständlich nicht in einer einzigen Datei
 implementiert werden. Dies wäre aufgrund der größe des Projekts sehr schnell
 unübersichtlich geworden.
 
@@ -287,8 +255,6 @@ Im Ordner `public` sind alle Modelle, Texturen und Bilder gespeichert, die
 in der Szene verwendet werden. Dazu gehören insbesondere die Modelle für
 den Eiffelturm und den Boden.
 
-<a name="strukturcode"></a>
-
 ### Struktur des Codes
 
 Ein Klassendiagramm ist nachfolgend abgebildet:
@@ -301,8 +267,6 @@ und deren Abhängigkeiten abgebildet:
 Nachfolgend ist noch eine Übersicht über alle Dateien und deren
 Abhängigkeiten abgebildet.
 
-<a name="jsdoc"></a>
-
 ### jsdoc
 
 Um die Dokumentation des Codes zu erleichtern, haben wir uns dazu entschieden,
@@ -311,8 +275,6 @@ und Klassen zu dokumentieren. Dabei wird der Code mit Kommentaren versehen
 und anschließend wird mit Hilfe von jsdoc eine Dokumentation generiert.
 
 Diese ist im Ordner `out` dieser Abgabe in der Datei `index.html` zu finden.
-
-<a name="designprozess"></a>
 
 ## Designprozess
 
@@ -329,8 +291,6 @@ dieser Vermessung ist in den folgenden Abbildungen zu sehen.
 ![Layout 1](images/Layout1.jpeg)
 ![Layout 2](images/Layout2.jpeg)
 Das Ziel war es somit, eine Fläche von 460*740 Metern nachzubilden.
-
-<a name="modellierung"></a>
 
 ### Modellierung
 
@@ -369,8 +329,6 @@ konzentriert:
 * Häuser:
   * tbd
 
-<a name="einbindungThreejs"></a>
-
 ### Einbindung der Modelle in three.js
 
 Nachdem die Modelle herausgesucht und heruntergeladen wurden, mussten diese
@@ -393,8 +351,6 @@ Somit konnten wir nur anhand der JSON-Datei festlegen, welche Modelle in der Sze
 dargestellt werden sollen und wie diese platziert werden sollen. Dies hat den Vorteil,
 dass wir die JSON-Datei beliebig anpassen können, ohne dass der Code angepasst werden muss.
 
-<a name="animation"></a>
-
 ## Animationen
 
 Um die Szene lebendiger wirken zu lassen, mussten Animationen in die Szene eingebaut werden.
@@ -403,8 +359,6 @@ Zum einen haben wir die Animationen der Autos, die sich auf den Straßen
 von Paris hin und her fahren.
 Zum anderen haben wir die Animationen der Vögel, die sich in der Luft bewegen
 und dabei ihre Flügel bewegen.
-
-<a name="autos"></a>
 
 ### Autos
 
@@ -464,8 +418,6 @@ angegeben werden. Das heißt, dass die ersten drei Werte der `positions` die Pos
 ersten Keyframes darstellen (also x, y, z), die nächsten drei Werte die Positionen des
 zweiten Keyframes und so weiter.
 
-<a name="vögel"></a>
-
 ### Vögel
 
 Ähnlich zum Aufbau der Autos wurden auch die Vögel animiert. Auch hier wurden
@@ -477,8 +429,6 @@ welches wir uns aus dem Internet heruntergeladen haben. In der Umsetzung im
 Programmcode mussten diese zwei separaten Animationen dann zusammengeführt werden.
 Somit haben die Vögel unabhängig voneinander zwei Actions, die sie ausführen.
 
-<a name="gras"></a>
-
 ### Gras
 
 Um die Szene noch lebendiger wirken zu lassen, haben wir uns dazu entschieden,
@@ -489,8 +439,6 @@ Grasflächen angewendet. Trotz der großen Anzahl an Grashalmen
 konnten wir so die Performance der Szene aufrechterhalten.
 Das Ergebnis ist in der folgenden Abbildung zu sehen.
 ![Gras](images/Grass.png)
-
-<a name="kollisionserkennung"></a>
 
 ## Kollisionserkennung
 
@@ -505,11 +453,7 @@ verhindert.
 In der Konsequenz führt das dazu, dass die Drohne nicht durch Objekte fliegen
 kann.
 
-<a name="probleme"></a>
-
 ## Probleme
-
-<a name="performance"></a>
 
 ### Performance
 
@@ -522,8 +466,6 @@ bei den Bäumen darauf geachtet, dass diese nicht zu viele Polygone haben,
 um die Performance nicht zu sehr zu beeinträchtigen. Auch bei der Auswahl
 der Häuser und Autos haben wir darauf geachtet, dass diese nicht zu hoch aufgelöst
 sind und somit zu viel Rechenleistung benötigen.
-
-<a name="kollisionserkennung"></a>
 
 ### Kollisionserkennung
 
