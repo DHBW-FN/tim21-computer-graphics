@@ -326,8 +326,8 @@ konzentriert:
   - https://free3d.com/3d-model/small-bush-76246.html
   - https://www.blenderkit.com/get-blenderkit/712109e8-7599-4036-8bc7-d4a25f2d4640/
   - https://www.turbosquid.com/3d-models/callistemon-tree-model-2062119
-* Häuser:
-  * tbd
+* [Häuser](https://www.turbosquid.com/de/3d-models/free-realistic-old-building-3d-model/837997)
+* [Straßenlaternen](https://www.blenderkit.com/get-blenderkit/81dd7be3-8e04-4d1b-8888-7b04e302ced0/)
 
 ### Einbindung der Modelle in three.js
 
