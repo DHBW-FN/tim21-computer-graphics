@@ -260,7 +260,7 @@ jsdoc zu verwenden. Dieses Tool ermöglicht es, die einzelnen Funktionen
 und Klassen zu dokumentieren. Dabei wird der Code mit Kommentaren versehen
 und anschließend wird mit Hilfe von jsdoc eine Dokumentation generiert.
 
-Diese ist im Ordner `out` in der Datei `index.html` zu finden.
+Diese ist im Ordner `out` dieser Abgabe in der Datei `index.html` zu finden.
 
 <a name="designprozess"></a>
 ## Designprozess
