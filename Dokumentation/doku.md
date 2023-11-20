@@ -242,7 +242,16 @@ in der Szene verwendet werden. Dazu gehören insbesondere die Modelle für
 den Eiffelturm und den Boden. 
 
 
-### Klassenstruktur
+### Struktur des Codes
+Ein Klassendiagramm ist nachfolgend abgebildet:
+![Klassendiagramm](images/Klassendiagramm.png)
+
+Nachfolgend ist zusätzlich noch ein Diagramm mit allen Dateien
+und deren Abhängigkeiten abgebildet:
+![Dependencies](images/Dependency.png)
+
+Nachfolgend ist noch eine Übersicht über alle Dateien und deren
+Abhängigkeiten abgebildet.
 
 <a name="designprozess"></a>
 ## Designprozess
