@@ -16,6 +16,7 @@ class ModelLoader {
 
   /**
    * Creates an instance of ModelLoader.
+   * @constructor
    */
   constructor() {
     /**

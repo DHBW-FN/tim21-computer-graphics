@@ -3,6 +3,8 @@
  * @class
  */
 class EventManager {
+  static instance;
+
   /**
    * Create an EventManager instance.
    * @constructor
