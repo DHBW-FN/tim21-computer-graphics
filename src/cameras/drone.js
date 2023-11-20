@@ -3,18 +3,76 @@ import * as THREE from "three";
 import { Mesh, Raycaster, Vector3 } from "three";
 import Snackbar from "../components/snackbar";
 
-export default class Drone {
+/**
+ * Class representing a drone with controls for movement and interaction.
+ * @class
+ */
+class Drone {
+  /**
+   * Create a drone instance.
+   * @constructor
+   * @param {Object} world - The world object containing the scene and other elements.
+   */
   constructor(world) {
+    /**
+     * Reference to the world object containing the scene and other elements.
+     * @type {Object}
+     */
     this.world = world;
+
+    /**
+     * The camera used for the drone's perspective.
+     * @type {THREE.PerspectiveCamera}
+     */
     this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+    /**
+     * Controls for the drone using Pointer Lock API.
+     * @type {PointerLockControls}
+     */
     this.controls = new PointerLockControls(this.camera, document.body);
     this.controls.pressedKeys = new Set();
+
+    /**
+     * Maximum speed of the drone.
+     * @type {number}
+     */
     this.maxSpeed = 0.5;
+
+    /**
+     * Acceleration rate of the drone.
+     * @type {number}
+     */
     this.acceleration = this.maxSpeed / 100;
+
+    /**
+     * Deceleration rate of the drone.
+     * @type {number}
+     */
     this.deceleration = this.maxSpeed / 50;
+
+    /**
+     * Sensitivity of the drone's controls.
+     * @type {number}
+     */
     this.sensitivity = 0.02;
+
+    /**
+     * Minimum distance to maintain from collidable objects.
+     * @type {number}
+     */
     this.minDistance = 5;
+
+    /**
+     * Velocity vector representing the drone's movement.
+     * @type {THREE.Vector3}
+     */
     this.velocity = new THREE.Vector3(0, 0, 0);
+
+    /**
+     * Raycaster used for collision detection.
+     * @type {THREE.Raycaster}
+     */
     this.raycaster = new Raycaster(
       this.camera.position,
       this.camera.getWorldDirection(new Vector3()),
@@ -23,6 +81,7 @@ export default class Drone {
     );
     this.raycaster.firstHitOnly = true;
 
+    // Set initial position
     this.setStartPosition();
 
     // Add flashlight
@@ -36,6 +95,10 @@ export default class Drone {
 
     this.addEventListeners();
 
+    /**
+     * Keymap for drone controls.
+     * @type {Object}
+     */
     this.keymap = {
       KeyW: { direction: "z", sign: 1 },
       KeyS: { direction: "z", sign: -1 },
@@ -64,15 +127,25 @@ export default class Drone {
     };
   }
 
+  /**
+   * Set the initial position of the drone.
+   */
   setStartPosition() {
     this.camera.position.set(370, 1, -230);
     this.camera.lookAt(615, 0, -230);
   }
 
+  /**
+   * Add the drone's controls to the specified scene.
+   * @param {THREE.Scene} scene - The scene to add the controls to.
+   */
   addToScene(scene) {
     scene.add(this.controls.getObject());
   }
 
+  /**
+   * Add event listeners for keydown, keyup, pointer lock, and pointer unlock events.
+   */
   addEventListeners() {
     document.addEventListener("keydown", (event) => this.onKeyDown(event));
     document.addEventListener("keyup", (event) => this.onKeyUp(event));
@@ -80,6 +153,10 @@ export default class Drone {
     this.controls.addEventListener("unlock", Drone.onPointerUnlock);
   }
 
+  /**
+   * Handle keydown events for controlling the drone.
+   * @param {KeyboardEvent} event - The keydown event.
+   */
   onKeyDown(event) {
     if (!this.controls.isLocked) return;
 
@@ -88,18 +165,34 @@ export default class Drone {
     this.controls.pressedKeys.add(event.code);
   }
 
+  /**
+   * Handle keyup events for controlling the drone.
+   * @param {KeyboardEvent} event - The keyup event.
+   */
   onKeyUp(event) {
     this.controls.pressedKeys.delete(event.code);
   }
 
+  /**
+   * Static method called when the pointer is locked.
+   * Shows a snackbar message indicating that controls are locked.
+   */
   static onPointerLock() {
     Snackbar.show("Controls locked", 1000);
   }
 
+  /**
+   * Static method called when the pointer is unlocked.
+   * Shows a snackbar message indicating that controls are unlocked.
+   */
   static onPointerUnlock() {
     Snackbar.show("Controls unlocked", 1000);
   }
 
+  /**
+   * Move the drone in the specified direction, considering collisions.
+   * @param {THREE.Vector3} directionVector - The direction vector to move the drone.
+   */
   move(directionVector) {
     if (directionVector.length() === 0) {
       return;
@@ -135,6 +228,11 @@ export default class Drone {
     this.camera.position.copy(newPosition);
   }
 
+  /**
+   * Rotate the drone's camera view along a specified axis by a given angle in degrees.
+   * @param {THREE.Vector3} axis - The axis of rotation.
+   * @param {number} [degrees=45] - The angle of rotation in degrees.
+   */
   look(axis, degrees = 45) {
     const radians = (degrees * Math.PI) / 180;
     const effectiveRotation = radians * this.sensitivity;
@@ -142,6 +240,9 @@ export default class Drone {
     this.camera.quaternion.multiplyQuaternions(quaternion, this.camera.quaternion);
   }
 
+  /**
+   * Update the position of the drone based on user input and velocity.
+   */
   updatePosition() {
     const pressedKeys = Array.from(this.controls.pressedKeys);
 
@@ -232,3 +333,5 @@ export default class Drone {
       .light.target.position.copy(this.camera.getWorldDirection(new Vector3()).add(this.camera.position));
   }
 }
+
+export default Drone;

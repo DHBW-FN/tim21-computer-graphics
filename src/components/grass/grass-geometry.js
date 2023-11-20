@@ -1,16 +1,69 @@
 import * as THREE from "three";
 
+/**
+ * Width of each grass blade.
+ * @constant
+ * @type {number}
+ */
 const BLADE_WIDTH = 0.1;
+
+/**
+ * Height of each grass blade.
+ * @constant
+ * @type {number}
+ */
 const BLADE_HEIGHT = 0.8;
+
+/**
+ * Variation in height for each grass blade.
+ * @constant
+ * @type {number}
+ */
 const BLADE_HEIGHT_VARIATION = 0.6;
+
+/**
+ * Number of vertices in each grass blade.
+ * @constant
+ * @type {number}
+ */
 const BLADE_VERTEX_COUNT = 5;
+
+/**
+ * Offset for the tip of each grass blade.
+ * @constant
+ * @type {number}
+ */
 const BLADE_TIP_OFFSET = 0.1;
 
+/**
+ * Interpolate a value from one range to another.
+ * @function
+ * @param {number} val - The value to interpolate.
+ * @param {number} oldMin - The minimum value in the original range.
+ * @param {number} oldMax - The maximum value in the original range.
+ * @param {number} newMin - The minimum value in the target range.
+ * @param {number} newMax - The maximum value in the target range.
+ * @returns {number} - The interpolated value.
+ */
 function interpolate(val, oldMin, oldMax, newMin, newMax) {
   return ((val - oldMin) * (newMax - newMin)) / (oldMax - oldMin) + newMin;
 }
 
-export default class GrassGeometry extends THREE.BufferGeometry {
+/**
+ * Custom Three.js BufferGeometry for rendering grass.
+ * @class
+ * @extends THREE.BufferGeometry
+ */
+class GrassGeometry extends THREE.BufferGeometry {
+  /**
+   * Create an instance of GrassGeometry.
+   *
+   * @constructor
+   * @param {THREE.Vector3} position - The base position for the grass.
+   * @param {number} sizeX - The size of the area in the X direction.
+   * @param {number} sizeY - The size of the area in the Y direction.
+   * @param {number} count - The number of grass instances.
+   */
   constructor(position, sizeX, sizeY, count) {
     super();
 
@@ -41,6 +94,15 @@ export default class GrassGeometry extends THREE.BufferGeometry {
     this.computeVertexNormals();
   }
 
+  /**
+   * Compute the vertices and indices for a grass blade.
+   *
+   * @static
+   * @function
+   * @param {number[]} center - The center position of the grass blade.
+   * @param {number} index - The index of the grass blade.
+   * @returns {object} - Object containing positions and indices for the grass blade.
+   */
   static computeBlade(center, index = 0) {
     const height = BLADE_HEIGHT + Math.random() * BLADE_HEIGHT_VARIATION;
     const vIndex = index * BLADE_VERTEX_COUNT;
@@ -66,3 +128,5 @@ export default class GrassGeometry extends THREE.BufferGeometry {
     };
   }
 }
+
+export default GrassGeometry;
