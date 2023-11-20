@@ -126,6 +126,14 @@ export default class World {
       this.scene.add(group);
     });
 
+    // Add lights to streetlamps
+    this.loadStreetLampsLights().then((lights) => {
+      lights.forEach((light) => {
+        this.scene.add(light);
+        this.scene.add(light.target);
+      });
+    });
+
     // Load animations
     loadModels()
       .then(({ storks, cars }) => {
@@ -171,8 +179,8 @@ export default class World {
     // Add stationary camera
     this.cameras.stationary = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     this.cameras.stationary.name = "stationary";
-    this.cameras.stationary.position.set(370, 1, -230);
-    this.cameras.stationary.lookAt(615, 100, -230);
+    this.cameras.stationary.position.set(470, 5, -230);
+    this.cameras.stationary.lookAt(615, 60, -230);
 
     // Add drone camera
     this.drone = new Drone(this);
@@ -191,28 +199,24 @@ export default class World {
     const spotLightIntensity = 25000;
 
     const spotLight1 = new THREE.SpotLight(0xffffff, spotLightIntensity, 0, Math.PI / 4, 0.5);
-    spotLight1.castShadow = true;
     spotLight1.position.set(530, 0, -142);
     spotLight1.target.position.set(615, 50, -230);
     this.scene.add(this.lightManager.addLight(spotLight1, "spotLight1", 0, spotLightIntensity).light);
     this.scene.add(this.lightManager.getLight("spotLight1").light.target);
 
     const spotLight2 = new THREE.SpotLight(0xffffff, spotLightIntensity, 0, Math.PI / 4, 0.5);
-    spotLight2.castShadow = true;
     spotLight2.position.set(700, 0, -142);
     spotLight2.target.position.set(615, 50, -230);
     this.scene.add(this.lightManager.addLight(spotLight2, "spotLight2", 0, spotLightIntensity).light);
     this.scene.add(this.lightManager.getLight("spotLight2").light.target);
 
     const spotLight3 = new THREE.SpotLight(0xffffff, spotLightIntensity, 0, Math.PI / 4, 0.5);
-    spotLight3.castShadow = true;
     spotLight3.position.set(700, 0, -317.5);
     spotLight3.target.position.set(615, 50, -230);
     this.scene.add(this.lightManager.addLight(spotLight3, "spotLight3", 0, spotLightIntensity).light);
     this.scene.add(this.lightManager.getLight("spotLight3").light.target);
 
     const spotLight4 = new THREE.SpotLight(0xffffff, spotLightIntensity, 0, Math.PI / 4, 0.5);
-    spotLight4.castShadow = true;
     spotLight4.position.set(530, 0, -317.5);
     spotLight4.target.position.set(615, 50, -230);
     this.scene.add(this.lightManager.addLight(spotLight4, "spotLight4", 0, spotLightIntensity).light);
@@ -324,5 +328,46 @@ export default class World {
           });
       });
     });
+  }
+
+  static async getLightForStreetLamp(lamp) {
+    const offsetVector = new THREE.Vector3(4.139, 11.603, 0);
+    if (lamp.rotation) {
+      offsetVector.applyEuler(new THREE.Euler(lamp.rotation.x, lamp.rotation.y, lamp.rotation.z, "XYZ"));
+    }
+
+    return new Promise((resolve) => {
+      const lightPosition = new THREE.Vector3().copy(lamp.position).add(offsetVector);
+      const light = new THREE.SpotLight(0xffffff, 0, 0, Math.PI / 4, 1);
+      light.visible = false;
+      light.position.copy(lightPosition);
+      light.target.position.copy(lightPosition.setY(0));
+      resolve(light);
+    });
+  }
+
+  async loadStreetLampsLights() {
+    const lights = [];
+    const visibleStreetLampLights = [6, 15, 22, 23, 24, 25];
+
+    await Promise.all(
+      Object.keys(streetLamps).map(async (key) => {
+        const lamp = streetLamps[key];
+
+        await Promise.all(
+          lamp.instances.map(async (instance, instanceKey) => {
+            if (!visibleStreetLampLights.includes(instanceKey)) {
+              return;
+            }
+
+            const light = await World.getLightForStreetLamp(instance);
+            this.lightManager.addLight(light, `${instance.name}-${key}-light`, 0, 1000);
+            lights.push(light);
+          }),
+        );
+      }),
+    );
+
+    return lights;
   }
 }
