@@ -7,3 +7,6 @@
 **/*.png
 **/*.jpg
 **/*.jpeg
+
+# out
+**/out

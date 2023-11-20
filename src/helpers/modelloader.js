@@ -3,19 +3,50 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { BufferGeometry, DoubleSide, Group, MathUtils, Mesh, MeshBasicMaterial } from "three";
 import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree } from "three-mesh-bvh";
 
-export default class ModelLoader {
+/**
+ * Utility class for loading 3D models with additional functionality like bounding boxes and instance handling.
+ * @class
+ */
+class ModelLoader {
+  /**
+   * Flag indicating whether bounding boxes should be shown for loaded models.
+   * @type {boolean}
+   */
   static showBoundingBox = false;
 
+  /**
+   * Creates an instance of ModelLoader.
+   * @constructor
+   */
   constructor() {
+    /**
+     * The GLTFLoader instance used for loading 3D models.
+     * @type {GLTFLoader}
+     */
     this.loader = new GLTFLoader();
 
+    // Extend BufferGeometry prototype with bounds tree computation and disposal
     BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
     BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree;
+
+    // Extend Mesh prototype with accelerated raycasting
     Mesh.prototype.raycast = acceleratedRaycast;
   }
 
+  /**
+   * Asynchronously loads a 3D model, handles instances, and optionally shows bounding boxes.
+   *
+   * @param {Object} model - The model configuration object.
+   * @param {string} model.path - The path to the GLTF model.
+   * @param {Object[]} model.instances - An array of instances with position, rotation, and scale information.
+   * @returns {Promise<Group>} A promise resolving to a Three.js Group containing the loaded and configured model.
+   */
   async loadAsync(model) {
     return new Promise((resolve, reject) => {
+      /**
+       * The Three.js Group to which the loaded model and its instances will be added.
+       * @type {Group}
+       */
       const group = new Group();
       const debugMaterial = new MeshBasicMaterial({ color: 0xff0000, opacity: 0.5, transparent: true });
 
@@ -29,10 +60,12 @@ export default class ModelLoader {
               return;
             }
 
+            // Optionally show bounding boxes
             if (ModelLoader.showBoundingBox) {
               child.material = debugMaterial;
             }
 
+            // Compute bounds tree if not already present
             if (!child.geometry.boundsTree) {
               child.geometry.computeBoundsTree();
             }
@@ -83,3 +116,5 @@ export default class ModelLoader {
     });
   }
 }
+
+export default ModelLoader;
