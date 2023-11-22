@@ -1,8 +1,8 @@
 <p align=center>
     <img src=https://github.com/DHBW-FN/tim21-computer-graphics/assets/26843910/bd4a338e-2ef1-46fb-a5e5-024f83145ce7 alt=Banner>
 </p>
-# Project Exam
 
+# Project Exam
 
 - **Module**: Computer Graphics
 - **Professor**: Prof. Dr. Schneider
