@@ -1,0 +1,141 @@
+/* Remove default margin and padding */
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+
+/* Set canvas to be a block-level element */
+canvas {
+  display: block;
+}
+
+#controlsExplanation {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 1000;
+}
+
+.controls-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toggle-button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5em;
+}
+
+.hidden {
+  display: none;
+}
+
+.settings-button {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 5px;
+  width: 100%;
+}
+
+#settings-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.settings-button:hover {
+  background-color: #2980b9;
+}
+
+#startPositionButton img {
+  width: 20px;
+  height: 20px;
+}
+
+.control-panel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 20px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  font-family: "Arial", sans-serif;
+}
+
+#drone-control,
+#camera-control {
+  flex: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.control-header {
+  font-size: 14px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+}
+
+.control-button {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  background-color: #333;
+  color: white;
+  border: #333 2px solid;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.control-button:hover {
+  background-color: #555;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+.up-down-grid {
+  display: grid;
+  grid-template-columns: auto;
+}
+
+#dayNightToggleButtonContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+#buttonSetDay {
+  margin-left: 0;
+}
+
+#buttonSetNight {
+  margin-right: 0;
+}

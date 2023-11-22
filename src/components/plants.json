@@ -1,0 +1,1320 @@
+{
+  "Bush": {
+    "path": "assets/plants/Bush.glb",
+    "instances": [
+      {
+        "position": {
+          "x": 454,
+          "y": 0,
+          "z": -153.5
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 207,
+          "y": 0,
+          "z": -145.5
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 228.5,
+          "y": 0,
+          "z": -151.5
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 649.25,
+          "y": 0,
+          "z": -94.25
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 665,
+          "y": 0,
+          "z": -99
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 642,
+          "y": 0,
+          "z": -125
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 691,
+          "y": 0,
+          "z": -112
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 538,
+          "y": 0,
+          "z": -88
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 568,
+          "y": 0,
+          "z": -114
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 611,
+          "y": 0,
+          "z": -121
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 591.5,
+          "y": 0,
+          "z": -355
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 641.5,
+          "y": 0,
+          "z": -348.5
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 689,
+          "y": 0,
+          "z": -367
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 676,
+          "y": 0,
+          "z": -333
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 644,
+          "y": 0,
+          "z": -366
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 565,
+          "y": 0,
+          "z": -349
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 309,
+          "y": 0,
+          "z": -270
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 291,
+          "y": 0,
+          "z": -298
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 311,
+          "y": 0,
+          "z": -325
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 387,
+          "y": 0,
+          "z": -331
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 450,
+          "y": 0,
+          "z": -321
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 475,
+          "y": 0,
+          "z": -296
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 366,
+          "y": 0,
+          "z": -287
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 384,
+          "y": 0,
+          "z": -268
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 290,
+          "y": 0,
+          "z": -225
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 327,
+          "y": 0,
+          "z": -239
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 476,
+          "y": 0,
+          "z": -240
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 366,
+          "y": 0,
+          "z": -239
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 394,
+          "y": 0,
+          "z": -225
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 459,
+          "y": 0,
+          "z": -195
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 418,
+          "y": 0,
+          "z": -181
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 398,
+          "y": 0,
+          "z": -160
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 348,
+          "y": 0,
+          "z": -133
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 296,
+          "y": 0,
+          "z": -160
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 327,
+          "y": 0,
+          "z": -191
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 378,
+          "y": 0,
+          "z": -175
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 103,
+          "y": 0,
+          "z": -284
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 84,
+          "y": 0,
+          "z": -258
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 71,
+          "y": 0,
+          "z": -233
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 91,
+          "y": 0,
+          "z": -224
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 119,
+          "y": 0,
+          "z": -237
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 137,
+          "y": 0,
+          "z": -262
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 169,
+          "y": 0,
+          "z": -324
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 213,
+          "y": 0,
+          "z": -310
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 227,
+          "y": 0,
+          "z": -266
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 198,
+          "y": 0,
+          "z": -189
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 119,
+          "y": 0,
+          "z": -177
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 150,
+          "y": 0,
+          "z": -152
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 173,
+          "y": 0,
+          "z": -132
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 91,
+          "y": 0,
+          "z": -165
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 64,
+          "y": 0,
+          "z": -200
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      }
+    ]
+  },
+  "GenTree_green": {
+    "path": "assets/plants/GenTree_green.glb",
+    "instances": [
+      {
+        "position": {
+          "x": 78.75,
+          "y": 0,
+          "z": -137.5
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 469,
+          "y": 0,
+          "z": -196
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 674.92,
+          "y": 0,
+          "z": -336.62
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 333.76,
+          "y": 0,
+          "z": -189.18
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 209.57,
+          "y": 0,
+          "z": -160.69
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 202.96,
+          "y": 0,
+          "z": -280.64
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 641.03,
+          "y": 0,
+          "z": -103.29
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 91.447,
+          "y": 0,
+          "z": -294.32
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 451.11,
+          "y": 0,
+          "z": -269.09
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 414.49,
+          "y": 0,
+          "z": -287.5
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      }
+    ]
+  },
+  "Tree": {
+    "path": "assets/plants/Tree.glb",
+    "instances": [
+      {
+        "position": {
+          "x": 91.915,
+          "y": 0,
+          "z": -191.56
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 309.97,
+          "y": 0,
+          "z": -190.25
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 435.72,
+          "y": 0,
+          "z": -235.99
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 425.97,
+          "y": 0,
+          "z": -163.1
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 610.43,
+          "y": 0,
+          "z": -96.193
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 556.58,
+          "y": 0,
+          "z": -129.36
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 342.4,
+          "y": 0,
+          "z": -321.42
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 397.92,
+          "y": 0,
+          "z": -309.42
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 548.34,
+          "y": 0,
+          "z": -362.77
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 350.78,
+          "y": 0,
+          "z": -160.79
+        },
+        "scale": {
+          "x": 1.5,
+          "y": 1.5,
+          "z": 1.5
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 179.61,
+          "y": 0,
+          "z": -168.84
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 157.65,
+          "y": 0,
+          "z": -323.2
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      }
+    ]
+  },
+  "SmallTree": {
+    "path": "assets/plants/SmallTree.glb",
+    "instances": [
+      {
+        "position": {
+          "x": 63.389,
+          "y": 0,
+          "z": -326.48
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 391,
+          "y": 0,
+          "z": -144
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 227.64,
+          "y": 0,
+          "z": -319.23
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 177.18,
+          "y": 0,
+          "z": -298.12
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 476.77,
+          "y": 0,
+          "z": -133.67
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 554.03,
+          "y": 0,
+          "z": -97.568
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 214.64,
+          "y": 0,
+          "z": -139.67
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 341,
+          "y": 0,
+          "z": -285
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 453,
+          "y": 0,
+          "z": -326
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 145,
+          "y": 0,
+          "z": -225
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      }
+    ]
+  },
+  "Shrub": {
+    "path": "assets/plants/Shrub.glb",
+    "instances": [
+      {
+        "position": {
+          "x": 691,
+          "y": 0,
+          "z": -130
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 681,
+          "y": 0,
+          "z": -85
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 631,
+          "y": 0,
+          "z": -89
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 567,
+          "y": 0,
+          "z": -99
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 109,
+          "y": 0,
+          "z": -200
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 609,
+          "y": 0,
+          "z": -327
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 690,
+          "y": 0,
+          "z": -341
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 631,
+          "y": 0,
+          "z": -371
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 537,
+          "y": 0,
+          "z": -369
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 573,
+          "y": 0,
+          "z": -364
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 659,
+          "y": 0,
+          "z": -355
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 633,
+          "y": 0,
+          "z": -330
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 558,
+          "y": 0,
+          "z": -327
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 327,
+          "y": 0,
+          "z": -268
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 401,
+          "y": 0,
+          "z": -268
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 422,
+          "y": 0,
+          "z": -321
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 371,
+          "y": 0,
+          "z": -310
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 306,
+          "y": 0,
+          "z": -302
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 475,
+          "y": 0,
+          "z": -321
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 481,
+          "y": 0,
+          "z": -258
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 578,
+          "y": 0,
+          "z": -373
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 427,
+          "y": 0,
+          "z": -282
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 462,
+          "y": 0,
+          "z": -226
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 402,
+          "y": 0,
+          "z": -232
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 463,
+          "y": 0,
+          "z": -175
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 448,
+          "y": 0,
+          "z": -131
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 404,
+          "y": 0,
+          "z": -191
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 375,
+          "y": 0,
+          "z": -144
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 320,
+          "y": 0,
+          "z": -135
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 308,
+          "y": 0,
+          "z": -158
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 294,
+          "y": 0,
+          "z": -185
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 341,
+          "y": 0,
+          "z": -173
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 53,
+          "y": 0,
+          "z": -193
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 48,
+          "y": 0,
+          "z": -131
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 130,
+          "y": 0,
+          "z": -132
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 166,
+          "y": 0,
+          "z": -191
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 145,
+          "y": 0,
+          "z": -237
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 200,
+          "y": 0,
+          "z": -228
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 73,
+          "y": 0,
+          "z": -223
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 59,
+          "y": 0,
+          "z": -228
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 49,
+          "y": 0,
+          "z": -260
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 81,
+          "y": 0,
+          "z": -277
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 96,
+          "y": 0,
+          "z": -317
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 122,
+          "y": 0,
+          "z": -324
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 194,
+          "y": 0,
+          "z": -306
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 173,
+          "y": 0,
+          "z": -272
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 127,
+          "y": 0,
+          "z": -282
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 52,
+          "y": 0,
+          "z": -312
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      }
+    ]
+  },
+  "Acacia": {
+    "path": "assets/plants/Acacia.glb",
+    "instances": [
+      {
+        "position": {
+          "x": 305,
+          "y": 0,
+          "z": -263
+        },
+        "rotation": {
+          "x": 0,
+          "y": 90,
+          "z": 0,
+          "_order": "XYZ"
+        },
+        "scale": {
+            "x": 2,
+            "y": 2,
+            "z": 2
+        },
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 431,
+          "y": 0,
+          "z": -199
+        },
+        "scale": {
+            "x": 1.5,
+            "y": 1.5,
+            "z": 1.5
+        },
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 602,
+          "y": 0,
+          "z": -328
+        },
+        "scale": {
+            "x": 2,
+            "y": 2,
+            "z": 2
+        },
+        "receiveShadow": false
+      }
+    ]
+  },
+  "GenTree_yellow": {
+    "path": "assets/plants/GenTree_yellow.glb",
+    "instances": [
+      {
+        "position": {
+          "x": 134,
+          "y": 0,
+          "z": -173
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 423,
+          "y": 0,
+          "z": -131
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 296,
+          "y": 0,
+          "z": -327
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 300,
+          "y": 0,
+          "z": -134
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 373,
+          "y": 0,
+          "z": -268
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 223,
+          "y": 0,
+          "z": -235
+        },
+        "castShadow": false,
+        "receiveShadow": false
+      }
+    ]
+  }
+}

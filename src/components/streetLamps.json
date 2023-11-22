@@ -1,0 +1,335 @@
+{
+  "StreetLamp": {
+    "path": "/assets/streetLamps/StreetLamp.glb",
+    "instances": [
+      {
+        "position": {
+          "x": 38.15,
+          "y": 0,
+          "z": -102.5
+        },
+        "rotation": {
+          "x": 0,
+          "y": 135,
+          "z": 0
+        },
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 140,
+          "y": 0,
+          "z": -102.5
+        },
+        "rotation": {
+          "x": 0,
+          "y": 90,
+          "z": 0
+        },
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 246.5,
+          "y": 0,
+          "z": -102.5
+        },
+        "rotation": {
+          "x": 0,
+          "y": 45,
+          "z": 0
+        },
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 282.5,
+          "y": 0,
+          "z": -102.5
+        },
+        "rotation": {
+          "x": 0,
+          "y": 135,
+          "z": 0
+        },
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 389.5,
+          "y": 0,
+          "z": -102.5
+        },
+        "rotation": {
+          "x": 0,
+          "y": 90,
+          "z": 0
+        },
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 492.5,
+          "y": 0,
+          "z": -102.5
+        },
+        "rotation": {
+          "x": 0,
+          "y": 45,
+          "z": 0
+        },
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 527.5,
+          "y": 0,
+          "z": -63
+        },
+        "rotation": {
+          "x": 0,
+          "y": 135,
+          "z": 0
+        },
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 614.75,
+          "y": 0,
+          "z": -63
+        },
+        "rotation": {
+          "x": 0,
+          "y": 90,
+          "z": 0
+        },
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 702.75,
+          "y": 0,
+          "z": -63
+        },
+        "rotation": {
+          "x": 0,
+          "y": 45,
+          "z": 0
+        },
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 38.15,
+          "y": 0,
+          "z": -357
+        },
+        "rotation": {
+          "x": 0,
+          "y": -135,
+          "z": 0
+        },
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 140,
+          "y": 0,
+          "z": -357
+        },
+        "rotation": {
+          "x": 0,
+          "y": -90,
+          "z": 0
+        },
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 246.5,
+          "y": 0,
+          "z": -357
+        },
+        "rotation": {
+          "x": 0,
+          "y": -45,
+          "z": 0
+        },
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 282.5,
+          "y": 0,
+          "z": -357
+        },
+        "rotation": {
+          "x": 0,
+          "y": -135,
+          "z": 0
+        },
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 389.5,
+          "y": 0,
+          "z": -357
+        },
+        "rotation": {
+          "x": 0,
+          "y": -90,
+          "z": 0
+        },
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 492.5,
+          "y": 0,
+          "z": -357
+        },
+        "rotation": {
+          "x": 0,
+          "y": -45,
+          "z": 0
+        },
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 527.5,
+          "y": 0,
+          "z": -397.75
+        },
+        "rotation": {
+          "x": 0,
+          "y": -135,
+          "z": 0
+        },
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 614.75,
+          "y": 0,
+          "z": -397.75
+        },
+        "rotation": {
+          "x": 0,
+          "y": -90,
+          "z": 0
+        },
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 702.75,
+          "y": 0,
+          "z": -397.75
+        },
+        "rotation": {
+          "x": 0,
+          "y": -45,
+          "z": 0
+        },
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 527,
+          "y": 0,
+          "z": -383
+        },
+        "rotation": {
+          "x": 0,
+          "y": 135,
+          "z": 0
+        },
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 527,
+          "y": 0,
+          "z": -278
+        },
+        "rotation": {
+          "x": 0,
+          "y": 180,
+          "z": 0
+        },
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 527,
+          "y": 0,
+          "z": -182.5
+        },
+        "rotation": {
+          "x": 0,
+          "y": 180,
+          "z": 0
+        },
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 527,
+          "y": 0,
+          "z": -77.5
+        },
+        "rotation": {
+          "x": 0,
+          "y": -135,
+          "z": 0
+        },
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 493,
+          "y": 0,
+          "z": -343
+        },
+        "rotation": {
+          "x": 0,
+          "y": 45,
+          "z": 0
+        },
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 493,
+          "y": 0,
+          "z": -252
+        },
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 493,
+          "y": 0,
+          "z": -205
+        },
+        "receiveShadow": false
+      },
+      {
+        "position": {
+          "x": 493,
+          "y": 0,
+          "z": -117.25
+        },
+        "rotation": {
+          "x": 0,
+          "y": -45,
+          "z": 0
+        },
+        "receiveShadow": false
+      }
+    ]
+  }
+}
