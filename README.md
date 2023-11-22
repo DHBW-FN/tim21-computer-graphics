@@ -1,5 +1,5 @@
 <p align=center>
-    <img src=https://github.com/DHBW-FN/tim21-computer-graphics/assets/26843910/bd4a338e-2ef1-46fb-a5e5-024f83145ce7 alt=Banner>
+    <img src=https://github.com/DHBW-FN/tim21-computer-graphics/assets/26843910/4fb69ced-8412-45e3-81ef-58ec73c961c8 alt=Banner>
 </p>
 
 # Project Exam
@@ -45,7 +45,7 @@ It has been tested on a 2021 Macbook Pro (M1 Max, 32GB RAM) and a Windows Deskto
 where it ran decently smooth.
 
 ### Controls
-<img width="386" alt="Steuerungspanel" src="https://github.com/DHBW-FN/tim21-computer-graphics/assets/26843910/2fb6a45a-7f53-4081-b1d0-a9af9aff7477">
+<img width="386" alt="Steuerungspanel" src="https://github.com/DHBW-FN/tim21-computer-graphics/assets/26843910/9af0e86f-d70a-4879-b6bf-322e746960e0">
 
 You can control the player using one of two methods
 
@@ -64,7 +64,7 @@ You can control the player using one of two methods
 - Arrow keys: Look around
 
 ### UI
-![Buttons](https://github.com/DHBW-FN/tim21-computer-graphics/assets/26843910/ff76ad76-4589-44db-9251-786da84df5ff)
+![Buttons](https://github.com/DHBW-FN/tim21-computer-graphics/assets/26843910/33653fc0-43f7-4910-8341-855a34aba228)
 
 As previously mentioned, you can control the player using the UI in the bottom left corner.
 The UI can also be used to trigger the following things:
